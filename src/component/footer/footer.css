@@ -1,0 +1,29 @@
+/* Footer.css */
+.footer {
+    background-color: #1d4e6f;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 16px;
+}
+
+.footer-link {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+@media (max-width: 448px) { /*enlever le 2024 du footer*/
+    .demifoot{
+        display: block;
+    }
+}
