@@ -60,8 +60,8 @@
 }
 
 .header-nav a:hover {
-    background-color: #9cc5e1a1;
-    color: rgb(0, 0, 0);
+    /*background-color: #c2c7caa1;*/
+    color: rgb(179, 179, 179);
 }
 
 .logo {
@@ -78,15 +78,23 @@
         padding: 1px 1px;
     }
 }
-
+@media (max-width: 470px) {
+    .header-title{
+        display: none;
+    }
+    .header{
+        padding: 10px 20px;
+    }
+}
 @media (max-width: 750px) {
     .header-nav {
-        position: fixed; /* Fixe la position pour éviter le débordement */
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        height: 20vh;
-        background-color: #ff9090;
+        height: 100vh;
+        background-color: white;
+        opacity: 90%;
         flex-direction: column;
         align-items: center;
         padding: 70px 10px 10px 10px;
@@ -94,19 +102,24 @@
         transition: transform 0.3s ease;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         z-index: 1;
-        overflow-y: auto; /* Ajoute le défilement vertical si nécessaire */
+        overflow-y: auto;
         display: flex;
-        justify-content: center;
+        justify-content: left;
+        align-items: start;
+        padding-left: 50px;
+        font-weight: bold;
     }
-
+    
     .header-nav.open {
         transform: translateY(0);
     }
 
     .header-nav ul {
-        flex-direction: column; /* En colonne pour le menu mobile */
+        flex-direction: column; /* Affiche les éléments du menu en colonne */
         gap: 10px;
-        width: 100%; /* Prend toute la largeur du conteneur */
+        width: 100%;
+        align-items: last baseline;
+        
     }
     
     .header-nav a {
@@ -115,6 +128,7 @@
         padding: 10px;
         font-size: 18px;
         text-align: center;
+        font-size: 25px;
     }
     
     .burger {
@@ -131,5 +145,8 @@
     
     .header-nav.open ~ .croix {
         display: block;
+    }
+    .menu{
+        /*background-color: red;*/
     }
 }
