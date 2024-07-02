@@ -14,9 +14,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="header-logo">
-                <div className="header-title">Contacter au <br /> 06 06 06 06 06</div>
-            </div>
+
             <img className="logo" src={logo} alt="Hegeoma" />
             <nav className={`header-nav ${isMenuOpen ? 'open' : ''}`}>
                <div className='menu'>
@@ -39,3 +37,6 @@ const Header = () => {
 };
 
 export default Header;
+/*<div className="header-logo">
+<div className="header-title">Contacter au <br /> 06 06 06 06 06</div>
+</div>*/

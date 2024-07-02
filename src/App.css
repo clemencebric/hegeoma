@@ -1,6 +1,10 @@
-body{
-  background-color: rgb(255, 255, 255);
+body, html{
+  width: 100%;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  margin: 0;
+  padding: 0;
 }
+
 .App {
   text-align: center;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './home.css';
 
-const Typewriter = ({ text, duration = 3500 }) => {
+const Typewriter = ({ text, duration = 2000 }) => {
   const [letters, setLetters] = useState([]);
 
   useEffect(() => {
