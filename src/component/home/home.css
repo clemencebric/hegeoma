@@ -1,0 +1,30 @@
+.page1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60vh;
+    font-size: 30px;
+    color: #1d4e6f;
+}
+.partie1 .partie2 {
+    align-items: center;
+}
+.partie2 {
+   /* border: solid 1px black;*/
+    background-color: grey;
+    width: 200px;
+    height: 200px;
+    /*display: block;*/
+}
+
+.typewriter span {
+    display: inline-block;
+    opacity: 0;
+    animation: fade-in 0.5s forwards;
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
