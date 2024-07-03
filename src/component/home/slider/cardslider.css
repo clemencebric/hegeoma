@@ -39,5 +39,16 @@
 .slider-button.disabled {
     opacity: 0.3;
     cursor: not-allowed;
-    pointer-events: none; /* Prevent interaction */
+    pointer-events: none; /* interdire le clic */
+}
+@media (max-width: 1200px) {
+    .card-container {
+        width: calc(350px * 2 + 40px); /* Show 2 cards */
+    }
+}
+
+@media (max-width: 853px) {
+    .card-container {
+        width: calc(325px * 1 + 40px); /* Show 1 card */
+    }
 }
