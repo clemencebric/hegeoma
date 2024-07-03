@@ -52,3 +52,8 @@
         width: calc(325px * 1 + 40px); /* Show 1 card */
     }
 }
+@media (max-width: 600px) {
+    .card{
+        min-width: 100px; /* Adjust this to your card width */
+    }
+}

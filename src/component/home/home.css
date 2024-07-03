@@ -86,3 +86,22 @@ body, html{
     align-items: center;
     justify-content: center;
 }
+@media (max-width: 600px) { /*quand l'écran se rétréci, modifie les param de l'image de fond => centré sur ordi*/
+    .page2 {
+        display: none;
+
+    }
+}
+
+/*--------page2 format telephone-------*/
+.page2tel { 
+    background-color: rgb(255, 255, 255);
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.titreservices{
+    font-size: 25px;
+}

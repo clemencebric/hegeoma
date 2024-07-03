@@ -17,6 +17,9 @@ const CardSlider = ({ cards }) => {
                 setCardsPerPage(1);
             } else if (window.innerWidth < 1200) {
                 setCardsPerPage(2);
+            } else if (window.innerWidth < 600) {
+                setCardsPerPage(3);
+                const cardWidth = 100; 
             } else {
                 setCardsPerPage(3);
             }
