@@ -1,9 +1,11 @@
-body, html{
+/* global styles */
+body, html {
     width: 100%;
     margin: 0;
     padding: 0;
 }
-/*-------------------première page--------------------- */
+/* ----page1-----*/
+
 .page1 {
     display: flex;
     justify-content: space-around;
@@ -12,14 +14,14 @@ body, html{
     width: 100%;
     font-size: 30px;
     color: black;
-
     background-image: url("/Users/clemence/Documents/site_web/react-first-project/src/images/pexels-kevin-ku-92347-577585.jpg");
     background-size: cover;
-
 }
+
 .partie1 .partie2 {
     align-items: center;
 }
+
 .partie1 {
     font-size: 60px;
     padding: 20px;
@@ -27,81 +29,121 @@ body, html{
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.367);
     border-radius: 20px;
-    
 }
-.surtitre{
+
+.surtitre {
     font-size: 35px;
 }
+
 .partie2 {
-   /* border: solid 1px black;*/
     background-color: rgba(255, 255, 255, 0.792);
     border-radius: 20px;
     width: 500px;
     height: 500px;
-    object-fit: scale-down;
-    background-image: "/Users/clemence/Documents/site_web/react-first-project/src/images/laptop-2557574.jpg";
-    /*display: block;*/
-   
 }
+
 .titreapropos {
     font-size: 50px;
 }
+
 .texteapropos {
     font-size: 25px;
     margin: 30px;
     text-align: left;
 }
- .image{
-    width: 100%;
-    height: 100%;
- }
 
-.typewriter span {/*faire en sorte que hegeoma d'affiche lettre par lettre*/
+.typewriter span {
     display: inline-block;
     opacity: 0;
     animation: fade-in 0.5s forwards;
-  }
-  
-  @keyframes fade-in {
+}
+
+@keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
-  }
+}
 
-  @media (max-width: 750px) { /*quand l'écran est trop petit, enlève le a propos*/
-    .partie2{
+@media (max-width: 750px) {
+    .partie2 {
         display: none;
     }
-  }
-@media (max-width: 1370px) { /*quand l'écran se rétréci, modifie les param de l'image de fond => centré sur ordi*/
+}
+
+@media (max-width: 1370px) {
     .page1 {
         background-position: center;
         background-repeat: no-repeat;
     }
 }
-/*-----------------deuxième page-------------------- */
-.page2 { 
+
+/* --------page2-----------*/
+.page2 {
     background-color: rgb(244, 244, 244);
     height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-@media (max-width: 600px) { /*quand l'écran se rétréci, modifie les param de l'image de fond => centré sur ordi*/
+
+.page2tel {
+    display: none;
+}
+
+/* lorsque l'on est en format telephone, cela n'afiche que le tableau et pas le slider */
+@media (max-width: 600px) {
     .page2 {
         display: none;
+    }
 
+    .page2tel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
     }
 }
 
-/*--------page2 format telephone-------*/
-.page2tel { 
-    background-color: rgb(255, 255, 255);
-    height: 90vh;
+/* Service list styles */
+.service-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 15px;
+    padding: 20px;
 }
-.titreservices{
-    font-size: 25px;
+
+.service-item {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.service-item:hover {
+    background-color: #ddd;
+}
+
+.service-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.info-link {
+    color: #425cdd;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #425cdd;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.info-link:hover {
+    background-color: #425cdd;
+    color: white;
 }
