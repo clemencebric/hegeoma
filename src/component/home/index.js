@@ -29,7 +29,7 @@ const Home = () => {
 
     return (
         <div>
-            <div className='page1'>
+            <div className='page1' id="home">
                 <div className='partie1'>
                     <div className='surtitre'>Bienvenue chez</div>
                     <div style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -51,12 +51,18 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='page2'>
+
+            <div className='page2' id= "services">
                 <CardSlider cards={cards} />
             </div>
-            <div className='page2tel'>
+            <div className='page2tel' id="servicestel">
                 <div className='titreservices'>NOS SERVICES : </div>
                 <div><ServiceList services={services} /></div>
+            </div>
+
+            <div className='page3'>
+                page 3
+
             </div>
         </div>
     );

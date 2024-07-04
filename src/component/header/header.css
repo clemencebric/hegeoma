@@ -1,4 +1,5 @@
 /* Header.css */
+/* header.css */
 
 .burger, .croix {
     cursor: pointer;
@@ -130,7 +131,7 @@
         flex-direction: column;
         gap: 10px;
         width: 100%;
-        align-items: last baseline; /* Assurez-vous que cette propriété est correctement définie */
+        align-items: baseline; /* Assurez-vous que cette propriété est correctement définie */
     }
 
     .header-nav a {
