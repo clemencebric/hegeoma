@@ -14,7 +14,7 @@ body, html {
     width: 100%;
     font-size: 30px;
     color: black;
-    background-image: url("/Users/clemence/Documents/site_web/react-first-project/src/images/pexels-kevin-ku-92347-577585.jpg");
+    background-image: url("/src/images/pexels-kevin-ku-92347-577585.jpg");
     background-size: cover;
 }
 
@@ -161,12 +161,26 @@ body, html {
 /*---------page 3----------*/
 .page3 {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap; 
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     width: 100%;
     font-size: 30px;
     color: black;
     background-color: white;
     background-size: cover;
+}
+@media (max-width: 600px) {
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    
+}
+@media (min-width: 600px) and (max-width: 740px){
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    
 }

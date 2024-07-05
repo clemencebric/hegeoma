@@ -1,12 +1,12 @@
-// src/components/Home.js
 import React from 'react';
 import './home.css';
 import Typewriter from './Typewriter.js';
 import CardSlider from './slider/slider.js';
 import Card from './slider/card.js';
 import ServiceList from './tableau/tableau.js';
+import Blog from './blog/blog.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faEyeSlash, faXmark, faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
     const cards = [
@@ -25,6 +25,19 @@ const Home = () => {
         { title: "Mobilité & Gestion de flotte" },
         { title: "Maintenance" },
         { title: "Audit & Conseil" }
+    ];
+
+    const blogPosts = [
+        {
+            background: require("../../images/pexels-brett-sayles-1869322.jpg"), // Utilisation de require avec une URL absolue
+            title: "Hegeoma recrute un(e) spécialiste mobilités",
+            content: "Description de poste Hegeoma recherche un(e) spécialiste mobilités dans le cadre d’un Contrat à Durée Indéterminée (CDI). Poste basé sur Grenoble centre. Hegeoma intègre, conseille et apporte un support à ses clients avec une spécialisation forte autour des technologies Apple et Google. Votre rôle sera d’accompagner techniquement les clients d’Hegeoma,[…]",
+        },
+        {
+            background: require("./laptop-2557574.jpg"), // Utilisation de require avec un chemin relatif
+            title: "Educatec Educatice Zuludesk",
+            content: "Hegeoma a le plaisir de participer au Salon Educatec Educatice avec Zuludesk. Venez découvrir ou échanger à propos de Zuludesk, le logiciel de MDM (Mobile Device Management / gestion des appareils à distance) de référence pour les appareils Apple dans le monde de l’éducation.",
+        },
     ];
 
     return (
@@ -52,7 +65,7 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className='page2' id= "services">
+            <div className='page2' id="services">
                 <CardSlider cards={cards} />
             </div>
             <div className='page2tel' id="servicestel">
@@ -60,9 +73,10 @@ const Home = () => {
                 <div><ServiceList services={services} /></div>
             </div>
 
-            <div className='page3'>
-                page 3
-
+            <div className='page3' id="blog">
+                <div className='blog'>
+                    <Blog posts={blogPosts} />
+                </div>
             </div>
         </div>
     );

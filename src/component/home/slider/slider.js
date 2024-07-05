@@ -9,30 +9,38 @@ const CardSlider = ({ cards }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardsPerPage, setCardsPerPage] = useState(3); // Default to 3
 
-    const cardWidth = 375; // Adjust this to your card width plus margin
+    // Function to determine the number of cards per page based on window width
+    const updateCardsPerPage = () => {
+        if (window.innerWidth < 600) {
+            setCardsPerPage(1);
+        } else if (window.innerWidth < 853) {
+            setCardsPerPage(1); // As per CSS
+        } else if (window.innerWidth < 1200) {
+            setCardsPerPage(2);
+        } else if (window.innerWidth < 1500) {
+            setCardsPerPage(3);
+        } else if (window.innerWidth < 2000) {
+            setCardsPerPage(4);
+        } else if (window.innerWidth < 2200) {
+            setCardsPerPage(5);
+        } else {
+            setCardsPerPage(6); // For very large screens
+        }
+    };
 
     useEffect(() => {
-        const updateCardsPerPage = () => {
-            if (window.innerWidth < 853) {
-                setCardsPerPage(1);
-            } else if (window.innerWidth < 1200) {
-                setCardsPerPage(2);
-            } else if (window.innerWidth < 600) {
-                setCardsPerPage(3);
-                const cardWidth = 100; 
-            } else {
-                setCardsPerPage(3);
-            }
-        };
-
         window.addEventListener('resize', updateCardsPerPage);
         updateCardsPerPage(); // Initial call
 
         return () => window.removeEventListener('resize', updateCardsPerPage);
     }, []);
 
+    const cardWidth = 375; // Adjust this to your card width plus margin
+
+    const totalPages = Math.max(1, Math.ceil(cards.length / cardsPerPage)); // Calculate total pages
+
     const goToNext = () => {
-        if (currentIndex < cards.length - cardsPerPage) {
+        if (currentIndex < totalPages - 1) {
             setCurrentIndex(currentIndex + 1);
         }
     };
@@ -68,8 +76,8 @@ const CardSlider = ({ cards }) => {
             </div>
             <button
                 onClick={goToNext}
-                className={`slider-button ${currentIndex >= cards.length - cardsPerPage ? 'disabled' : ''}`}
-                disabled={currentIndex >= cards.length - cardsPerPage}
+                className={`slider-button ${currentIndex >= totalPages - 1 ? 'disabled' : ''}`}
+                disabled={currentIndex >= totalPages - 1}
             >
                 <FontAwesomeIcon icon={faChevronRight} style={{ color: "#7c7c7c" }} size="3x" />
             </button>

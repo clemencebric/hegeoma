@@ -43,12 +43,12 @@
 }
 @media (min-width: 2200px) {
     .card-container {
-        width: calc(365px * 6 + 40px); /* Show 4 cards */
+        width: calc(365px * 6 + 40px); /* Show 6 cards */
     }
 }
 @media (max-width: 2200px) {
     .card-container {
-        width: calc(365px * 5 + 40px); /* Show 4 cards */
+        width: calc(365px * 5 + 40px); /* Show 5 cards */
     }
 }
 @media (max-width: 2000px) {
