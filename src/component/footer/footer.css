@@ -1,11 +1,15 @@
 /* Footer.css */
 .footer {
     background-color: #000000;
-    padding: 40px;
+    height: 200px;
     text-align: center;
     color: #fff;
     bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
    
 }
 
@@ -26,4 +30,25 @@
     .demifoot{
         display: block;
     }
+}
+.reseaux {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+.reseau {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.titrereseau{
+    padding-bottom: 10px;
+}
+.logoreseau{
+    width: 80px;
+}
+.descreseau {
+    width: 100px;
 }

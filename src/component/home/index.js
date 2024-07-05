@@ -5,11 +5,12 @@ import CardSlider from './slider/slider.js';
 import Card from './slider/card.js';
 import ServiceList from './tableau/tableau.js';
 import Blog from './blog/blog.js';
+import DivAnimee from './divAnimee/divAnimee.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
-    const cards = [
+    const cards = [//contenu des cards du slider
         <Card logo={faGear} title="Integration" content="Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Androiddans votre infrastructure actuelle ou à venir. Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget." />,
         <Card logo={faPhone} title="Support" content="Hegeoma peut prendre en charge le support de tout ou partie de votre parc informatique, y compris vos iPhone, iPad ou Mac, Chromebook ou tablettes Android en situation de mobilité." />,
         <Card logo={faGraduationCap} title="Formation" content="Vous cherchez une formation sur mesure, matérielle (Mac, iPhone, iPad) ou logicielle (OS X, iOS, intégration dans un environnement Windows sous Active Directory) ? Une formation pour un logiciel donné ? Une formation certifiante ? Hegeoma vous propose ses services en inter ou intra entreprise." />,
@@ -18,7 +19,7 @@ const Home = () => {
         <Card logo={faPen} title="Audit et conseil" content="Vous désirez un conseil indépendant ? Un audit indépendant effectué par un professionnel certifié Apple ? Vous souhaitez un audit de sécurité pour vos solutions Apple ? Hegeoma vous propose ses services." />,
     ];
 
-    const services = [
+    const services = [//contenu du tableau version telephone des services
         { title: "Intégration" },
         { title: "Support" },
         { title: "Formation" },
@@ -27,14 +28,14 @@ const Home = () => {
         { title: "Audit & Conseil" }
     ];
 
-    const blogPosts = [
+    const blogPosts = [//contenu des articles du blog
         {
-            background: require("../../images/pexels-brett-sayles-1869322.jpg"), // Utilisation de require avec une URL absolue
-            title: "Hegeoma recrute un(e) spécialiste mobilités",
-            content: "Description de poste Hegeoma recherche un(e) spécialiste mobilités dans le cadre d’un Contrat à Durée Indéterminée (CDI). Poste basé sur Grenoble centre. Hegeoma intègre, conseille et apporte un support à ses clients avec une spécialisation forte autour des technologies Apple et Google. Votre rôle sera d’accompagner techniquement les clients d’Hegeoma,[…]",
+            background: require("../../images/pexels-brett-sayles-1869322.jpg"), // image dans le cadre
+            title: "Arrêter la notification de mise à jour iOS",
+            content: "Vous êtes quotidiennement confronté à une proposition de mise à jour système d’iOS et ne souhaitez plus voir la notification sans pour autant désactiver les mises à jour automatiques des applications ? Il est possible de changer ce comportement, en tout cas pour un temps, en allant sous iOS dans Réglages, Général, Stockage et utilisation d’iCloud, Gérer le stockage",
         },
         {
-            background: require("./laptop-2557574.jpg"), // Utilisation de require avec un chemin relatif
+            background: require("./laptop-2557574.jpg"), // image dans le cadre
             title: "Educatec Educatice Zuludesk",
             content: "Hegeoma a le plaisir de participer au Salon Educatec Educatice avec Zuludesk. Venez découvrir ou échanger à propos de Zuludesk, le logiciel de MDM (Mobile Device Management / gestion des appareils à distance) de référence pour les appareils Apple dans le monde de l’éducation.",
         },
@@ -49,20 +50,27 @@ const Home = () => {
                         <Typewriter text="HEGEOMA" />
                     </div>
                 </div>
-                <div className='partie2'>
-                    <div className='titreapropos'>A propos</div>
-                    <div className='texteapropos'>
-                        <div>Membre du réseau Apple Consultant Network, Hegeoma vous propose sur macOS ou iOS</div>
-                        <div className='liste'>
-                            <ul>
-                                <li>le déploiement (solutions de MDM telles Jamf, Jamf School, Miradore)</li>
-                                <li>la sécurisation</li>
-                                <li>la sauvegarde</li>
-                                <li>l'intégration et le support des appareils de votre flotte informatique</li>
-                            </ul>
-                        </div>
+                <DivAnimee>
+                <div className='partie3'>
+                    <div className='elt'>
+                        <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
+                        <div className='eltdescription'>Déploiement</div>
                     </div>
+                    <div className='elt'>
+                        <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
+                        <div className='eltdescription'>Sécurisation</div>
+                    </div>
+                    <div className='elt'>
+                        <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
+                        <div className='eltdescription'>Sauvegarde</div>
+                    </div>
+                    <div className='elt'>
+                        <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
+                        <div className='eltdescription'>Intégration</div>
+                    </div>
+
                 </div>
+                </DivAnimee>
             </div>
 
             <div className='page2' id="services">
@@ -75,7 +83,9 @@ const Home = () => {
 
             <div className='page3' id="blog">
                 <div className='blog'>
+                
                     <Blog posts={blogPosts} />
+                
                 </div>
             </div>
         </div>

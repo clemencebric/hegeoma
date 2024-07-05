@@ -42,6 +42,7 @@ const Header = () => {
                     <li><a href="#blog" onClick={toggleMenu}>Blog</a></li>
                     <li><a href="#contact" onClick={toggleMenu}>Contact</a></li>
                 </ul>
+                <div className='numdecontact'>Contactez nous au 06 83 63 04 29</div>
             </nav>
             <div className={`burger ${isMenuOpen ? 'hidden' : ''}`} onClick={toggleMenu}>
                 <FontAwesomeIcon icon={faBars} style={{ color: "#205883" }} size="2x" />

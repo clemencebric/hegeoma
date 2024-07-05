@@ -19,7 +19,9 @@
     padding: 12px;
     margin-right: 30px;
 }
-
+.numdecontact{
+    display: none;
+}
 .header {
     display: flex;
     align-items: center;
@@ -157,5 +159,9 @@
 
     .header-nav.open ~ .croix {
         display: block;
+    }
+    .numdecontact{
+        display: block;
+        padding-top: 30px;
     }
 }

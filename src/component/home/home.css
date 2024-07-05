@@ -15,6 +15,7 @@ body, html {
     font-size: 30px;
     color: black;
     background-image: url("/src/images/pexels-kevin-ku-92347-577585.jpg");
+    /*background-image: url("../../images/5490647-fond-d-ecran-bleu-vif-pour-banniere-de-site-abstrait-motif-geometrique-avec-connexion-de-ligne-et-structure-de-particules-lumineuses-de-l-energie-ou-de-l-espace-global-gratuit-vectoriel.jpg");*/
     background-size: cover;
 }
 
@@ -25,20 +26,25 @@ body, html {
 .partie1 {
     font-size: 60px;
     padding: 20px;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.367);
     border-radius: 20px;
 }
 
-@media (min-width: 430px) and (max-width: 700px)  {
+@media (min-width: 430px) and (max-width: 810px)  {
     .partie1 {
         font-size: 80px;
     }
 }
-@media (min-width: 700px) and (max-width: 800px)  {
+@media (min-width: 810px) and (max-width: 1200px)  {
     .partie1 {
         font-size: 100px;
+    }
+}
+@media (min-width: 1200px)  {
+    .partie1 {
+        font-size: 130px;
     }
 }
 
@@ -46,23 +52,57 @@ body, html {
     font-size: 35px;
 }
 
-.partie2 {
-    background-color: rgba(255, 255, 255, 0.792);
-    border-radius: 20px;
-    width: 500px;
-    height: 500px;
-}
 
-.titreapropos {
-    font-size: 50px;
-}
 
-.texteapropos {
-    font-size: 25px;
-    margin: 30px;
-    text-align: left;
-}
 
+/*partie 3*/
+.partie3{
+    padding-top: 100px;
+}
+.elt{
+
+    display: flex;
+    margin: 15px;
+    background-color: rgb(239, 249, 255);
+    border-radius: 50px;
+}
+.eltlogo{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+}
+.eltdescription{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 780px) {
+    .page1 {
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+    .partie1{
+        margin-bottom: 10px;
+    }
+    .partie3 {
+        top: 0;
+        padding-top: 0px;
+        margin-top: 20px;
+        font-size: 20px;
+    }
+    .elt{
+        height: 50px;
+    }
+    .eltlogo{
+        height: 50px;
+    }
+
+}
 .typewriter span {
     display: inline-block;
     opacity: 0;
@@ -72,12 +112,6 @@ body, html {
 @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-@media (max-width: 750px) {
-    .partie2 {
-        display: none;
-    }
 }
 
 @media (max-width: 1370px) {
