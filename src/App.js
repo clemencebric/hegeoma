@@ -8,7 +8,9 @@ import Footer from './component/footer/index'
 import Home from './component/home/index'
 import Mentions from './component/mentionlegales/index.js'
 import Contact from './component/contact/contact.js'
+import Blog from "./component/home/blog/pageblog.js"
 import Erreur from "./component/erreur/index.js"
+
 import './App.css';
 
 const Layout = ({ children }) => {
@@ -30,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/mentionslegales" element={<Mentions />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>
