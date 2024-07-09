@@ -10,20 +10,20 @@ const Footer = () => {
             
             <div className='informations'>
             <p className="footer-text">
-                Contactez-nous au :<br/>  06 83 63 04 29
+                <a className='lien' href="/contact">Contactez-nous au :<br/>  06 83 63 04 29</a>
             </p>
 
             </div>
             <div>
             <p >
-                Mentions légales
+                <a className='lien' href='/mentionslegales'>Mentions légales</a>
             </p>
             </div>
             <div className='reseaux'>
                 <div className='titrereseau'>Nos réseaux :</div>
                 <div className='reseau'>
-                    <div className='logoreseau'><FontAwesomeIcon icon={faLinkedin} style={{ color: "#ffffff" }} size="2x" /></div>
-                    <div className='logoreseau'><FontAwesomeIcon icon={faSquareFacebook} style={{ color: "#ffffff" }} size="2x" /></div>
+                    <div className='logoreseau'><a className='icons' href="https://fr.linkedin.com/company/hegeoma"><FontAwesomeIcon icon={faLinkedin} style={{ color: "#ffffff" }} size="2x" /></a></div>
+                    <div className='logoreseau'><a className='icons' href="https://www.facebook.com/hegeoma/"><FontAwesomeIcon icon={faSquareFacebook} style={{ color: "#ffffff" }} size="2x" /></a></div>
                 </div></div>
 
         </footer>
