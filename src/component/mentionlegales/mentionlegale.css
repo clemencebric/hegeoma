@@ -1,0 +1,8 @@
+.pagementions {
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

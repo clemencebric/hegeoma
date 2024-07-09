@@ -268,9 +268,7 @@ body, html {
     width: 100%;
 
 }
-.articlem + .divcachee {
-    /*display: block; /* Affiche lorsque la div cachee est dans articlem */
-}
+
 
 .buttonarticle {
     background-color: rgb(255, 255, 255);

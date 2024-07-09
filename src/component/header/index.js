@@ -37,10 +37,10 @@ const Header = () => {
             </div>
             <nav className={`header-nav ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
-                    <li><a href="#home" onClick={toggleMenu}>Home</a></li>
+                    <li><a href="/" onClick={toggleMenu}>Home</a></li>
                     <li><a href={serviceLink} onClick={toggleMenu}>Service</a></li>
                     <li><a href="#blog" onClick={toggleMenu}>Blog</a></li>
-                    <li><a href="#contact" onClick={toggleMenu}>Contact</a></li>
+                    <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
                 </ul>
                 <div className='numdecontact'>Contactez nous au 06 83 63 04 29</div>
             </nav>
