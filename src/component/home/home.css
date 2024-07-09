@@ -15,7 +15,6 @@ body, html {
     font-size: 30px;
     color: black;
     background-image: url("/src/images/pexels-kevin-ku-92347-577585.jpg");
-    /*background-image: url("../../images/5490647-fond-d-ecran-bleu-vif-pour-banniere-de-site-abstrait-motif-geometrique-avec-connexion-de-ligne-et-structure-de-particules-lumineuses-de-l-energie-ou-de-l-espace-global-gratuit-vectoriel.jpg");*/
     background-size: cover;
 }
 
@@ -52,22 +51,18 @@ body, html {
     font-size: 35px;
 }
 
-
-
-
 /*partie 3*/
 .partie3{
     padding-top: 100px;
 }
 .elt{
-
     display: flex;
     margin: 15px;
-    background-color: rgb(239, 249, 255);
+    background-color: rgba(0, 0, 0, 0.457);
     border-radius: 50px;
+    color: white;
 }
 .eltlogo{
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,8 +96,8 @@ body, html {
     .eltlogo{
         height: 50px;
     }
-
 }
+
 .typewriter span {
     display: inline-block;
     opacity: 0;
@@ -123,18 +118,20 @@ body, html {
 
 /* --------page2-----------*/
 .page2 {
-    background-color: rgb(244, 244, 244);
+    /*background-color: rgb(244, 244, 244);*/
+    background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766.jpg");
     height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
 }
 
 .page2tel {
     display: none;
 }
 
-/* lorsque l'on est en format telephone, cela n'afiche que le tableau et pas le slider */
+/* lorsque l'on est en format téléphone, cela n'affiche que le tableau et pas le slider */
 @media (max-width: 600px) {
     .page2 {
         display: none;
@@ -217,4 +214,99 @@ body, html {
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
     }
     
+}
+/* ------- page mini article ----------- */
+
+.containerminiarticle{
+    /*background-color: rgb(255, 255, 255);*/
+    background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766\ copie.jpg");
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover; 
+}
+.miniarticles {
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.articlem {
+    border: solid 1px rgb(170, 170, 170);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.contenuminiarticle {
+    width: 500px;
+    text-align: center;
+}
+
+.divcachee {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: none; /* Cacher par défaut */
+    height: 50px;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    text-align: center; /* Centrer le texte */
+}
+
+.cachee {
+    height: 100%;
+    width: 100%;
+
+}
+.articlem + .divcachee {
+    /*display: block; /* Affiche lorsque la div cachee est dans articlem */
+}
+
+.buttonarticle {
+    background-color: rgb(255, 255, 255);
+}
+.partiegauche{
+    width: 500px;
+}
+.divcachee {
+    height: 100px;
+}
+@media (max-width: 1500px) {
+    .partiegauche{
+        width: 200px;
+    }
+}
+@media (max-width: 1200px) {
+    .partiegauche{
+        width: 200px;
+    }
+    .contenuminiarticle {
+        width: 400px;
+    }
+}
+@media (max-width: 900px) {
+    .contenuminiarticle{
+        width: 250px;
+    }
+}
+@media (max-width: 700px) {
+    .contenuminiarticle{
+        display: none;
+    }
+    .partiegauche {
+        width: 100%;
+    }
+    .divcachee {
+        height: 100px;
+    }
 }

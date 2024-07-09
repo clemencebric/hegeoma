@@ -1,9 +1,14 @@
-/* src/components/serviceList.css */
+/* src/components/tableau.css */
+
 .service-list {
     display: flex;
     flex-direction: column;
     gap: 15px; /* Espacement entre chaque service */
     padding: 20px;
+}
+
+.service-item-container {
+    width: 85vw;
 }
 
 .service-item {
@@ -16,7 +21,6 @@
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s;
-    width: 85vw;
 }
 
 .service-item:hover {
@@ -35,9 +39,34 @@
     border: 1px solid #425cdd;
     border-radius: 3px;
     transition: all 0.3s;
+    background: none;
+    cursor: pointer;
 }
 
 .info-link:hover {
     background-color: #425cdd;
     color: white;
+}
+
+.service-description {
+    padding: 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    animation: fadeIn 0.3s;
+}
+
+.description-content {
+    font-size: 14px;
+}
+
+/* Animation for fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

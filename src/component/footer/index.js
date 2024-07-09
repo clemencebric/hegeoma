@@ -12,18 +12,20 @@ const Footer = () => {
             <p className="footer-text">
                 Contactez-nous au :<br/>  06 83 63 04 29
             </p>
+
+            </div>
+            <div>
+            <p >
+                Mentions légales
+            </p>
             </div>
             <div className='reseaux'>
                 <div className='titrereseau'>Nos réseaux :</div>
-            <div className='reseau'>
-                <div className='logoreseau'><FontAwesomeIcon icon={faLinkedin} style={{ color: "#ffffff" }} size="2x" /></div>
-                <div className='descreseau'>bonjour</div>
-            </div>
-            <div className='reseau'>
-                <div className='logoreseau'><FontAwesomeIcon icon={faSquareFacebook} style={{ color: "#ffffff" }} size="2x" /></div>
-                <div className='descreseau'>au revoir</div>
-                </div>
-            </div>
+                <div className='reseau'>
+                    <div className='logoreseau'><FontAwesomeIcon icon={faLinkedin} style={{ color: "#ffffff" }} size="2x" /></div>
+                    <div className='logoreseau'><FontAwesomeIcon icon={faSquareFacebook} style={{ color: "#ffffff" }} size="2x" /></div>
+                </div></div>
+
         </footer>
     );
 };
