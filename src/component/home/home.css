@@ -3,6 +3,12 @@ body, html {
     width: 100%;
     margin: 0;
     padding: 0;
+    /*font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;*/
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+     font-style: normal;
 }
 /* ----page1-----*/
 
@@ -120,12 +126,12 @@ body, html {
 .page2 {
     /*background-color: rgb(244, 244, 244);*/
     background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766.jpg");
-    height: 90vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-size: cover;
-    flex-direction: column;
+    
 }
 
 .page2tel {
