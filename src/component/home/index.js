@@ -5,6 +5,7 @@ import CardSlider from './slider/slider.js';
 import Card from './slider/card.js';
 import ServiceList from './tableau/tableau.js';
 import Blog from './blog/blog.js';
+import BackToTop from './Backtotop/index.js';
 import DivAnimee from './divAnimee/divAnimee.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -160,7 +161,9 @@ const Home = () => {
                             )}
                         </div>
                     ))}
+                    
                 </div>
+                <BackToTop />
             </div>
         </div>
     );

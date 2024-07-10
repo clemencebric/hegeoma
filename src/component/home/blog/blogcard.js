@@ -7,7 +7,7 @@ const Card = ({ background, title, content }) => (
             style={{ backgroundImage: `url(${background})` }}
         ></div>
         <div className='titrecardblog'> {title}</div>
-        <div className='descriptionblog'><p>{content}</p></div>
+        <div className='descriptionblog'><p className='contentblog'>{content}</p></div>
     </div>
 );
 

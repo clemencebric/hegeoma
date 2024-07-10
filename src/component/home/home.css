@@ -125,6 +125,7 @@ body, html {
     align-items: center;
     justify-content: center;
     background-size: cover;
+    flex-direction: column;
 }
 
 .page2tel {

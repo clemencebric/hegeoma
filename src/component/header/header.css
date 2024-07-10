@@ -166,3 +166,12 @@
         padding-top: 30px;
     }
 }
+@media (max-height: 400px) { /* quand sur telephone et en format paysage, la navbar n'est plus tjr en haut*/
+    .header {
+        position:relative;
+        height: 30px;
+    }
+    .logo {
+        width: 170px;
+    }
+}

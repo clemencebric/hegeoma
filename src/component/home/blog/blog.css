@@ -6,7 +6,6 @@
     gap: 20px;
     padding: 20px;
 }
-
 .carddd {
     padding: 20px;
     width: 40vw;
@@ -27,7 +26,6 @@
         height: 500px;
     }
 }
-
 .image {
 
     height: 40%;
@@ -112,28 +110,28 @@
     background-color: white;
     background-size: cover;
 }
-@media (max-width: 600px) {
+
+@media (max-width: 600px) or (max-height: 700px){
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
     }
-    
 }
 @media (min-width: 600px) and (max-width: 740px){
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
     }
-    
 }
+
 /*--------contenu mini article--------------*/
 .containerminiarticle{
     /*background-color: rgb(255, 255, 255);*/
-  
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-size: cover; 
+    flex-direction: column;
 }
 .miniarticles {
     width: 80%;
@@ -214,5 +212,35 @@
     }
     .divcachee {
         height: 100px;
+    }
+}
+
+/*----telephone format paysage-----*/
+
+@media  (max-height: 700px){
+    .page2{
+        height: 150vh;
+    }
+    .containerminiarticle {
+        height: 170vh;
+    }
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    .carddd {
+        height: 100vh;
+    }
+    .titrecardblog {
+        font-size: 25px;
+    }
+    .contentblog {
+        height: 100px;
+        font-size: 13px;
+    }
+    .typewriter {
+        font-size: 70px;
+    }
+    .partie3 {
+        display: none;
     }
 }
