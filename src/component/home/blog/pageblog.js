@@ -8,12 +8,12 @@ import GrandBlog from './blog.js';
 const Blog = ({ posts }) => {
     const blogPosts = [
         {
-            background: require("../../../images/5490641-blue-concept-with-plexus-line-background-night-sky-modern-pattern-global-space-structure-illustration-geometric-technology-wallpaper-vectoriel.jpg"),
+            background: require("../../../images/pexels-brett-sayles-1869322.jpg"),
             title: "Arrêter la notification de mise à jour iOS",
             content: "Vous êtes quotidiennement confronté à une proposition de mise à jour système d’iOS et ne souhaitez plus voir la notification sans pour autant désactiver les mises à jour automatiques des applications ? Il est possible de changer ce comportement, en tout cas pour un temps, en allant sous iOS dans Réglages, Général.",
         },
         {
-            background: require("../../../images/Background.jpg"),
+            background: require("../../../images/laptop-2557574.jpg"),
             title: "Educatec Educatice Zuludesk",
             content: "Hegeoma a le plaisir de participer au Salon Educatec Educatice avec Zuludesk. Venez découvrir ou échanger à propos de Zuludesk, le logiciel de MDM (Mobile Device Management / gestion des appareils à distance) de référence pour les appareils Apple dans le monde de l’éducation.",
         },

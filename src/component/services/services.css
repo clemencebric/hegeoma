@@ -1,0 +1,73 @@
+.page2 {
+    /*background-color: rgb(244, 244, 244);*/
+    background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766.jpg");
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    
+}
+
+.page2tel {
+    display: none;
+}
+
+/* lorsque l'on est en format téléphone, cela n'affiche que le tableau et pas le slider */
+@media (max-width: 600px) {
+    .page2 {
+        display: none;
+    }
+
+    .page2tel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+    }
+}
+
+/* Service list styles */
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.service-item {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.service-item:hover {
+    background-color: #ddd;
+}
+
+.service-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.info-link {
+    color: #425cdd;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #425cdd;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.info-link:hover {
+    background-color: #425cdd;
+    color: white;
+}

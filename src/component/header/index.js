@@ -14,21 +14,9 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // Function to handle resizing
-    const handleResize = () => {
-        if (window.innerWidth <= 600) {
-            setServiceLink("#servicestel");
-        } else {
-            setServiceLink("#services");
-        }
-    };
 
     // Add resize listener on component mount
-    useEffect(() => {
-        handleResize(); // Check size on mount
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+
 
     return (
         <header className="header">
@@ -38,7 +26,7 @@ const Header = () => {
             <nav className={`header-nav ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
                     <li><a href="/" onClick={toggleMenu}>Home</a></li>
-                    <li><a href={serviceLink} onClick={toggleMenu}>Service</a></li>
+                    <li><a href="/services" onClick={toggleMenu}>Service</a></li>
                     <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
                     <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
                 </ul>

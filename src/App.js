@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
+import Services from "./component/services/index.js";
 import logo from './logo.svg';
 import Header from './component/header/index'
 import Footer from './component/footer/index'
@@ -33,6 +33,7 @@ function App() {
           <Route path="/mentionslegales" element={<Mentions />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/services" element={<Services />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>
