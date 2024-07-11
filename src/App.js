@@ -10,6 +10,7 @@ import Mentions from './component/mentionlegales/index.js'
 import Contact from './component/contact/contact.js'
 import Blog from "./component/home/blog/pageblog.js"
 import Erreur from "./component/erreur/index.js"
+import Login from "./component/login/index.js"
 
 import './App.css';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>

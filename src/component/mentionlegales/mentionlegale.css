@@ -1,8 +1,96 @@
-.pagementions {
-    background-color: rgb(255, 255, 255);
+/* ------- page mini article ----------- */
+
+.containerminiarticles{
+
     height: 100vh;
-    font-size: 30px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: cover; 
+}
+.titrearticlem {
+    font-size: 30px;
+}
+.miniarticles {
+    width: 60%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.articlem {
+    border: solid 1px rgb(170, 170, 170);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.contenuminiarticle {
+    width: 500px;
+    text-align: center;
+}
+
+.divcachee {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: none; /* Cacher par défaut */
+    height: 50px;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    text-align: center; /* Centrer le texte */
+}
+
+.cachee {
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.buttonarticle {
+    background-color: rgb(255, 255, 255);
+}
+.partiegauche{
+    width: 500px;
+}
+.divcachee {
+    height: 100px;
+}
+@media (max-width: 1500px) {
+    .partiegauche{
+        width: 200px;
+    }
+}
+@media (max-width: 1200px) {
+    .partiegauche{
+        width: 200px;
+    }
+    .contenuminiarticle {
+        width: 400px;
+    }
+}
+@media (max-width: 900px) {
+    .contenuminiarticle{
+        width: 250px;
+    }
+}
+@media (max-width: 700px) {
+    .contenuminiarticle{
+        display: none;
+    }
+    .partiegauche {
+        width: 100%;
+    }
+    .divcachee {
+        height: 100px;
+    }
 }
