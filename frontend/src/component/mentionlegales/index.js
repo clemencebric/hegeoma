@@ -57,7 +57,6 @@ function Mentions() {
                                 <div className='partiegauche'>
                                     <div className='titrearticlem'>{post.title}</div>
                                 </div>
-                           
                                 <div
                                     className='buttonarticle'
                                     onClick={() => toggleArticle(index)}

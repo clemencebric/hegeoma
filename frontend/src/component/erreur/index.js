@@ -10,5 +10,4 @@ function Erreur() {
     </div>
   );
 }
-
 export default Erreur;
