@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './header.css';
 import logo from './logo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark,  } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +29,7 @@ const Header = () => {
                     <li><a href="/services" onClick={toggleMenu}>Service</a></li>
                     <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
                     <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
+                    <li><a href="/login" onClick={toggleMenu}>Se connecter</a></li>
                 </ul>
                 <div className='numdecontact'>Contactez nous au <a href="tel:0683630429"> 06 83 63 04 29</a></div>
             </nav>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./login.css";
-import Validation from './signupValidation';
+import Validationn from './signupValidation';
+import axios from 'axios'
 function Signup() {
 
     const [values, setValues] = useState({
         email: '',
         password: ''
       });
+      const navigate = useNavigate();
       const [errors, setErrors] = useState({});
       
       const handleInput = (event) => {
@@ -16,14 +18,23 @@ function Signup() {
       
       const handleSubmit = (event) => {
         event.preventDefault();
-        setErrors(Validation(values));
-      };
-  
+        const validationErrors = Validationn(values);
+        setErrors(validationErrors);
+    
+        // Vérification des erreurs après avoir mis à jour les erreurs
+        if(validationErrors.email === "" && validationErrors.password === "") {
+            axios.post('http://localhost:8081/signup', values)
+            .then(res => {
+                navigate('/login');
+            })
+            .catch(err => console.log(err));
+        }
+    };
       
   return (
     <div className='formulaiire'>
     <div className='formulaire'>
-        <h2>Sign-In</h2>
+        <h2>Sign-Up</h2>
       <form action='' onSubmit={handleSubmit}>
         <div className='informations'>
         <div className='mb-3'>
@@ -37,7 +48,7 @@ function Signup() {
           <input type='password' placeholder='Enter Password' name='password' onChange={handleInput}/>
           {errors.password && <span className='messageerreur'> {errors.password} </span>}
         </div>
-        <button type= "submit" className='btn btn-success'>Signup</button>
+        <button  type='submit' className='btn btn-success'>Signup</button>
         </div>
 
 
