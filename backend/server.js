@@ -36,6 +36,24 @@ app.post('/signup', (req, res) => {
         return res.json(data);
     })
 })
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+  
+    const sql = 'SELECT * FROM login WHERE email = ? AND password = ?'; // Mettez à jour cette ligne
+    db.query(sql, [email, password], (err, result) => {
+      if (err) {
+        res.status(500).json({ message: 'An error occurred while processing your request.' });
+      } else {
+        if (result.length > 0) {
+          res.status(200).json({ message: 'Login successful' });
+        } else {
+          res.status(401).json({ message: 'Login failed. Invalid username or password.' });
+        }
+      }
+    });
+  });
+  
+
 
 app.listen(8081, ()=> {
     console.log("listeninng");
