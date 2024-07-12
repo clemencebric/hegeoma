@@ -1,0 +1,247 @@
+.blog-container {
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.carddd {
+    padding: 20px;
+    width: 40vw;
+    height: 70vh;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*border-radius: 50% 20% / 10% 40%;*/
+}
+
+@media (max-width: 1000px) {
+    .carddd {
+        width: 500px;
+        height: 500px;
+    }
+}
+.image {
+
+    height: 40%;
+    background-size: cover;
+    background-position: center; /* Centrer l'image */
+    background-repeat: no-repeat;
+    border-radius: 20px;
+}
+.titrecardblog {
+    height: 20%;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.descriptionblog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    font-size: 30px;
+}
+@media (max-width: 600px) { /*format telephone*/
+    .carddd {
+        width: 300px;
+        height: 60vh;
+    }
+    .titrecardblog {
+        font-size: 25px;
+    }
+    .descriptionblog{
+        font-size: 13px;
+    }
+}
+@media (min-width: 600px) and (max-width: 1000px) {
+    .carddd {
+        width: 300px;
+        height: 60vh;
+    }
+    .titrecardblog {
+        font-size: 25px;
+    }
+    .descriptionblog{
+        font-size: 15px;
+    }
+}
+@media (min-width: 1000px) and (max-width: 1200px) {
+    .carddd {
+       width: 40vw;
+       height: 70vh;
+    }
+    .titrecardblog {
+        font-size: 40px;
+    }
+    .descriptionblog{
+        font-size: 20px;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1600px) {
+    .carddd {
+       width: 40vw;
+       height: 70vh;
+    }
+    .titrecardblog {
+        font-size: 50px;
+    }
+    .descriptionblog{
+        font-size: 25px;
+    }
+}
+/*---------page 3----------*/
+.page3 {
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    font-size: 30px;
+    color: black;
+    background-color: white;
+    background-size: cover;
+}
+
+@media (max-width: 600px) or (max-height: 700px){
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+}
+@media (min-width: 600px) and (max-width: 740px){
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+}
+
+/*--------contenu mini article--------------*/
+.containerminiarticle{
+    /*background-color: rgb(255, 255, 255);*/
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover; 
+    flex-direction: column;
+}
+.miniarticles {
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.articlem {
+    border: solid 1px rgb(170, 170, 170);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.contenuminiarticle {
+    width: 500px;
+    text-align: center;
+}
+
+.divcachee {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: none; /* Cacher par défaut */
+    height: 50px;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    text-align: center; /* Centrer le texte */
+}
+
+.cachee {
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.buttonarticle {
+    background-color: rgb(255, 255, 255);
+}
+.partiegauche{
+    width: 500px;
+}
+.divcachee {
+    height: 100px;
+}
+@media (max-width: 1500px) {
+    .partiegauche{
+        width: 200px;
+    }
+}
+@media (max-width: 1200px) {
+    .partiegauche{
+        width: 200px;
+    }
+    .contenuminiarticle {
+        width: 400px;
+    }
+}
+@media (max-width: 900px) {
+    .contenuminiarticle{
+        width: 250px;
+    }
+}
+@media (max-width: 700px) {
+    .contenuminiarticle{
+        display: none;
+    }
+    .partiegauche {
+        width: 100%;
+    }
+    .divcachee {
+        height: 100px;
+    }
+}
+
+/*----telephone format paysage-----*/
+
+@media  (max-height: 700px){
+    .page2{
+        height: 150vh;
+    }
+    .containerminiarticle {
+        height: 170vh;
+    }
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    .carddd {
+        height: 100vh;
+    }
+    .titrecardblog {
+        font-size: 25px;
+    }
+    .contentblog {
+        height: 100px;
+        font-size: 13px;
+    }
+    .typewriter {
+        font-size: 70px;
+    }
+    .partie3 {
+        display: none;
+    }
+}

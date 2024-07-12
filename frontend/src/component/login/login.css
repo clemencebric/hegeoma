@@ -1,0 +1,46 @@
+.formulaiire {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.formulaire {
+    background-color: white;
+    border: solid 1px black;
+    padding: 20px;
+    height: 40vh;
+    width: 40vw;
+}
+.btn {
+    border: solid 1px blue;
+    background-color: white;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 10px;
+}
+.btn-success {
+    background-color: green;
+}
+.informations {
+    border: solid 1px black;
+    font-size: 20px;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+input{
+    font-size: 20px;
+}
+.phrase {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.messageerreur {
+    color: red;
+}

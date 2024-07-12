@@ -1,0 +1,317 @@
+/* global styles */
+body, html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /*font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;*/
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+     font-style: normal;
+}
+/* ----page1-----*/
+
+.page1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    font-size: 30px;
+    color: black;
+    background-image: url("/src/images/pexels-kevin-ku-92347-577585.jpg");
+    background-size: cover;
+}
+
+.partie1 .partie2 {
+    align-items: center;
+}
+
+.partie1 {
+    font-size: 60px;
+    padding: 20px;
+    margin-bottom: 100px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.367);
+    border-radius: 20px;
+}
+
+@media (min-width: 430px) and (max-width: 810px)  {
+    .partie1 {
+        font-size: 80px;
+    }
+}
+@media (min-width: 810px) and (max-width: 1200px)  {
+    .partie1 {
+        font-size: 100px;
+    }
+}
+@media (min-width: 1200px)  {
+    .partie1 {
+        font-size: 130px;
+    }
+}
+
+.surtitre {
+    font-size: 35px;
+}
+
+/*partie 3*/
+.partie3{
+    padding-top: 100px;
+}
+.elt{
+    display: flex;
+    margin: 15px;
+    background-color: rgba(0, 0, 0, 0.457);
+    border-radius: 50px;
+    color: white;
+}
+.eltlogo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+}
+.eltdescription{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 780px) {
+    .page1 {
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+    .partie1{
+        margin-bottom: 10px;
+    }
+    .partie3 {
+        top: 0;
+        padding-top: 0px;
+        margin-top: 20px;
+        font-size: 20px;
+    }
+    .elt{
+        height: 50px;
+    }
+    .eltlogo{
+        height: 50px;
+    }
+}
+
+.typewriter span {
+    display: inline-block;
+    opacity: 0;
+    animation: fade-in 0.5s forwards;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 1370px) {
+    .page1 {
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+/* --------page2-----------*/
+.page2 {
+    /*background-color: rgb(244, 244, 244);*/
+    background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766.jpg");
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    
+}
+
+.page2tel {
+    display: none;
+}
+
+/* lorsque l'on est en format téléphone, cela n'affiche que le tableau et pas le slider */
+@media (max-width: 600px) {
+    .page2 {
+        display: none;
+    }
+
+    .page2tel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+    }
+}
+
+/* Service list styles */
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.service-item {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.service-item:hover {
+    background-color: #ddd;
+}
+
+.service-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.info-link {
+    color: #425cdd;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #425cdd;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.info-link:hover {
+    background-color: #425cdd;
+    color: white;
+}
+/*---------page 3----------*/
+.page3 {
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    font-size: 30px;
+    color: black;
+    background-color: white;
+    background-size: cover;
+}
+@media (max-width: 600px) {
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    
+}
+@media (min-width: 600px) and (max-width: 740px){
+    .page3{
+        height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
+    }
+    
+}
+/* ------- page mini article ----------- */
+
+.containerminiarticle{
+    /*background-color: rgb(255, 255, 255);*/
+    background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766\ copie.jpg");
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover; 
+}
+.miniarticles {
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.articlem {
+    border: solid 1px rgb(170, 170, 170);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.contenuminiarticle {
+    width: 500px;
+    text-align: center;
+}
+
+.divcachee {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: none; /* Cacher par défaut */
+    height: 50px;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    text-align: center; /* Centrer le texte */
+}
+
+.cachee {
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.buttonarticle {
+    background-color: rgb(255, 255, 255);
+}
+.partiegauche{
+    width: 500px;
+}
+.divcachee {
+    height: 100px;
+}
+@media (max-width: 1500px) {
+    .partiegauche{
+        width: 200px;
+    }
+}
+@media (max-width: 1200px) {
+    .partiegauche{
+        width: 200px;
+    }
+    .contenuminiarticle {
+        width: 400px;
+    }
+}
+@media (max-width: 900px) {
+    .contenuminiarticle{
+        width: 250px;
+    }
+}
+@media (max-width: 700px) {
+    .contenuminiarticle{
+        display: none;
+    }
+    .partiegauche {
+        width: 100%;
+    }
+    .divcachee {
+        height: 100px;
+    }
+}
