@@ -12,20 +12,24 @@ function Login() {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            setErrorMessage('');
-
-            const response = await axios.post('http://localhost:8081/login', { email, password });
-
-            if (response.status === 200) {
-                setAuthenticationToken(response.data.authToken); // Assurez-vous que la clé est authToken
-                navigate('/');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('Your email and\nPassword are incorrect.');
+      
+      e.preventDefault();
+      try {
+        setErrorMessage('');
+        console.log(email);
+        const response = await axios.post('http://localhost:8081/login', { email, password });
+        
+        if (response.status === 200 && response.data.message === 'Login successful') {
+          setAuthenticationToken(response.data.token); // Assurez-vous que la clé est authToken
+          localStorage.setItem('authToken', response.data.token); // Stockez le token dans le localStorage
+          navigate('/'); // Redirigez l'utilisateur vers la page d'accueil
+        } else {
+          setErrorMessage('Your email and\nPassword are incorrect.');
         }
+      } catch (error) {
+        console.error('Error:', error);
+        setErrorMessage('An error occurred while processing your request.');
+      }
     };
 
     return (
