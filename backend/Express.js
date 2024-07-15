@@ -20,5 +20,28 @@ router.delete('/logout', (req, res) => {
     });
   });
 });
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
 
+  let sql = `SELECT * FROM login WHERE email = ?`;
+  db.query(sql, [email], (err, result) => {
+    if (err) throw err;
+
+    if (result.length === 0) {
+      return res.send('Uuser not found...');
+    }
+
+    bcrypt.compare(password, result[0].password, (err, response) => {
+      if (err) throw err;
+
+      if (response) {
+        let token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });
+
+        res.send({ token });
+      } else {
+        res.send('Ppassword does not match...');
+      }
+    });
+  });
+});
 module.exports = router;

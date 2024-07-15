@@ -5,31 +5,34 @@ import axios from 'axios';
 import { setAuthenticationToken } from "../privateroute/authservice.js";
 
 function Login() {
-    const [email, setEmail] = useState(''); // Utilisez email ici
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-      
-      e.preventDefault();
-      try {
-        setErrorMessage('');
-        console.log(email);
-        const response = await axios.post('http://localhost:8081/login', { email, password });
-        
-        if (response.status === 200 && response.data.message === 'Login successful') {
-          setAuthenticationToken(response.data.token); // Assurez-vous que la clé est authToken
-          localStorage.setItem('authToken', response.data.token); // Stockez le token dans le localStorage
-          navigate('/'); // Redirigez l'utilisateur vers la page d'accueil
-        } else {
-          setErrorMessage('Your email and\nPassword are incorrect.');
+        e.preventDefault();
+        try {
+            setErrorMessage('');
+            const response = await axios.post('http://localhost:8081/login', { email, password });
+            console.log(response);
+            if (response.data.success) {
+                setAuthenticationToken(response.data.token);
+                localStorage.setItem('authToken', response.data.token);
+                navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
+            } else {
+                setErrorMessage(response.data.message);
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                setErrorMessage('Your email and Password are incorrect.');
+            } else if (error.response && error.response.status === 500) {
+                setErrorMessage('Error connecting to the database.');
+            } else {
+                setErrorMessage('An error occurred while processing your request.');
+            }
         }
-      } catch (error) {
-        console.error('Error:', error);
-        setErrorMessage('An error occurred while processing your request.');
-      }
     };
 
     return (
@@ -58,7 +61,7 @@ function Login() {
                         />
                     </div>
                     <button type="submit" className="btnlogin">Login</button>
-                    {errorMessage && <p className="text-red-500 text-sm whitespace-pre-line text-center mt-4 ">{errorMessage}</p>}
+                    {errorMessage && <p className="text-red-500 text-sm whitespace-pre-line text-center mt-4">{errorMessage}</p>}
                 </form>
             </div>
         </div>
