@@ -32,7 +32,7 @@ function Signup() {
     };
       
   return (
-    <div className='formulaiire'>
+    <div className='pageformulaire'>
     <div className='formulaire'>
         <h2>Sign-Up</h2>
       <form action='' onSubmit={handleSubmit}>
