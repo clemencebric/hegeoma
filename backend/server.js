@@ -1,11 +1,11 @@
+
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
-
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+const salt = 10;
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -23,7 +23,10 @@ db.connect((err) => {
 
 app.post('/signup', (req, res) => {
     const sql = "INSERT INTO login (`email`, `password`) VALUES (?, ?)";
+    /*bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
+        if(err) return res.json({Error: "Error for hashing password"});
 
+    })*/
     const values = [
         req.body.email,
         req.body.password
