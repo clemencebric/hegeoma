@@ -25,7 +25,9 @@ function Login() {
  
              // If login successful, redirect to MainPage
              if (response.status === 200) {
-                 navigate('/');
+                // Stockr les données de connexion dans le stockage local
+                localStorage.setItem('authenticationToken', response.data.token);
+                navigate('/');
              }
          } catch (error) {
              console.error('Error:', error);
@@ -37,10 +39,10 @@ function Login() {
  
      // JSX structure for login form
      return (
-         <div className="formulaiire flex items-center justify-center min-h-screen">
-             <div className="mx-auto p-6 bg-white rounded-md shadow-md">
+         <div className="pageformulaire flex items-center justify-center min-h-screen">
+             <div className="formulaire mx-auto p-6 bg-white rounded-md shadow-md">
                  <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
-                 <form onSubmit={handleSubmit}>
+                 <form className="form" onSubmit={handleSubmit}>
                      <div className="mb-4">
                          <label htmlFor="email" className="block mb-2">email:</label>
                          <input
@@ -48,7 +50,7 @@ function Login() {
                             id="email" // Modifiez cette ligne
                             value={email} // Et modifiez cette ligne
                             onChange={(e) => setEmail(e.target.value)} // Ainsi que cette ligne
-                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            className="inputlogin"
                             />
                      </div>
                      <div className="mb-4">
@@ -58,10 +60,10 @@ function Login() {
                              id="password"
                              value={password}
                              onChange={(e) => setPassword(e.target.value)}
-                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                             className="inputlogin"
                          />
                      </div>
-                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Login</button>
+                     <button type="submit" className="btnlogin">Login</button>
                      {errorMessage && <p className="text-red-500 text-sm whitespace-pre-line text-center mt-4 ">{errorMessage}</p>} {/* Display error message if exists */}
                  </form>
              </div>

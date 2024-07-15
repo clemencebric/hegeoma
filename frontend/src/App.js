@@ -12,6 +12,8 @@ import Blog from "./component/home/blog/pageblog.js"
 import Erreur from "./component/erreur/index.js"
 import Login from "./component/login/login.js"
 import Signup from "./component/login/signup.js"
+import Faq from './component/faq/index.js';
+import PrivateRoute from './component//privateroute/privateroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
 import './App.css';
 
 const Layout = ({ children }) => {
@@ -37,6 +39,9 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route element={<PrivateRoute />}>
+              <Route path="/faq" element={<Faq />} />
+            </Route>
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>

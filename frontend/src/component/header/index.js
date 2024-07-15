@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './header.css';
 import logo from './logo.png';
+import { isAuthenticated } from "../privateroute/authservice.js"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark,  } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,6 +28,9 @@ const Header = () => {
                 <ul>
                     <li><a href="/" onClick={toggleMenu}>Home</a></li>
                     <li><a href="/services" onClick={toggleMenu}>Service</a></li>
+                    {isAuthenticated() && (
+                      <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
+                    )}
                     <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
                     <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
                     <li><a href="/login" onClick={toggleMenu}>Se connecter</a></li>
