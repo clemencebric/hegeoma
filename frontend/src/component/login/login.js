@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./login.css";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setAuthenticationToken } from "../privateroute/authservice.js";
 
@@ -16,22 +16,16 @@ function Login() {
         try {
             setErrorMessage('');
             const response = await axios.post('http://localhost:8081/login', { email, password });
-            console.log(response);
-            if (response.data.success) {
+            if (response.data.token) {
                 setAuthenticationToken(response.data.token);
                 localStorage.setItem('authToken', response.data.token);
                 navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
             } else {
-                setErrorMessage(response.data.message);
+                setErrorMessage('Invalid credentials');
             }
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                setErrorMessage('Your email and Password are incorrect.');
-            } else if (error.response && error.response.status === 500) {
-                setErrorMessage('Error connecting to the database.');
-            } else {
-                setErrorMessage('An error occurred while processing your request.');
-            }
+            setErrorMessage('An error occurred while processing your request.');
+            console.error('Login error:', error);
         }
     };
 

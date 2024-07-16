@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
-const secretKey = 'your_secret_key'; // Utilisez une clé secrète personnalisée pour signer les tokens
+const secretKey = 'your_secret_key'; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
 
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-const salt = 10;
+const saltRounds = 10;
 
 const app = express();
 app.use(express.json());
@@ -31,20 +31,17 @@ db.connect((err) => {
 });
 
 app.post('/signup', (req, res) => {
-    bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-        if (err) return res.status(500).json({ Error: "Error for hashing password" });
+    bcrypt.hash(req.body.password.toString(), saltRounds, (err, hash) => {
+        if (err) return res.status(500).json({ error: "Error hashing password" });
 
         const sql = "INSERT INTO login (`email`, `password`) VALUES (?, ?)";
-        const values = [
-            req.body.email,
-            hash
-        ];
+        const values = [req.body.email, hash];
         db.query(sql, values, (err, data) => {
             if (err) {
                 console.error("Error during insertion:", err);
-                return res.status(500).json("Error");
+                return res.status(500).json({ error: "Error inserting data" });
             }
-            return res.status(201).json(data);
+            return res.status(201).json({ success: true, message: "User created" });
         });
     });
 });
@@ -71,7 +68,7 @@ app.post('/login', (req, res) => {
 
             if (response) {
                 const token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });
-                return res.status(200).json({ success: true, message: 'Login successful', token });
+                return res.status(200).json({ token });
             } else {
                 return res.status(401).json({ success: false, message: 'Password does not match' });
             }
