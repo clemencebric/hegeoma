@@ -14,6 +14,7 @@ import Login from "./component/login/login.js"
 import Signup from "./component/login/signup.js"
 import Faq from './component/faq/index.js';
 import PrivateRoute from './component//privateroute/privateroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
+import { AuthProvider } from './component/privateroute/authcontext.js';
 import './App.css';
 
 const Layout = ({ children }) => {
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
       <Router>
       <Layout>
         <Routes>
@@ -46,6 +48,7 @@ function App() {
         </Routes>
       </Layout>
     </Router>
+    </AuthProvider>
     </div>
   );
 }

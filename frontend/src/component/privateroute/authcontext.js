@@ -1,28 +1,29 @@
 // AuthContext.js
+import React, { createContext, useState, useEffect } from 'react';
+import { setAuthenticationToken, removeAuthenticationToken, getAuthenticationToken } from '../privateroute/authservice.js';
 
-import React, { createContext, useState } from 'react';
-import { isAuthenticated, setAuthenticationToken, removeAuthenticationToken } from './authservice.js';
+export const AuthContext = createContext();
 
-const AuthContext = createContext();
-
-const AuthProvider = ({ children }) => {
-  const [isAuthenticatedState, setIsAuthenticatedState] = useState(isAuthenticated());
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthenticationToken());
 
   const login = (token) => {
     setAuthenticationToken(token);
-    setIsAuthenticatedState(true);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
     removeAuthenticationToken();
-    setIsAuthenticatedState(false);
+    setIsAuthenticated(false);
   };
 
+  useEffect(() => {
+    setIsAuthenticated(!!getAuthenticationToken());
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated: isAuthenticatedState, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export { AuthContext, AuthProvider };

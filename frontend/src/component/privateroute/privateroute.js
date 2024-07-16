@@ -1,14 +1,14 @@
-// PrivateRoute.js
-
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { isAuthenticated } from './authservice.js';
+import { AuthContext } from './authcontext';
 
 const PrivateRoute = () => {
-  return isAuthenticated() ? (
+  const { isAuthenticated } = useContext(AuthContext); // Utiliser le contexte pour vérifier l'authentification
+
+  return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to="/" replace state={{ from: window.location.pathname }} />
+    <Navigate to="/login" replace state={{ from: window.location.pathname }} />
   );
 };
 

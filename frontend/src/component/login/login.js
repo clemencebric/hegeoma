@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import "./login.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setAuthenticationToken } from "../privateroute/authservice.js";
+import { AuthContext } from '../privateroute/authcontext';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -10,6 +10,7 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext); // Utiliser le contexte d'authentification
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,8 +18,7 @@ function Login() {
             setErrorMessage('');
             const response = await axios.post('http://localhost:8081/login', { email, password });
             if (response.data.token) {
-                setAuthenticationToken(response.data.token);
-                localStorage.setItem('authToken', response.data.token);
+                login(response.data.token); // Utiliser la fonction login du contexte pour gérer le token
                 navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
             } else {
                 setErrorMessage('Invalid credentials');
