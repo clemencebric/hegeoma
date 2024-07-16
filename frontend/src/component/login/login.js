@@ -24,8 +24,6 @@ function Login() {
         const configData = JSON.parse(response.config.data);//recuperer l'email dans fichier json
         const userEmail = configData.email; //email de l'user connecte
         console.log(configData);
-        /*const statutResponse = await axios.get(`http://localhost:8081/api/user-statut?email=${userEmail}`);
-        const userStatut = statutResponse.data.statut;*/
   
         console.log(response.config.data);
         login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur

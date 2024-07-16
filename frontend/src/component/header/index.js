@@ -27,6 +27,9 @@ const Header = () => {
           {contextIsAuthenticated && (
             <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
           )}
+          {contextIsAuthenticated && (
+            <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
+          )}
           <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
           <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
           {contextIsAuthenticated ? (
