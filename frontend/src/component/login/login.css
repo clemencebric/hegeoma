@@ -1,16 +1,12 @@
 .App {
     text-align: left;
 }
-
-
 .pageformulaire {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-
-}
+} 
 .formulaire {
     background-color: white;
     border: solid 1px black;

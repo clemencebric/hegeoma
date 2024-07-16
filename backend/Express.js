@@ -28,18 +28,20 @@ app.post('/login', (req, res) => {
     if (err) throw err;
 
     if (result.length === 0) {
-      return res.send('Uuser not found...');
+      return res.send('User not found...');
     }
 
     bcrypt.compare(password, result[0].password, (err, response) => {
       if (err) throw err;
 
       if (response) {
-        let token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });
+       /* let token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });*/
+        const token = jwt.sign({ id: result[0].id, email: result[0].email, status: result[0].status }, secretKey, { expiresIn: '1h' });
 
-        res.send({ token });
+        /*res.send({ token, status: result[0].status});*/
+        res.send({ token, email: result[0].email, status: result[0].status });
       } else {
-        res.send('Ppassword does not match...');
+        res.send('Password does not match...');
       }
     });
   });

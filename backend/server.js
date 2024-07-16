@@ -68,7 +68,7 @@ app.post('/login', (req, res) => {
 
             if (response) {
                 const token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });
-                return res.status(200).json({ token });
+                return res.status(200).json({ token, status: result[0].status }); //envoyer le status aussi
             } else {
                 return res.status(401).json({ success: false, message: 'Password does not match' });
             }

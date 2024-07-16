@@ -5,31 +5,39 @@ import axios from 'axios';
 import { AuthContext } from '../privateroute/authcontext';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const navigate = useNavigate();
-    const { login, setIsAuthenticated } = useContext(AuthContext); // Utiliser le contexte d'authentification
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Utiliser le contexte d'authentification
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            setErrorMessage('');
-            const response = await axios.post('http://localhost:8081/login', { email, password });
-            if (response.data.token) {
-                login(response.data.token); // Utiliser la fonction login du contexte pour gérer le token
-                setIsAuthenticated(true); // Mettre à jour isAuthenticated
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setErrorMessage('');
+      const response = await axios.post('http://localhost:8081/login', { email, password });
+      
+      if (response.data.token) {
+        const token = response.data.token;
 
-                navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
-            } else {
-                setErrorMessage('Invalid credentials');
-            }
-        } catch (error) {
-            setErrorMessage('An error occurred while processing your request.');
-            console.error('Login error:', error);
-        }
-    };
+        const configData = JSON.parse(response.config.data);//recuperer l'email dans fichier json
+        const userEmail = configData.email; //email de l'user connecte
+
+        const userStatus = response.status.status;
+        console.log(response);
+        login(token, userEmail, userStatus); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
+        
+        navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
+      } else {
+        setErrorMessage('Invalid credentials');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while processing your request.');
+      console.error('Login error:', error);
+    }
+  };
+
 
     return (
         <div className="pageformulaire flex items-center justify-center min-h-screen">

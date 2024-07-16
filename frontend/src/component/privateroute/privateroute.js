@@ -3,9 +3,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from './authcontext';
 
 const PrivateRoute = () => {
-  const { isAuthenticated } = useContext(AuthContext); // Utiliser le contexte pour vérifier l'authentification
+  const { isAuthenticated, userStatus } = useContext(AuthContext); // Utiliser le contexte pour vérifier l'authentification et le statut de l'utilisateur
 
-  return isAuthenticated ? (
+  // Vérifier si l'utilisateur est authentifié et a le statut "client"
+  const isAllowed = isAuthenticated && userStatus === 'client';
+  console.log(userStatus);
+  console.log(isAuthenticated);
+  return isAllowed ? (
     <Outlet />
   ) : (
     <Navigate to="/login" replace state={{ from: window.location.pathname }} />
