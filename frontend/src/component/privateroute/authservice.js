@@ -8,9 +8,9 @@ export const isAuthenticated = () => {
   
   export const removeAuthenticationToken = () => {
     localStorage.removeItem('authenticationToken');
+    localStorage.removeItem('authToken');
   };
   
   export const getAuthenticationToken = () => {
     return localStorage.getItem('authenticationToken');
   };
-  
