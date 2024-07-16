@@ -16,6 +16,7 @@ import Faq from './component/faq/index.js';
 import PrivateRoute from './component//privateroute/privateroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import './App.css';
+import AdminPage from './component/tabdebordadmin/pageadmin.js';
 
 const Layout = ({ children }) => {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>
               <Route path="/faq" element={<Faq />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Route>
           <Route path="*" element={<Erreur />} />
         </Routes>

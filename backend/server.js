@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'your_secret_key'; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
-
+const bodyParser = require("body-parser");
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
@@ -10,8 +10,8 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000', // Remplacez par l'origine de votre application frontend
-    methods: 'GET,POST,PUT,DELETE,INSERT,SELECT',
+    origin: 'http://localhost:3000', // application frontend
+    methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
     allowedHeaders: 'Content-Type,Authorization'
 }));
 
@@ -49,7 +49,9 @@ app.post('/signup', (req, res) => {
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    const sql = `SELECT * FROM login WHERE email = ?`;
+    // Query pour récupérer l'utilisateur basé sur l'email
+    const sql = `SELECT id, email, password, statut FROM login WHERE email = ?`;
+    
     db.query(sql, [email], (err, result) => {
         if (err) {
             console.error('Database query error:', err);
@@ -60,6 +62,7 @@ app.post('/login', (req, res) => {
             return res.status(401).json({ success: false, message: 'User not found' });
         }
 
+        // Comparaison du mot de passe hashé
         bcrypt.compare(password, result[0].password, (err, response) => {
             if (err) {
                 console.error('Error comparing passwords:', err);
@@ -67,14 +70,18 @@ app.post('/login', (req, res) => {
             }
 
             if (response) {
-                const token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });
-                return res.status(200).json({ token, status: result[0].status }); //envoyer le status aussi
+                // Génération du token JWT avec les informations de l'utilisateur
+                const token = jwt.sign({ id: result[0].id, email: result[0].email, statut: result[0].statut }, secretKey, { expiresIn: '1h' });
+
+                // Renvoyer le token, l'email et le statut de l'utilisateur
+                return res.status(200).json({ token, email: result[0].email, statut: result[0].statut });
             } else {
                 return res.status(401).json({ success: false, message: 'Password does not match' });
             }
         });
     });
 });
+
 
 function verifyToken(req, res, next) {
     const token = req.headers['authorization'];
@@ -97,6 +104,17 @@ app.get('/profile', verifyToken, (req, res) => {
             return res.status(500).send('Error connecting to the database');
         }
         res.status(200).send(result);
+    });
+});
+
+app.get('/users', (req, res) => {
+    const sql = 'SELECT * FROM login';
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json(results);
     });
 });
 

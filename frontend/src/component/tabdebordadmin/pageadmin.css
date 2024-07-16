@@ -1,0 +1,8 @@
+.pageadmin {
+    height: 100vh;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

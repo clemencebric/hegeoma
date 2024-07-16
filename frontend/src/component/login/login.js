@@ -23,10 +23,12 @@ function Login() {
 
         const configData = JSON.parse(response.config.data);//recuperer l'email dans fichier json
         const userEmail = configData.email; //email de l'user connecte
-
-        const userStatus = response.status.status;
-        console.log(response);
-        login(token, userEmail, userStatus); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
+        console.log(configData);
+        /*const statutResponse = await axios.get(`http://localhost:8081/api/user-statut?email=${userEmail}`);
+        const userStatut = statutResponse.data.statut;*/
+  
+        console.log(response.config.data);
+        login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
         
         navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
       } else {
