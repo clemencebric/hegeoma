@@ -19,6 +19,7 @@ import HegeomaRoute from './component/privateroute/hegeomaroute.js'; /*on ne peu
 import AdminRoute from './component/privateroute/adminroute.js';
 import NonConnecteRoute from './component/privateroute/nonconnecteroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
+import SchoolForm from './component/user/formulaire/formschool/formschool.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
@@ -53,6 +54,7 @@ function App() {
 
           <Route element={<ClientRoute />}>
               <Route path="/faq" element= {<Faq />} /> 
+              <Route path="/schoolform" element= {<SchoolForm />} /> 
           </Route>
 
           <Route element={<HegeomaRoute />}>

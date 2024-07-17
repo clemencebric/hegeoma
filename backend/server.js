@@ -113,6 +113,30 @@ app.get('/users', (req, res) => {
     });
 });
 
+
+/*ajouter des écoles*/
+app.post('/createschool', (req, res) => {
+    const sql = "INSERT INTO infoecole (`nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`) VALUES (?, ?, ?, ?, ?)";
+    const values = [req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine];
+    db_school.query(sql, values, (err, data) => {
+        if (err) {
+            console.error("Error during insertion:", err);
+             return res.status(500).json({ error: "Error inserting data" });
+        }
+        return res.status(201).json({ success: true, message: "School created" });
+    });
+    });
+/*afficher les ecoles*/
+app.get('/school', (req, res) => {
+    const sql = 'SELECT * FROM infoecole';
+    db_school.query(sql, (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json(results);
+    });
+});
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
