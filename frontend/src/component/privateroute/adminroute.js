@@ -13,7 +13,7 @@ const AdminRoute = () => {
   return isAllowed ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" replace state={{ from: window.location.pathname }} />
+    <Navigate to="/erreur" replace state={{ from: window.location.pathname }} />
   );
 };
 

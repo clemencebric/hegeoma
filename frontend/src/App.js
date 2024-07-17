@@ -19,6 +19,7 @@ import HegeomaRoute from './component/privateroute/hegeomaroute.js'; /*on ne peu
 import AdminRoute from './component/privateroute/adminroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
+import Erreuracces from './component/erreur/pasacces.js';
 import './App.css';
 
 
@@ -53,6 +54,7 @@ function App() {
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
            </Route>
+           <Route path="erreur" element={<Erreuracces />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>
