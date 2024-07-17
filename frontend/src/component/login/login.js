@@ -23,9 +23,9 @@ function Login() {
 
         const configData = JSON.parse(response.config.data);//recuperer l'email dans fichier json
         const userEmail = configData.email; //email de l'user connecte
-        console.log(configData);
+        console.log(response.config.data.statut);
   
-        console.log(response.config.data);
+        console.log(configData);
         login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
         
         navigate('/'); // Rediriger l'utilisateur vers la page d'accueil

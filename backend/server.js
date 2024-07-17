@@ -71,10 +71,10 @@ app.post('/login', (req, res) => {
 
             if (response) {
                 // Génération du token JWT avec les informations de l'utilisateur
-                const token = jwt.sign({ id: result[0].id, email: result[0].email, statut: result[0].statut }, secretKey, { expiresIn: '1h' });
+                const token = jwt.sign({ id: result[0].id, email: result[0].email, statut: result.statut }, secretKey, { expiresIn: '1h' });
 
                 // Renvoyer le token, l'email et le statut de l'utilisateur
-                return res.status(200).json({ token, email: result[0].email, statut: result[0].statut });
+                return res.status(200).json({ token, email: result[0].email, statut: result.statut });
             } else {
                 return res.status(401).json({ success: false, message: 'Password does not match' });
             }

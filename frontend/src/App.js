@@ -13,6 +13,7 @@ import Erreur from "./component/erreur/index.js"
 import Login from "./component/login/login.js"
 import Signup from "./component/login/signup.js"
 import Faq from './component/faq/index.js';
+import Statut from './component/header/statut.js';
 import PrivateRoute from './component//privateroute/privateroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import './App.css';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/statut" element={<Statut />} />
           <Route element={<PrivateRoute />}>
               <Route path="/faq" element={<Faq />} />
               <Route path="/admin" element={<AdminPage />} />
