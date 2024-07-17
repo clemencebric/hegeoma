@@ -3,7 +3,7 @@ import "./login.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../privateroute/authcontext';
-
+import { post } from '../fonctions/getpost.js';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,16 +16,13 @@ function Login() {
     e.preventDefault();
     try {
       setErrorMessage('');
-      const response = await axios.post('http://localhost:8081/login', { email, password });
+      const response = await post('login', {email, password});
       
-      if (response.data.token) {
-        const token = response.data.token;
-
-        const configData = JSON.parse(response.config.data);//recuperer l'email dans fichier json
-        const userEmail = configData.email; //email de l'user connecte
-        console.log(response.config.data.statut);
+      if (response.token) {
+        const token = response.token;
+        const userEmail = response.email;
   
-        console.log(configData);
+        console.log(response, response.statut);
         login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
         
         navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
