@@ -1,11 +1,13 @@
+require('dotenv').config(); //utiliser .env
+const db = require('./database.js');
 const jwt = require('jsonwebtoken');
-const secretKey = 'your_secret_key'; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
+const secretKey = process.env.SECRET_KEY; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
 const bodyParser = require("body-parser");
 const express = require('express');
-const mysql = require('mysql');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 
 const app = express();
 app.use(express.json());
@@ -14,21 +16,6 @@ app.use(cors({
     methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
     allowedHeaders: 'Content-Type,Authorization'
 }));
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "signup"
-});
-
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err.stack);
-        return;
-    }
-    console.log('Connected to the database.');
-});
 
 app.post('/signup', (req, res) => {
     bcrypt.hash(req.body.password.toString(), saltRounds, (err, hash) => {

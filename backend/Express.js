@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const db = require('../config/database');
+const db = require('../backend/database');
 
 router.delete('/logout', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];

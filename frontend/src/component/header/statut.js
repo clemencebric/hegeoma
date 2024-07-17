@@ -16,16 +16,7 @@ const Statut = () => {
         };
 
         fetchUsers();
-        const fetchStatut = async () => {
-            try {
-                const response = await axios.post('http://localhost:8081/login', { email, password });
-                setUsers(responsestatut.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-
-        fetchStatut();
+        
 
     }, []);
 
