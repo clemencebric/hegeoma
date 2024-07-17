@@ -5,8 +5,10 @@ import { isAuthenticated, removeAuthenticationToken } from "../privateroute/auth
 import { AuthContext } from '../privateroute/authcontext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {isUserAuthorized} from "./statut.js";
 
 const Header = () => {
+
   const { isAuthenticated: contextIsAuthenticated, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -24,10 +26,10 @@ const Header = () => {
         <ul>
           <li><a href="/" onClick={toggleMenu}>Home</a></li>
           <li><a href="/services" onClick={toggleMenu}>Service</a></li>
-          {contextIsAuthenticated && (
+          {contextIsAuthenticated && isUserAuthorized('client') && (
             <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
           )}
-          {contextIsAuthenticated && (
+          {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
           )}
           <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
@@ -49,5 +51,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;

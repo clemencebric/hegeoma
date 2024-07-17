@@ -13,11 +13,14 @@ import Erreur from "./component/erreur/index.js"
 import Login from "./component/login/login.js"
 import Signup from "./component/login/signup.js"
 import Faq from './component/faq/index.js';
-import Statut from './component/header/statut.js';
-import PrivateRoute from './component//privateroute/privateroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
+import { isUserAuthorized } from './component/header/statut.js';
+import AdminPage from './component/tabdebordadmin/pageadmin.js';
+import HegeomaRoute from './component/privateroute/hegeomaroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
+import AdminRoute from './component/privateroute/adminroute.js';
+import ClientRoute from './component/privateroute/clientroute.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import './App.css';
-import AdminPage from './component/tabdebordadmin/pageadmin.js';
+
 
 const Layout = ({ children }) => {
   return (
@@ -30,6 +33,7 @@ const Layout = ({ children }) => {
 };
 
 function App() {
+
   return (
     <div className="App">
       <AuthProvider>
@@ -43,11 +47,12 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/statut" element={<Statut />} />
-          <Route element={<PrivateRoute />}>
-              <Route path="/faq" element={<Faq />} />
+          <Route element={<ClientRoute />}>
+              <Route path="/faq" element= {<Faq />} /> 
+          </Route>
+          <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
-            </Route>
+           </Route>
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>

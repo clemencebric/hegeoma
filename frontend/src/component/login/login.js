@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import "./login.css";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { AuthContext } from '../privateroute/authcontext';
 import { post } from '../fonctions/getpost.js';
 function Login() {
