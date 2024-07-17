@@ -1,19 +1,19 @@
 require('dotenv').config();
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
+const db_school = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
+    database: process.env.DATABASE_SCHOOL_NAME
 });
 
-db.connect((err) => {
+db_school.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err.stack);
         return;
     }
-    console.log('Connected to the login database.');
+    console.log('Connected to the school database.');
 });
 
-module.exports = db;
+module.exports = db_school;

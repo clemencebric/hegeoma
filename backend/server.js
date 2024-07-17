@@ -1,5 +1,6 @@
 require('dotenv').config(); //utiliser .env
 const db = require('./database.js');
+const db_school = require('./databaseecole.js');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
 const bodyParser = require("body-parser");
@@ -12,7 +13,7 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000', // application frontend
+    origin: process.env.FRONTEND, // application frontend
     methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
     allowedHeaders: 'Content-Type,Authorization'
 }));
