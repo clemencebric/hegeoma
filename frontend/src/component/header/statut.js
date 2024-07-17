@@ -1,38 +1,24 @@
 // UserList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const Statut = () => {
-    const [users, setUsers] = useState([]);
-
+import {getUserEmailAndStatus } from "./../fonctions/jwtDecode"
+import { post } from '../fonctions/getpost';
+import "../login/login.css"
+function Status() {
+    const [user, setUser] = useState({ email: null, statut: null });
+  
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await axios.get('http://localhost:8081/users');
-                setUsers(response.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-
-        fetchUsers();
-        
-
+      const userData = getUserEmailAndStatus();
+      console.log(userData)
+      setUser(userData);
     }, []);
-
+  
     return (
-        <div className='pageadmin'>
-            <h2>User List</h2>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        <strong>Email:</strong> {user.email}, 
-                        <strong>Status:</strong> {user.statut}
-                    </li>
-                ))}
-            </ul>
-        </div>
+      <div className='pageformulaire'>
+        <h1>Profile</h1>
+        {user.email && <p>Email: {user.email}</p>}
+        {user.statut && <p>Statut: {user.statut}</p>}
+      </div>
     );
-};
-
-export default Statut;
+  }
+  
+  export default Status;
