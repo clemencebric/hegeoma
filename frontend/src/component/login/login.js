@@ -42,32 +42,34 @@ function Login() {
   };
 
     return (
-        <div className="pageformulaire flex items-center justify-center min-h-screen">
-            <div className="formulaire mx-auto p-6 bg-white rounded-md shadow-md">
-                <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+        <div className="pageformulaire">
+            <div className="formulaire">
+                <div className="titreform">Login</div>
                 <form className="form" onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="email" className="block mb-2">Email:</label>
+                        <label htmlFor="email" className="">Email:</label>
                         <input
                             type="text"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="inputlogin"
+                            placeholder='Entrez votre Email'
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block mb-2">Password:</label>
+                        <label htmlFor="password" className="">Password:</label>
                         <input
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="inputlogin"
+                            placeholder='Entrez votre mot de passe'
                         />
                     </div>
                     <button type="submit" className="btnlogin">Login</button>
-                    {errorMessage && <p className="text-red-500 text-sm whitespace-pre-line text-center mt-4">{errorMessage}</p>}
+                    {errorMessage && <p className="messageerreur">{errorMessage}</p>}
                 </form>
             </div>
         </div>

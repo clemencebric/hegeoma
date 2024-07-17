@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(61, 72, 79);
 } 
 .formulaire {
     background-color: white;
@@ -16,14 +17,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+}
+.titreform {
+    font-size: 35px;
+    font-weight: bold;
+    background-color: rgb(207, 207, 207);
+    padding: 25px 0px 30px 0px;
+    width: 250px;
 }
 .form {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
-    height: 200px;
-    width: 200px;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
 }
 .btn {
     border: solid 1px blue;
@@ -36,7 +45,15 @@
     background-color: green;
 }
 .btnlogin {
-    width: 100%;
+    width: 80%;
+    height: 40px;
+    font-size: 25px;
+    background-color: rgb(111, 229, 111);
+    border: none;
+    transition: 0.2s;
+}
+.btnlogin:hover {
+    background-color: rgb(202, 255, 202);
 }
 .informations {
     border: solid 1px black;
@@ -46,15 +63,16 @@
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
-
 }
-input{
+.inputlogin{
     font-size: 20px;
-
+    height: 30px;
+    width: 80%;
+    background-color: rgb(238, 238, 238);
+    border: none;
 }
 .inputlogin {
     margin: 20px;
-
 }
 .phrase {
     height: 10vh;
@@ -64,4 +82,29 @@ input{
 }
 .messageerreur {
     color: red;
+}
+@media (max-width: 700px) {
+    .formulaire {
+        width: 280px;
+        height: 400px;
+    }
+    .mb-4 {
+        width: 280px;
+    }
+    .inputlogin {
+        font-size: 15px;
+  
+    }
+}
+@media (max-width: 700px) {
+    .formulaire {
+        width: 280px;
+        height: 400px;
+    }
+    .mb-4 {
+        width: 280px;
+    }
+    .inputlogin {
+        font-size: 15px;
+    }
 }

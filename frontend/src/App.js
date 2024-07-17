@@ -21,6 +21,7 @@ import NonConnecteRoute from './component/privateroute/nonconnecteroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
+import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import './App.css';
 
@@ -53,6 +54,10 @@ function App() {
           <Route element={<ClientRoute />}>
               <Route path="/faq" element= {<Faq />} /> 
           </Route>
+
+          <Route element={<HegeomaRoute />}>
+              <Route path="/reponse-formulaire" element={<ReponseFormulaire />} />
+           </Route>
 
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
