@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
     // Query pour récupérer l'utilisateur basé sur l'email
-    const sql = `SELECT id, email, password, statut FROM login WHERE email = ?`;
+    const sql = `SELECT id, email, password, statut, actif FROM login WHERE email = ?`;
     
     db.query(sql, [email], (err, result) => {
         if (err) {
@@ -61,13 +61,14 @@ app.post('/login', (req, res) => {
             const payload = {
                 id: result[0].id,
                 email: result[0].email,
-                statut: result[0].statut
+                statut: result[0].statut,
+                actif: result[0].actif
             };
                  // Génération du token JWT avec le payload et la clé secrète
             const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
 
                 // Renvoyer le token, l'email et le statut de l'utilisateur
-                return res.status(200).json({ token, email: result[0].email, statut: result[0].statut });
+                return res.status(200).json({ token, email: result[0].email, statut: result[0].statut, actif: result[0].actif });
             } else {
                 return res.status(401).json({ success: false, message: 'Password does not match' });
             }

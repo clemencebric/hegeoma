@@ -17,12 +17,12 @@ function Login() {
     try {
       setErrorMessage('');
       const response = await post('login', {email, password});
-      console.log(response);
+
       if (response.token) {
         const token = response.token;
         const userEmail = response.email;
   
-        console.log(response, response.statut);
+        console.log(response);
         login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
         
         localStorage.setItem('token', token); //on stocke le token
