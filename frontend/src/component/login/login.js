@@ -3,6 +3,7 @@ import "./login.css";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../privateroute/authcontext';
 import { post } from '../fonctions/getpost.js';
+import { getUserEmailAndStatus } from '../header/statut.js';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,13 +21,17 @@ function Login() {
       if (response.token) {
         const token = response.token;
         const userEmail = response.email;
-  
-        console.log(response);
+
         login(token, userEmail ); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
         
         localStorage.setItem('token', token); //on stocke le token
-
-        navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
+        const userData = getUserEmailAndStatus();
+        const statut = userData.statut; // statut de l'user connecte
+        if (statut === 'admin') {
+            navigate('/admin'); // Rediriger l'utilisateur vers la page d'admin
+          } else {
+            navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
+          }
       } else {
         setErrorMessage('Invalid credentials');
       }
@@ -35,7 +40,6 @@ function Login() {
       console.error('Login error:', error);
     }
   };
-
 
     return (
         <div className="pageformulaire flex items-center justify-center min-h-screen">

@@ -24,16 +24,26 @@ const Header = () => {
       </div>
       <nav className={`header-nav ${isMenuOpen ? 'open' : ''}`}>
         <ul>
-          <li><a href="/" onClick={toggleMenu}>Home</a></li>
-          <li><a href="/services" onClick={toggleMenu}>Service</a></li>
+          
+
+        {(contextIsAuthenticated && isUserAuthorized('client')) || !contextIsAuthenticated ? (
+            <>
+              <li><a href="/" onClick={toggleMenu}>Home</a></li>
+              <li><a href="/services" onClick={toggleMenu}>Service</a></li>
+              <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
+            </>
+          ) : null}
           {contextIsAuthenticated && isUserAuthorized('client') && (
             <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
           )}
-          <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
+          {(contextIsAuthenticated && isUserAuthorized('client')) || !contextIsAuthenticated ? (
+          <>
           <li><a href="/contact" onClick={toggleMenu}>Contact</a></li>
+          </>
+           ) : null}
           {contextIsAuthenticated ? (
             <li><a href="#" onClick={logout}>Déconnexion</a></li>
           ) : (

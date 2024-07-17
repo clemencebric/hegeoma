@@ -5,7 +5,7 @@ function getUserEmailAndStatus() {
     if (!token) return { email: null, statut: null, actif : null };
   
     const decodedToken = jwtDecode(token);
-    console.log(decodedToken);
+    /*console.log(decodedToken);*/
     return { email: decodedToken.email, statut: decodedToken.statut, actif: decodedToken.actif };
   }
   export { getUserEmailAndStatus };
