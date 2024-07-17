@@ -20,19 +20,29 @@ const UserList = () => {
     }, []);
 
     return (
-        <div className='pageadmin'>
-            <h2>User List</h2>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        <strong>Email:</strong> {user.email}, 
-                        <strong>Status:</strong> {user.statut}
-                        <strong>Active:</strong> {user.actif}
-                    </li>
-                ))}
-            </ul>
+<div className='pageadmin'>
+            <h2>Liste des utilisateurs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => (
+                        <tr key={user.id}>
+                            <td>{user.email}</td>
+                            <td>{user.statut}</td>
+                            <td>{user.actif}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
+
 
 export default UserList;

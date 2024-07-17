@@ -12,14 +12,16 @@ import Blog from "./component/home/blog/pageblog.js"
 import Erreur from "./component/erreur/index.js"
 import Login from "./component/login/login.js"
 import Signup from "./component/login/signup.js"
-import Faq from './component/faq/index.js';
+import Faq from './component/user/faq/index.js';
 import { isUserAuthorized } from './component/header/statut.js';
 import AdminPage from './component/tabdebordadmin/pageadmin.js';
 import HegeomaRoute from './component/privateroute/hegeomaroute.js'; /*on ne peut acceder à la page que s'il on est authentifié*/
 import AdminRoute from './component/privateroute/adminroute.js';
+import NonConnecteRoute from './component/privateroute/nonconnecteroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
+import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import './App.css';
 
 
@@ -41,20 +43,26 @@ function App() {
       <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/mentionslegales" element={<Mentions />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route element={<ClientnoncoRoute /> }>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/contact" element={<Contact />} />
+          </Route>
+
           <Route element={<ClientRoute />}>
               <Route path="/faq" element= {<Faq />} /> 
           </Route>
+
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
            </Route>
-           <Route path="erreur" element={<Erreuracces />} />
+
+
+          <Route path="/mentionslegales" element={<Mentions />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="erreur" element={<Erreuracces />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>
