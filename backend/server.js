@@ -173,21 +173,23 @@ app.get('/userschool', (req, res) => {
 
 /*creer des classes*/
   app.post('/createclass', (req, res) => {
-    const { idutilisateur, nom } = req.body;
-    const sql = 'INSERT INTO classe (idutilisateur, nom) VALUES (?, ?)';
-    db.query(sql, [idutilisateur, nom], (err, result) => {
+    const { idecole, nom } = req.body;
+    const sql = 'INSERT INTO classes (idecole, nom) VALUES (?, ?)';
+    db_school.query(sql, [idecole, nom], (err, result) => {
       if (err) {
         console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
+        return res.status(500).json({ success: false, message: 'Server error',  });
       }
-      const classe = { id: result.insertId, nom };
+      const classe = { id: result.insertId,};
+      console.log(classe);
       res.status(201).json(classe);
     });
   });
+
   /*voir les classes*/
   app.get('/classes', (req, res) => {
-    const sql = 'SELECT * FROM classe';
-    db.query(sql, (err, results) => {
+    const sql = 'SELECT * FROM classes';
+    db_school.query(sql, (err, results) => {
       if (err) {
         console.error('Database query error:', err);
         return res.status(500).json({ success: false, message: 'Server error' });

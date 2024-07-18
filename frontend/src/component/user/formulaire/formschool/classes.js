@@ -7,6 +7,7 @@ import './classes.css';
 function Classes() {
   const [nom, setNom] = useState('');
   const [classes, setClasses] = useState([]);
+  const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); // Déplacer la déclaration de idecole en dehors de handleSubmit
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
@@ -30,9 +31,11 @@ function Classes() {
     const classeData = {
       idutilisateur,
       nom,
+      idecole, // Ajouter idecole aux données de la classe
     };
 
     try {
+      console.log(idecole)
       const response = await axios.post('http://localhost:8081/createclass', classeData);
       console.log(response.data);
       setNom('');
