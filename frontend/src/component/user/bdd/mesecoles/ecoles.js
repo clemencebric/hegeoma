@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getUserEmailAndStatus } from '../../../header/statut';
-import { post } from '../../../fonctions/getpost';
+import { get } from '../../../fonctions/getpost';
 import "./ecoles.css";
 
 const UserSchoolList = () => {
@@ -10,10 +10,11 @@ const UserSchoolList = () => {
     useEffect(() => {
         const tokendata = getUserEmailAndStatus();
         const token = tokendata.token;
-        console.log(token);
+        const userId = tokendata.id; // récupère l'ID de l'utilisateur connecté
+        console.log(userId);
         const fetchSchools = async () => {
             try {
-                const response = await post('userschool', {
+                const response = await axios.get(`http://localhost:8081/userschool`, {
                     headers: {
                       Authorization: `Bearer ${token}`
                     }

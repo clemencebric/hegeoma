@@ -139,14 +139,25 @@ app.get('/school', (req, res) => {
 });
 /*afficher seulement les ecoles de l'user*/
 app.get('/userschool', (req, res) => {
-    const userId = req.userId;
-    const sql = 'SELECT * FROM infoecole WHERE idutilisateur = ?';
-    db_school.query(sql, [userId], (err, results) => {
-      if (err) {
-        console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
-      }
-      res.status(200).json(results);
+    const authorizationHeader = req.headers['authorization']; // récupère la valeur de l'en-tête Authorization
+  
+    if (!authorizationHeader) return res.status(403).send('Access denied...');
+  
+    const token = authorizationHeader.split(' ')[1]; // extrait le token de l'en-tête Authorization
+  
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) return res.status(401).send('Invalid token...');
+  
+      const userId = decoded.id; // récupère l'ID de l'utilisateur connecté à partir du token
+  
+      const sql = 'SELECT * FROM infoecole WHERE idutilisateur = ?';
+      db_school.query(sql, [userId], (err, results) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json(results);
+      });
     });
   });
 
