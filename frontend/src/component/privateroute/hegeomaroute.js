@@ -8,7 +8,7 @@ const HegeomaRoute = () => {
 
   // Vérifier si l'utilisateur est authentifié et a le statut "client"
   const isAllowed =  statut === 'hegeoma';
-  console.log(isAllowed);
+  //console.log(isAllowed);
 
   return isAllowed ? (
     <Outlet />

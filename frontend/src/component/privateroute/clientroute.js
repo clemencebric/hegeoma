@@ -8,7 +8,7 @@ const ClientRoute = () => {
 
   // Vérifier si l'utilisateur est authentifié et a le statut "client"
   const isAllowed =  statut === 'client';
-  console.log(isAllowed);
+  //console.log(isAllowed);
 
   return isAllowed ? (
     <Outlet />

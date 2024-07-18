@@ -8,7 +8,7 @@ const NonConnecteRoute = () => {
 
   // Vérifier si l'utilisateur est authentifié et a le statut "client"
   const isAllowed = statut === null || statut === undefined;
-  console.log(isAllowed);
+  //console.log(isAllowed);
 
   return isAllowed ? (
     <Outlet />

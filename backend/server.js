@@ -125,25 +125,14 @@ app.post('/createschool', (req, res) => {
             console.error("Error during insertion:", err);
              return res.status(500).json({ error: "Error inserting data" });
         }
-        return res.status(201).json({ success: true, message: "School created" });
+        
+        idecole = data.insertId;
+        console.log(idecole)
+        return res.status(201).json({ success: true, message: "School created", idecole });
     });
     });
 
-/*menu deroulant pour email eleve*/
-/*
-app.get('/enumvalues', (req, res) => {
-    const sql = 'SELECT emaileleve FROM infoecole'; // Remplacez par la requête SQL correcte pour récupérer les valeurs de l'enum
-    db_school.query(sql, (err, results) => {
-        console.log(results)
-      if (err) {
-        console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
-      }
-      res.status(200).json(results);
-    });
-  });
-  */
-/*afficher les ecoles*/
+
 app.get('/school', verifyToken, (req, res) => {
     const userStatut = req.userStatut; // récupère le statut de l'utilisateur connecté à partir de l'objet request
   
@@ -182,6 +171,31 @@ app.get('/userschool', (req, res) => {
     });
   });
 
+/*creer des classes*/
+  app.post('/createclass', (req, res) => {
+    const { idutilisateur, nom } = req.body;
+    const sql = 'INSERT INTO classe (idutilisateur, nom) VALUES (?, ?)';
+    db.query(sql, [idutilisateur, nom], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      const classe = { id: result.insertId, nom };
+      res.status(201).json(classe);
+    });
+  });
+  /*voir les classes*/
+  app.get('/classes', (req, res) => {
+    const sql = 'SELECT * FROM classe';
+    db.query(sql, (err, results) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
+    });
+  });
+  
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

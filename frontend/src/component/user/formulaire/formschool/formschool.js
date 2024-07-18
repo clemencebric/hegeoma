@@ -13,6 +13,7 @@ function SchoolForm() {
   const [codePostal, setCodePostal] = useState('');
   const [nomDomaine, setNomDomaine] = useState('');
   const [emaileleve, setEmaileleve] = useState('');
+  const [idecole, setIdecole] = useState(null); 
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
@@ -31,14 +32,14 @@ function SchoolForm() {
     };
 
     try {
-      console.log(schoolData);
+
       const response = await axios.post('http://localhost:8081/createschool', schoolData);
-      console.log(response.data);
-      // Vous pouvez ajouter une logique pour gérer la réponse de l'API ici
-      navigate('/classes');
+      setIdecole(response.data.idecole); //id de l'ecole pour laquelle nous allons creer classe eleves et profs
+      localStorage.setItem('idecole', response.data.idecole);
+      navigate(`/classes`);
     } catch (error) {
       console.error(error);
-      // Vous pouvez ajouter une logique pour gérer les erreurs de l'API ici
+    
     }
   };
 
