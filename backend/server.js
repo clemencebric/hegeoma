@@ -77,19 +77,23 @@ app.post('/login', (req, res) => {
     });
 });
 
-
-function verifyToken(req, res, next) {
-    const token = req.headers['authorization'];
-
-    if (!token) return res.status(403).send('Access denied...');
-
+const verifyToken = (req, res, next) => {
+    const authorizationHeader = req.headers['authorization'];
+  
+    if (!authorizationHeader) return res.status(403).send('Access denied...');
+  
+    const token = authorizationHeader.split(' ')[1];
+  
     jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) return res.status(401).send('Invalid token...');
-
-        req.userId = decoded.id;
-        next();
+      if (err) return res.status(401).send('Invalid token...');
+  
+      req.userId = decoded.id; // ajoute l'ID de l'utilisateur connecté à l'objet request
+      req.userRole = decoded.role; // ajoute le rôle de l'utilisateur connecté à l'objet request
+      console.log(req.userId);
+      next();
     });
-}
+  };
+  
 
 app.get('/profile', verifyToken, (req, res) => {
     const sql = `SELECT * FROM login WHERE id = ${req.userId}`;
@@ -127,16 +131,20 @@ app.post('/createschool', (req, res) => {
     });
     });
 /*afficher les ecoles*/
-app.get('/school', (req, res) => {
+app.get('/school', verifyToken, (req, res) => {
+    const userRole = req.userRole; // récupère le rôle de l'utilisateur connecté à partir de l'objet request
+  
+    if (userRole !== 'admin') return res.status(403).send('Access denied...');
+  
     const sql = 'SELECT * FROM infoecole';
     db_school.query(sql, (err, results) => {
-        if (err) {
-            console.error('Database query error:', err);
-            return res.status(500).json({ success: false, message: 'Server error' });
-        }
-        res.status(200).json(results);
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
     });
-});
+  });
 /*afficher seulement les ecoles de l'user*/
 app.get('/userschool', (req, res) => {
     const authorizationHeader = req.headers['authorization']; // récupère la valeur de l'en-tête Authorization
