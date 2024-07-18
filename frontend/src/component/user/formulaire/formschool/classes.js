@@ -35,7 +35,6 @@ function Classes() {
     };
 
     try {
-      console.log(idecole)
       const response = await axios.post('http://localhost:8081/createclass', classeData);
       console.log(response.data);
       setNom('');
@@ -60,12 +59,24 @@ function Classes() {
         </form>
       </div>
       <div className='classelist'>
-        <ul>
-          {classes.map(classe => (
-            <li key={classe.id}>{classe.nom}</li>
-          ))}
-        </ul>
-      </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom de la classe</th>
+      </tr>
+    </thead>
+    <tbody>
+      {classes.map(classe => (
+        <tr key={classe.id}>
+          <td>{classe.nom}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<div>
+  <button> suivant </button>
+</div>
     </div>
   );
 }
