@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { getUserEmailAndStatus } from '../../../header/statut';
 import "./formschool.css"
+
 function SchoolForm() {
   const [nom, setNom] = useState('');
   const [adresse, setAdresse] = useState('');
@@ -8,10 +10,14 @@ function SchoolForm() {
   const [codePostal, setCodePostal] = useState('');
   const [nomDomaine, setNomDomaine] = useState('');
 
+  const iduserData = getUserEmailAndStatus();
+  const idutilisateur = iduserData.id;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const schoolData = {
+      idutilisateur,
       nom,
       adresse,
       ville,

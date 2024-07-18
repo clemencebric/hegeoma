@@ -116,8 +116,8 @@ app.get('/users', (req, res) => {
 
 /*ajouter des écoles*/
 app.post('/createschool', (req, res) => {
-    const sql = "INSERT INTO infoecole (`nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`) VALUES (?, ?, ?, ?, ?)";
-    const values = [req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine];
+    const sql = "INSERT INTO infoecole (`idutilisateur`, `nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [req.body.idutilisateur, req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine];
     db_school.query(sql, values, (err, data) => {
         if (err) {
             console.error("Error during insertion:", err);
