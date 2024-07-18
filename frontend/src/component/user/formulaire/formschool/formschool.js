@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
-import "./formschool.css"
+import "./formschool.css";
+
 
 function SchoolForm() {
   const [nom, setNom] = useState('');
   const [adresse, setAdresse] = useState('');
   const [ville, setVille] = useState('');
+  const [enumValues, setEnumValues] = useState([]);
   const [codePostal, setCodePostal] = useState('');
   const [nomDomaine, setNomDomaine] = useState('');
-
+  const [emaileleve, setEmaileleve] = useState('');
+  const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
 
@@ -23,6 +27,7 @@ function SchoolForm() {
       ville,
       codepostal: codePostal,
       nomdomaine: nomDomaine,
+      emaileleve,
     };
 
     try {
@@ -30,6 +35,7 @@ function SchoolForm() {
       const response = await axios.post('http://localhost:8081/createschool', schoolData);
       console.log(response.data);
       // Vous pouvez ajouter une logique pour gérer la réponse de l'API ici
+      navigate('/classes');
     } catch (error) {
       console.error(error);
       // Vous pouvez ajouter une logique pour gérer les erreurs de l'API ici
@@ -78,7 +84,15 @@ function SchoolForm() {
         onChange={(e) => setNomDomaine(e.target.value)}
       />
 
-      <button type="submit">Envoyer</button>
+<label htmlFor="emaileleve">Emaileleve:</label>
+      <select id="emaileleve" value={emaileleve} onChange={(e) => setEmaileleve(e.target.value)}>
+        <option value="">Sélectionnez une option</option>
+        <option value="prenom.nom@domaine">prenom.nom@domaine</option>
+        <option value="initiale.nom@domaine">initiale.nom@domaine</option>
+      </select>
+
+
+      <button type="submit">Suivant</button>
     </form>
   );
 }

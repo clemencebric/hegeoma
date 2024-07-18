@@ -9,7 +9,6 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -17,7 +16,23 @@ app.use(cors({
     methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
     allowedHeaders: 'Content-Type,Authorization'
 }));
-
+const verifyToken = (req, res, next) => {
+    const authorizationHeader = req.headers['authorization'];
+  
+    if (!authorizationHeader) return res.status(403).send('Access denied...');
+  
+    const token = authorizationHeader.split(' ')[1];
+  
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) return res.status(401).send('Invalid token...');
+  
+      req.userId = decoded.id; // ajoute l'ID de l'utilisateur connecté à l'objet request
+      req.userStatut = decoded.statut; // ajoute le rôle de l'utilisateur connecté à l'objet request
+      //console.log(req.userStatut); //verifier le statut de l'user
+      next();
+    });
+  };
+  
 app.post('/signup', (req, res) => {
     bcrypt.hash(req.body.password.toString(), saltRounds, (err, hash) => {
         if (err) return res.status(500).json({ error: "Error hashing password" });
@@ -77,23 +92,6 @@ app.post('/login', (req, res) => {
     });
 });
 
-const verifyToken = (req, res, next) => {
-    const authorizationHeader = req.headers['authorization'];
-  
-    if (!authorizationHeader) return res.status(403).send('Access denied...');
-  
-    const token = authorizationHeader.split(' ')[1];
-  
-    jwt.verify(token, secretKey, (err, decoded) => {
-      if (err) return res.status(401).send('Invalid token...');
-  
-      req.userId = decoded.id; // ajoute l'ID de l'utilisateur connecté à l'objet request
-      req.userStatut = decoded.statut; // ajoute le rôle de l'utilisateur connecté à l'objet request
-      console.log(req.userId);
-      next();
-    });
-  };
-  
 
 app.get('/profile', verifyToken, (req, res) => {
     const sql = `SELECT * FROM login WHERE id = ${req.userId}`;
@@ -120,8 +118,8 @@ app.get('/users', (req, res) => {
 
 /*ajouter des écoles*/
 app.post('/createschool', (req, res) => {
-    const sql = "INSERT INTO infoecole (`idutilisateur`, `nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [req.body.idutilisateur, req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine];
+    const sql = "INSERT INTO infoecole (`idutilisateur`, `nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`, `emaileleve`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const values = [req.body.idutilisateur, req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine, req.body.emaileleve];
     db_school.query(sql, values, (err, data) => {
         if (err) {
             console.error("Error during insertion:", err);
@@ -130,28 +128,34 @@ app.post('/createschool', (req, res) => {
         return res.status(201).json({ success: true, message: "School created" });
     });
     });
+
+/*menu deroulant pour email eleve*/
+/*
+app.get('/enumvalues', (req, res) => {
+    const sql = 'SELECT emaileleve FROM infoecole'; // Remplacez par la requête SQL correcte pour récupérer les valeurs de l'enum
+    db_school.query(sql, (err, results) => {
+        console.log(results)
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
+    });
+  });
+  */
 /*afficher les ecoles*/
-app.get('/school', (req, res) => {
-    const authorizationHeader = req.headers['authorization'];
+app.get('/school', verifyToken, (req, res) => {
+    const userStatut = req.userStatut; // récupère le statut de l'utilisateur connecté à partir de l'objet request
   
-    if (!authorizationHeader) return res.status(403).send('Access denied...');
+    if (userStatut !== 'admin') return res.status(403).send('Access denied...');
   
-    const token = authorizationHeader.split(' ')[1];
-    
-    jwt.verify(token, secretKey, (err, decoded) => {
-      if (err) return res.status(401).send('Invalid token...');
-  
-      const userStatut = decoded.statut; // récupère le rôle de l'utilisateur connecté à partir du token
-      if (userStatut !== 'admin') return res.status(403).send('Access denied...');
-  
-      const sql = 'SELECT * FROM infoecole';
-      db_school.query(sql, (err, results) => {
-        if (err) {
-          console.error('Database query error:', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-        res.status(200).json(results);
-      });
+    const sql = 'SELECT * FROM infoecole';
+    db_school.query(sql, (err, results) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
     });
   });
 /*afficher seulement les ecoles de l'user*/

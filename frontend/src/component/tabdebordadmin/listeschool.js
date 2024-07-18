@@ -12,7 +12,7 @@ const SchoolList = () => {
             try {
                 const tokendata = getUserEmailAndStatus();
                 const token = tokendata.token;
-                console.log(token)
+                
                 const response = await axios.get(`http://localhost:8081/school`, {
                     headers: {
                       Authorization: `Bearer ${token}`
@@ -24,6 +24,7 @@ const SchoolList = () => {
             }
         };
 
+        
         fetchUsers();
     }, []);
 
@@ -40,9 +41,11 @@ const SchoolList = () => {
                     <th>Nom de domaine</th>
                 </tr>
             </thead>
+            
             <tbody>
                 {schools.map((school) => (
-                    <tr key={school.id}>
+                    
+                    <tr key={school.idecole}>
                         <td>{school.nom}</td>
                         <td>{school.adresse}</td>
                         <td>{school.ville}</td>

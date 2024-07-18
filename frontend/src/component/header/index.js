@@ -47,6 +47,9 @@ const Header = () => {
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
           )}
+          {contextIsAuthenticated && isUserAuthorized('admin') && (
+            <li><a href="/school" onClick={toggleMenu}>Ecoles</a></li>
+          )}
           {contextIsAuthenticated && isUserAuthorized('hegeoma') && (
             <li><a href="/reponse-formulaire" onClick={toggleMenu}>Formulaires</a></li>
           )}

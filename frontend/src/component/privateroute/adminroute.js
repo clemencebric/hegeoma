@@ -8,7 +8,7 @@ const AdminRoute = () => {
 
   // Vérifier si l'utilisateur est authentifié et a le statut "client"
   const isAllowed =  statut === 'admin';
-  console.log(isAllowed);
+  //console.log(isAllowed);
 
   return isAllowed ? (
     <Outlet />
