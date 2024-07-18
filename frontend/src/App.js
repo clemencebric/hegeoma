@@ -21,6 +21,7 @@ import NonConnecteRoute from './component/privateroute/nonconnecteroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
 import UserSchoolList from './component/user/bdd/mesecoles/ecoles.js';
 import SchoolForm from './component/user/formulaire/formschool/formschool.js';
+import SchoolList from './component/tabdebordadmin/listeschool.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
@@ -65,6 +66,7 @@ function App() {
 
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
+              <Route path="/school" element={<SchoolList />} />
            </Route>
 
 

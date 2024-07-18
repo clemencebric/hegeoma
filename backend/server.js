@@ -88,7 +88,7 @@ const verifyToken = (req, res, next) => {
       if (err) return res.status(401).send('Invalid token...');
   
       req.userId = decoded.id; // ajoute l'ID de l'utilisateur connecté à l'objet request
-      req.userRole = decoded.role; // ajoute le rôle de l'utilisateur connecté à l'objet request
+      req.userStatut = decoded.statut; // ajoute le rôle de l'utilisateur connecté à l'objet request
       console.log(req.userId);
       next();
     });
@@ -131,18 +131,27 @@ app.post('/createschool', (req, res) => {
     });
     });
 /*afficher les ecoles*/
-app.get('/school', verifyToken, (req, res) => {
-    const userRole = req.userRole; // récupère le rôle de l'utilisateur connecté à partir de l'objet request
+app.get('/school', (req, res) => {
+    const authorizationHeader = req.headers['authorization'];
   
-    if (userRole !== 'admin') return res.status(403).send('Access denied...');
+    if (!authorizationHeader) return res.status(403).send('Access denied...');
   
-    const sql = 'SELECT * FROM infoecole';
-    db_school.query(sql, (err, results) => {
-      if (err) {
-        console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
-      }
-      res.status(200).json(results);
+    const token = authorizationHeader.split(' ')[1];
+    
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) return res.status(401).send('Invalid token...');
+  
+      const userStatut = decoded.statut; // récupère le rôle de l'utilisateur connecté à partir du token
+      if (userStatut !== 'admin') return res.status(403).send('Access denied...');
+  
+      const sql = 'SELECT * FROM infoecole';
+      db_school.query(sql, (err, results) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json(results);
+      });
     });
   });
 /*afficher seulement les ecoles de l'user*/
