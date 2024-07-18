@@ -137,6 +137,19 @@ app.get('/school', (req, res) => {
         res.status(200).json(results);
     });
 });
+/*afficher seulement les ecoles de l'user*/
+app.get('/userschool', (req, res) => {
+    const userId = req.userId;
+    const sql = 'SELECT * FROM infoecole WHERE idutilisateur = ?';
+    db_school.query(sql, [userId], (err, results) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
+    });
+  });
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

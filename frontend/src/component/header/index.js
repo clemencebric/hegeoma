@@ -36,6 +36,14 @@ const Header = () => {
           {contextIsAuthenticated && isUserAuthorized('client') && (
             <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
           )}
+          {contextIsAuthenticated && isUserAuthorized('client') && (
+            <li><a href="/schoolform" onClick={toggleMenu}>SchoolForm</a></li>
+          )}
+                    
+                    
+          {contextIsAuthenticated && isUserAuthorized('client') && (
+            <li><a href="/userschool" onClick={toggleMenu}>Ecoles</a></li>
+          )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
           )}
