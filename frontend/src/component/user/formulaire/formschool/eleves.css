@@ -1,0 +1,90 @@
+.pageeleve {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    background-color: rgb(74, 74, 74);
+    height: 100vh;
+  }
+  .pageblancheeleve {
+    margin-top: 50px;
+    background-color: white;
+    height: 65vh;
+  }
+  .eleveform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Occupe tout l'espace disponible */
+  }
+  .partieformeleve {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .elevelist {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ /* Ajoute une barre de défilement verticale si nécessaire */
+  }
+  .deuxparties {
+    
+  }
+  .table-containereleve {
+   /* Ajoute une barre de défilement verticale si nécessaire */
+    min-height: 60vh; /* Hauteur minimale de la zone contenant le tableau */
+    max-height: 100vh; /* Hauteur maximale de la zone contenant le tableau */
+  }
+  
+  .tableaueleve {
+    height: 80%;
+    width: 50%;
+
+  }
+  
+  .tableaueleve thead,
+  .tableaueleve tbody {
+    display: block; /* Permet de définir une hauteur fixe pour l'en-tête et le corps du tableau */
+  }
+  
+  .tableaueleve tbody {
+    overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+    height: calc(100% - 30px); /* Hauteur du corps du tableau = hauteur totale - hauteur de l'en-tête */
+  }
+  
+  .tableaueleve tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+  }
+  
+  .tableaueleve th,
+  .tableaueleve td {
+    display: table-cell;
+  }
+  
+  .table-headereleve {
+    position: sticky; /* Garde l'en-tête du tableau fixe en haut */
+    top: 0;
+    background-color: white; /* Couleur de fond de l'en-tête du tableau */
+    z-index: 1; /* Permet de superposer l'en-tête du tableau au-dessus du corps du tableau */
+  }
+  .boutonsuivanteleve {
+    background-color: rgb(136, 223, 131);
+    font-size: 20px;
+    margin: 20px 0px 20px 0px;
+    padding: 15px;
+    transition: 0.2s;
+    border: none;
+    width: 600px;
+
+}
+.boutonsuivanteleve:hover {
+    background-color: rgb(211, 255, 203);
+    
+}
+  

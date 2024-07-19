@@ -93,7 +93,7 @@ function Classes() {
 </div>
 </div>
 <div>
-  <button className='boutonsuivant'> suivant </button>
+  <button href="/eleves" className='boutonsuivant'> suivant </button>
 </div>
     </div></div>
   );

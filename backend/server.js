@@ -197,8 +197,31 @@ app.get('/userschool', (req, res) => {
       res.status(200).json(results);
     });
   });
-  
-  
+    /*voir les eleves*/
+    app.get('/eleves/:idecole', (req, res) => {
+        const idecole = req.params.idecole;
+        const sql = 'SELECT * FROM eleves WHERE idecole = ?';
+        db_school.query(sql, [idecole], (err, results) => {
+          if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+          }
+          res.status(200).json(results);
+        });
+      });
+  /*creer des eleves*/
+  app.post('/createeleve', (req, res) => {
+    const { idecole, nom } = req.body;
+    const sql = 'INSERT INTO eleves (idecole, idclasse, classe, nom, prenom, emailpun, emailpdeux, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    db_school.query(sql, [idecole, nom], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error',  });
+      }
+      const classe = { id: result.insertId,};
+      res.status(201).json(classe);
+    });
+  });
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

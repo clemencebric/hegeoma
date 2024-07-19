@@ -23,6 +23,7 @@ import UserSchoolList from './component/user/bdd/mesecoles/ecoles.js';
 import SchoolForm from './component/user/formulaire/formschool/formschool.js';
 import SchoolList from './component/tabdebordadmin/listeschool.js';
 import Classes from './component/user/formulaire/formschool/classes.js';
+import Eleves from './component/user/formulaire/formschool/eleves.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
@@ -60,6 +61,7 @@ function App() {
               <Route path="/schoolform" element= {<SchoolForm />} /> 
               <Route path="/userschool" element= {<UserSchoolList />} /> 
               <Route path="/classes" element= {<Classes/>} /> 
+              <Route path="/eleves" element= {<Eleves/>} /> 
           </Route>
 
           <Route element={<HegeomaRoute />}>
