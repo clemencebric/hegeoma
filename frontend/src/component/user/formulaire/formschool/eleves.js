@@ -62,38 +62,38 @@ function Eleves() {
   }, [idecole]);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  const className = await getClassName(idclasse);
-
-  const eleveData = {
-    idecole,
-    idclasse,
-    nom,
-    prenom,
-    classe: className, // Utilise le nom de la classe sélectionnée
-    emailpun,
-    emailpdeux,
+    e.preventDefault();
+    const className = await getClassName(idclasse);
+  
+    const eleveData = {
+      idecole,
+      idclasse,
+      nom,
+      prenom,
+      classe: className, // Utilise le nom de la classe sélectionnée
+      emailpun,
+      emailpdeux,
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:8081/createeleve', eleveData);
+      setNom('');
+      setPrenom('');
+      // Ne pas réinitialiser idclasse et selectedClassName
+      setEmailpun('');
+      setEmaildeux('');
+      const newEleve = { ...response.data, nom, prenom, classe: className, idclasse };
+      setEleves([...eleves, newEleve]);
+      setRefresh(!refresh);
+  
+      // Ajoute la nouvelle classe à l'état `classes`
+      const newClass = { idclasse: idclasse, nom: selectedClassName };
+      updateClasses(newClass);
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  try {
-    const response = await axios.post('http://localhost:8081/createeleve', eleveData);
-    setNom('');
-    setPrenom('');
-    setIdclasse('');
-    setSelectedClassName('');
-    setEmailpun('');
-    setEmaildeux('');
-    const newEleve = { ...response.data, nom, prenom, classe: className, idclasse };
-    setEleves([...eleves, newEleve]);
-    setRefresh(!refresh);
-
-    // Ajoute la nouvelle classe à l'état `classes`
-    const newClass = { idclasse: idclasse, nom: selectedClassName };
-    updateClasses(newClass);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  
 
   return (
     <div className='pageeleve'>
@@ -102,23 +102,7 @@ function Eleves() {
           <div className='partieformeleve'>
             <div className='eleveform'>
               <form className="formgauche" onSubmit={handleSubmit}>
-                <label htmlFor="nom">Nom:</label>
-                <input
-                  type="text"
-                  id="nom"
-                  value={nom}
-                  placeholder="Entrez le nom de l'élève"
-                  onChange={(e) => setNom(e.target.value)}
-                />
-                <label htmlFor="prenom">Prénom:</label>
-                <input
-                  type="text"
-                  id="prenom"
-                  value={prenom}
-                  placeholder="Entrez le prénom de l'élève"
-                  onChange={(e) => setPrenom(e.target.value)}
-                />
-                <label htmlFor="classe">Classe:</label>
+              <label htmlFor="classe">Classe:</label>
                 <select
                   id="classe"
                   value={idclasse}
@@ -136,6 +120,23 @@ function Eleves() {
                     </option>
                   ))}
                 </select>
+                <label htmlFor="nom">Nom:</label>
+                <input
+                  type="text"
+                  id="nom"
+                  value={nom}
+                  placeholder="Entrez le nom de l'élève"
+                  onChange={(e) => setNom(e.target.value)}
+                />
+                <label htmlFor="prenom">Prénom:</label>
+                <input
+                  type="text"
+                  id="prenom"
+                  value={prenom}
+                  placeholder="Entrez le prénom de l'élève"
+                  onChange={(e) => setPrenom(e.target.value)}
+                />
+
                 <label htmlFor="emailpun">Email parent 1:</label>
                 <input
                   type="email"
@@ -171,7 +172,7 @@ function Eleves() {
                           <td>{eleve.prenom}</td>
                           <td>{eleve.nom}</td>
                           <td>{eleve.classe}</td>
-                          <td>
+                           <td>
                           <button>Supprimer</button>
                          </td>
                      </tr>
