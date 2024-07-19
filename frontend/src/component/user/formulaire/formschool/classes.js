@@ -11,7 +11,9 @@ function Classes() {
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
-
+  const handleNext = () => {
+    navigate('/eleves');
+  };
   useEffect(() => {
     const fetchClasses = async () => {
       try {
@@ -94,7 +96,7 @@ function Classes() {
 </div>
 </div>
 <div>
-  <button href="/eleves" className='boutonsuivant'> suivant </button>
+  <button onClick={handleNext} className='boutonsuivant'> suivant </button>
 </div>
     </div></div>
   );

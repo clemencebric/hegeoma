@@ -14,9 +14,11 @@ function Eleves() {
   const [eleves, setEleves] = useState([]);
   const [classes, setClasses] = useState([]);
   const [idclasse, setIdclasse] = useState('');
+  const [refresh, setRefresh] = useState(false); // état pour forcer le rafraîchissement des classes
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
+
 
   const getClassName = async (idclasse) => {
     try {
@@ -29,18 +31,22 @@ function Eleves() {
     }
   };
 
+  const updateClasses = (newClass) => {
+    setClasses(prevClasses => [...prevClasses, newClass]);
+  };
+  const fetchClasses = async () => {
+    try {
+      const idecole = localStorage.getItem('idecole');
+      const response = await axios.get(`http://localhost:8081/classes/${idecole}`);
+      setClasses(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchClasses = async () => {
-      try {
-        const idecole = localStorage.getItem('idecole');
-        const response = await axios.get(`http://localhost:8081/classes/${idecole}`);
-        setClasses(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchClasses();
-  }, []);
+  }, [idecole, refresh]); // ajouter refresh comme dépendance
 
   useEffect(() => {
     const fetchEleves = async () => {
@@ -56,31 +62,38 @@ function Eleves() {
   }, [idecole]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const className = await getClassName(idclasse);
-    const eleveData = {
-      idecole,
-      idclasse,
-      nom,
-      prenom,
-      classe: className, // Utilise le nom de la classe sélectionnée
-      emailpun,
-      emailpdeux,
-    };
-    try {
-      const response = await axios.post('http://localhost:8081/createeleve', eleveData);
-      setNom('');
-      setPrenom('');
-      setIdclasse('');
-      setSelectedClassName('');
-      setEmailpun('');
-      setEmaildeux('');
-      const newEleve = { ...response.data, nom, prenom, classe: selectedClassName, idclasse };
-      setEleves([...eleves, newEleve]);
-    } catch (error) {
-      console.error(error);
-    }
+  e.preventDefault();
+  const className = await getClassName(idclasse);
+
+  const eleveData = {
+    idecole,
+    idclasse,
+    nom,
+    prenom,
+    classe: className, // Utilise le nom de la classe sélectionnée
+    emailpun,
+    emailpdeux,
   };
+
+  try {
+    const response = await axios.post('http://localhost:8081/createeleve', eleveData);
+    setNom('');
+    setPrenom('');
+    setIdclasse('');
+    setSelectedClassName('');
+    setEmailpun('');
+    setEmaildeux('');
+    const newEleve = { ...response.data, nom, prenom, classe: className, idclasse };
+    setEleves([...eleves, newEleve]);
+    setRefresh(!refresh);
+
+    // Ajoute la nouvelle classe à l'état `classes`
+    const newClass = { idclasse: idclasse, nom: selectedClassName };
+    updateClasses(newClass);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div className='pageeleve'>
@@ -112,9 +125,8 @@ function Eleves() {
                   onChange={(e) => {
                     setIdclasse(e.target.value);
                     const selectedClass = classes.find(classe => classe.idclasse === e.target.value);
-                    const selectedClassName = classes.find(classe => classe.idclasse === e.target.value);
                     setSelectedClassName(selectedClass ? selectedClass.nom : '');
-                    console.log(selectedClassName);
+                    console.log(selectedClass ? selectedClass.nom : '');
                   }}
                 >
                   <option value="" classe="">Sélectionnez une classe</option>
@@ -154,23 +166,23 @@ function Eleves() {
                   </tr>
                 </thead>
                 <tbody>
-                  {eleves.map(eleve => (
+                    {eleves.map(eleve => (
                     <tr key={eleve.id}>
-                      <td>{eleve.prenom}</td>
-                      <td>{eleve.nom}</td>
-                      <td>{eleve.classe}</td>
-                      <td>
-                        <button>Supprimer</button>
-                      </td>
-                    </tr>
-                  ))}
+                          <td>{eleve.prenom}</td>
+                          <td>{eleve.nom}</td>
+                          <td>{eleve.classe}</td>
+                          <td>
+                          <button>Supprimer</button>
+                         </td>
+                     </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
         <div>
-          <button className='boutonsuivanteleve'> suivant </button>
+          <button className='boutonsuivanteleve' onClick={() => navigate('/eleves')}>Suivant</button>
         </div>
       </div>
     </div>

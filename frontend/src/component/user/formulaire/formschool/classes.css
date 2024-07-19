@@ -55,7 +55,7 @@
     
 }
 .hauttableau {
-    position: fixed;
+    position: sticky;
 }
 .slidebar {
     width: 50vh;
