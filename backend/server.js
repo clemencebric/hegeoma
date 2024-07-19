@@ -211,15 +211,31 @@ app.get('/userschool', (req, res) => {
       });
   /*creer des eleves*/
   app.post('/createeleve', (req, res) => {
-    const { idecole, nom } = req.body;
-    const sql = 'INSERT INTO eleves (idecole, idclasse, classe, nom, prenom, emailpun, emailpdeux, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    db_school.query(sql, [idecole, nom], (err, result) => {
+    const { idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux } = req.body;
+    console.log(req.body)
+    const sql = 'INSERT INTO eleves (idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    db_school.query(sql, [idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux], (err, result) => {
       if (err) {
         console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error',  });
+        return res.status(500).json({ success: false, message: 'Server error' });
       }
-      const classe = { id: result.insertId,};
-      res.status(201).json(classe);
+      const eleve = { id: result.insertId, nom, prenom, idclasse };
+      res.status(201).json(eleve);
+    });
+  });
+  app.get('/classe/:idclasse', (req, res) => {
+    const { idclasse } = req.params;
+    const sql = 'SELECT nom FROM classes WHERE idclasse = ?';
+    db_school.query(sql, [idclasse], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      if (result.length === 0) {
+        return res.status(404).json({ success: false, message: 'Classe not found' });
+      }
+      const classe = result[0].nom;
+      res.status(200).json({ success: true, classe });
     });
   });
 app.listen(8081, () => {

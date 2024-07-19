@@ -31,9 +31,7 @@
     align-items: center;
  /* Ajoute une barre de défilement verticale si nécessaire */
   }
-  .deuxparties {
-    
-  }
+
   .table-containereleve {
    /* Ajoute une barre de défilement verticale si nécessaire */
     min-height: 60vh; /* Hauteur minimale de la zone contenant le tableau */

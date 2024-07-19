@@ -7,15 +7,27 @@ import './eleves.css';
 function Eleves() {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
-  const [classe, setClasse] = useState('');
+  const [selectedClassName, setSelectedClassName] = useState('');
   const [emailpun, setEmailpun] = useState(''); //email parent 1
   const [emailpdeux, setEmaildeux] = useState(''); //email parent 2
-  const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); // Déplacer la déclaration de idecole en dehors de handleSubmit
+  const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); 
   const [eleves, setEleves] = useState([]);
   const [classes, setClasses] = useState([]);
+  const [idclasse, setIdclasse] = useState('');
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
+
+  const getClassName = async (idclasse) => {
+    try {
+      const response = await axios.get(`http://localhost:8081/classe/${idclasse}`);
+      console.log(response);
+      return response.data.classe;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -27,43 +39,43 @@ function Eleves() {
         console.error(error);
       }
     };
-  
     fetchClasses();
   }, []);
+
   useEffect(() => {
     const fetchEleves = async () => {
       try {
         const idecole = localStorage.getItem('idecole');
-        const response = await axios.get(`http://localhost:8081/eleves/${idecole}`); // Ajouter l'id de l'école à l'URL
-        console.log("bonjour", response.data)
+        const response = await axios.get(`http://localhost:8081/eleves/${idecole}`);
         setEleves(response.data);
       } catch (error) {
         console.error(error);
       }
     };
-  
     fetchEleves();
   }, [idecole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    const className = await getClassName(idclasse);
     const eleveData = {
-      idutilisateur,
-      idecole,// Ajouter idecole aux données de la classe
+      idecole,
+      idclasse,
       nom,
       prenom,
-      classe,
+      classe: className, // Utilise le nom de la classe sélectionnée
       emailpun,
       emailpdeux,
     };
-  
     try {
       const response = await axios.post('http://localhost:8081/createeleve', eleveData);
-      console.log(response.data);
       setNom('');
-      // Vérifier si response.data a un nom, sinon utiliser le nom du state
-      const newEleve = { ...response.data, nom: response.data.nom || nom };
+      setPrenom('');
+      setIdclasse('');
+      setSelectedClassName('');
+      setEmailpun('');
+      setEmaildeux('');
+      const newEleve = { ...response.data, nom, prenom, classe: selectedClassName, idclasse };
       setEleves([...eleves, newEleve]);
     } catch (error) {
       console.error(error);
@@ -74,79 +86,94 @@ function Eleves() {
     <div className='pageeleve'>
       <div className='pageblancheeleve'>
         <div className='deuxpartieseleve'>
-      <div className='partieformeleve'>
-      <div className='eleveform'>
-      <form className="formgauche" onSubmit={handleSubmit}>
-  <label htmlFor="nom">Nom:</label>
-  <input
-    type="text"
-    id="nom"
-    value={nom}
-    placeholder="Entrez le nom de l'élève"
-    onChange={(e) => setNom(e.target.value)}
-  />
-  <label htmlFor="prenom">Prénom:</label>
-  <input
-    type="text"
-    id="prenom"
-    value={prenom}
-    placeholder="Entrez le prénom de l'élève"
-    onChange={(e) => setPrenom(e.target.value)}
-  />
-<label htmlFor="classe">Classe:</label>
-<select id="classe" value={classe} onChange={(e) => setClasse(e.target.value)}>
-  <option value="">Sélectionnez une classe</option>
-  {classes.map((classe) => (
-    <option key={classe.id} value={classe.nom}>
-      {classe.nom}
-    </option>
-  ))}
-</select>
-  <label htmlFor="emailpun">Email parent 1:</label>
-  <input
-    type="email"
-    id="emailpun"
-    value={emailpun}
-    placeholder="Entrez l'email du parent 1"
-    onChange={(e) => setEmailpun(e.target.value)}
-  />
-  <label htmlFor="emailpdeux">Email parent 2:</label>
-  <input
-    type="email"
-    id="emailpdeux"
-    value={emailpdeux}
-    placeholder="Entrez l'email du parent 2"
-    onChange={(e) => setEmaildeux(e.target.value)}
-  />
-  <button type="submit">Créer</button>
-</form>
-
+          <div className='partieformeleve'>
+            <div className='eleveform'>
+              <form className="formgauche" onSubmit={handleSubmit}>
+                <label htmlFor="nom">Nom:</label>
+                <input
+                  type="text"
+                  id="nom"
+                  value={nom}
+                  placeholder="Entrez le nom de l'élève"
+                  onChange={(e) => setNom(e.target.value)}
+                />
+                <label htmlFor="prenom">Prénom:</label>
+                <input
+                  type="text"
+                  id="prenom"
+                  value={prenom}
+                  placeholder="Entrez le prénom de l'élève"
+                  onChange={(e) => setPrenom(e.target.value)}
+                />
+                <label htmlFor="classe">Classe:</label>
+                <select
+                  id="classe"
+                  value={idclasse}
+                  onChange={(e) => {
+                    setIdclasse(e.target.value);
+                    const selectedClass = classes.find(classe => classe.idclasse === e.target.value);
+                    const selectedClassName = classes.find(classe => classe.idclasse === e.target.value);
+                    setSelectedClassName(selectedClass ? selectedClass.nom : '');
+                    console.log(selectedClassName);
+                  }}
+                >
+                  <option value="" classe="">Sélectionnez une classe</option>
+                  {classes.map((classe) => (
+                    <option key={classe.idclasse} value={classe.idclasse} classe={classe.nom}>
+                      {classe.nom}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="emailpun">Email parent 1:</label>
+                <input
+                  type="email"
+                  id="emailpun"
+                  value={emailpun}
+                  placeholder="Entrez l'email du parent 1"
+                  onChange={(e) => setEmailpun(e.target.value)}
+                />
+                <label htmlFor="emailpdeux">Email parent 2:</label>
+                <input
+                  type="email"
+                  id="emailpdeux"
+                  value={emailpdeux}
+                  placeholder="Entrez l'email du parent 2"
+                  onChange={(e) => setEmaildeux(e.target.value)}
+                />
+                <button type="submit">Créer</button>
+              </form>
+            </div>
+            <div className='elevelist'>
+              <table className='tableaueleve'>
+                <thead className='table-headereleve'>
+                  <tr>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+                    <th>Classe</th>
+                    <th>Supprimer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {eleves.map(eleve => (
+                    <tr key={eleve.id}>
+                      <td>{eleve.prenom}</td>
+                      <td>{eleve.nom}</td>
+                      <td>{eleve.classe}</td>
+                      <td>
+                        <button>Supprimer</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button className='boutonsuivanteleve'> suivant </button>
+        </div>
       </div>
-      <div className='elevelist'>
-  <table className='tableaueleve'>
-    <thead className='table-headereleve' >
-      <tr>
-        <th>Nom de la classe</th>
-        <th>Supprimer</th>
-      </tr>
-    </thead>
-    <tbody>
-      {eleves.map(eleve => (
-        <tr key={eleve.id}>
-          <td>{eleve.nom}</td>
-          <td>
-            <button >Supprimer</button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-</div></div>
-<div>
-  <button className='boutonsuivanteleve'> suivant </button>
-</div>
-    </div></div>
+    </div>
   );
 }
 
