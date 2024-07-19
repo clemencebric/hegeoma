@@ -15,13 +15,14 @@ function Classes() {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/classes');
+        const idecole = localStorage.getItem('idecole');
+        const response = await axios.get(`http://localhost:8081/classes/${idecole}`); // Ajouter l'id de l'école à l'URL
         setClasses(response.data);
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchClasses();
   }, []);
 
@@ -43,41 +44,56 @@ function Classes() {
       console.error(error);
     }
   };
-
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8081/deleteclass/${id}`);
+      setClasses(classes.filter(classe => classe.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className='pageclasse'>
+      <div className='pageblanche'>
+      <div className='partieform'>
       <div className='classeform'>
-        <form onSubmit={handleSubmit}>
+        <form className="formgauche" onSubmit={handleSubmit}>
           <label htmlFor="nom">Nom de la classe:</label>
           <input
             type="text"
             id="nom"
             value={nom}
+            placeholder='Entrez le nom de la classe'
             onChange={(e) => setNom(e.target.value)}
           />
           <button type="submit">Créer</button>
         </form>
       </div>
       <div className='classelist'>
-  <table>
+  <table className='tableauclasse'>
     <thead>
       <tr>
         <th>Nom de la classe</th>
+        <th>Supprimer</th>
       </tr>
     </thead>
     <tbody>
       {classes.map(classe => (
         <tr key={classe.id}>
           <td>{classe.nom}</td>
+          <td>
+            <button onClick={() => handleDelete(classe.id)}>Supprimer</button>
+          </td>
         </tr>
       ))}
     </tbody>
   </table>
 </div>
-<div>
-  <button> suivant </button>
 </div>
-    </div>
+<div>
+  <button className='boutonsuivant'> suivant </button>
+</div>
+    </div></div>
   );
 }
 

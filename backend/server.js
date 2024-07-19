@@ -181,15 +181,15 @@ app.get('/userschool', (req, res) => {
         return res.status(500).json({ success: false, message: 'Server error',  });
       }
       const classe = { id: result.insertId,};
-      console.log(classe);
       res.status(201).json(classe);
     });
   });
 
   /*voir les classes*/
-  app.get('/classes', (req, res) => {
-    const sql = 'SELECT * FROM classes';
-    db_school.query(sql, (err, results) => {
+  app.get('/classes/:idecole', (req, res) => {
+    const idecole = req.params.idecole;
+    const sql = 'SELECT * FROM classes WHERE idecole = ?';
+    db_school.query(sql, [idecole], (err, results) => {
       if (err) {
         console.error('Database query error:', err);
         return res.status(500).json({ success: false, message: 'Server error' });
@@ -197,6 +197,7 @@ app.get('/userschool', (req, res) => {
       res.status(200).json(results);
     });
   });
+  
   
 app.listen(8081, () => {
     console.log("Listening on port 8081");

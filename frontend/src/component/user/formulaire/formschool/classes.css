@@ -1,23 +1,54 @@
 .pageclasse {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 20px;
+    background-color: rgb(74, 74, 74);
+}
+.pageblanche {
+    background-color: white;
 }
 .classeform {
-    border: solid 1px black;
-    height: 60%;
-    width: 40%;
+
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+.partieform {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.formgauche {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.classelist {
+ 
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.classelist {
-    border: solid 1px black;
-    height: 60%;
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.tableauclasse{
+    height: 100%;
+    width: 100%;
+}
+.boutonsuivant {
+    background-color: rgb(136, 223, 131);
+    font-size: 20px;
+    margin: 20px 0px 20px 0px;
+    padding: 15px;
+    transition: 0.2s;
+    border: none;
+    width: 600px;
+
+}
+.boutonsuivant:hover {
+    background-color: rgb(211, 255, 203);
+    
 }
