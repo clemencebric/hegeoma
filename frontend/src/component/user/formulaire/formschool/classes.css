@@ -54,3 +54,12 @@
     background-color: rgb(211, 255, 203);
     
 }
+.hauttableau {
+    position: fixed;
+}
+.slidebar {
+    width: 50vh;
+    height: 40vh;
+    overflow-y: auto;
+      
+}

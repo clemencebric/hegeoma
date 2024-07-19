@@ -72,8 +72,9 @@ function Classes() {
         </form>
       </div>
       <div className='classelist'>
+        <div className='slidebar'>
   <table className='tableauclasse'>
-    <thead>
+    <thead className='hauttableau'>
       <tr>
         <th>Nom de la classe</th>
         <th>Supprimer</th>
@@ -89,7 +90,7 @@ function Classes() {
         </tr>
       ))}
     </tbody>
-  </table>
+  </table></div>
 </div>
 </div>
 <div>
