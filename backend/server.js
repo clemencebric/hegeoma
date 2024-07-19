@@ -238,6 +238,21 @@ app.get('/userschool', (req, res) => {
       res.status(200).json({ success: true, classe });
     });
   });
+    /*creer des profs*/
+    app.post('/createprofesseur', (req, res) => {
+      const { idecole, nom, prenom } = req.body;
+      console.log(req.body)
+      const sql = 'INSERT INTO professeurs (idecole, nom, prenom) VALUES ( ?, ?, ?)';
+      db_school.query(sql, [idecole, nom, prenom], (err, result) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        console.log(result)
+        const prof = { id: result.insertId, nom, prenom };
+        res.status(201).json(prof);
+      });
+    });
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

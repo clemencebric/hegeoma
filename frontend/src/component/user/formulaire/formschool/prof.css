@@ -1,4 +1,4 @@
-.pageeleve {
+.pageprof {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,24 +7,24 @@
     background-color: rgb(74, 74, 74);
     height: 100vh;
   }
-  .pageblancheeleve {
+  .pageblancheprof{
     margin-top: 50px;
     background-color: white;
     height: 65vh;
   }
-  .eleveform {
+  .profform {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-grow: 1; /* Occupe tout l'espace disponible */
   }
-  .partieformeleve {
+  .partieformprof {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .elevelist {
+  .proflist {
     height: 50vh;
     display: flex;
     justify-content: center;
@@ -32,46 +32,46 @@
  /* Ajoute une barre de défilement verticale si nécessaire */
   }
 
-  .table-containereleve {
+  .table-containerprof{
    /* Ajoute une barre de défilement verticale si nécessaire */
     min-height: 60vh; /* Hauteur minimale de la zone contenant le tableau */
     max-height: 100vh; /* Hauteur maximale de la zone contenant le tableau */
   }
   
-  .tableaueleve {
+  .tableauprof {
     height: 80%;
     width: 50%;
 
   }
   
-  .tableaueleve thead,
-  .tableaueleve tbody {
+  .tableauprof thead,
+  .tableauprof tbody {
     display: block; /* Permet de définir une hauteur fixe pour l'en-tête et le corps du tableau */
   }
   
-  .tableaueleve tbody {
+  .tableauprof tbody {
     overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
     height: calc(100% - 30px); /* Hauteur du corps du tableau = hauteur totale - hauteur de l'en-tête */
   }
   
-  .tableaueleve tr {
+  .tableauprof tr {
     width: 100%;
     display: table;
     table-layout: fixed;
   }
   
-  .tableaueleve th,
-  .tableaueleve td {
+  .tableauprof th,
+  .tableauprof td {
     display: table-cell;
   }
   
-  .table-headereleve {
+  .table-headerprof {
     position: sticky; /* Garde l'en-tête du tableau fixe en haut */
     top: 0;
     background-color: white; /* Couleur de fond de l'en-tête du tableau */
     z-index: 1; /* Permet de superposer l'en-tête du tableau au-dessus du corps du tableau */
   }
-  .boutonsuivanteleve {
+  .boutonsuivantprof {
     background-color: rgb(136, 223, 131);
     font-size: 20px;
     margin: 20px 0px 20px 0px;
@@ -81,10 +81,10 @@
     width: 600px;
 
 }
-.boutonsuivanteleve:hover {
+.boutonsuivantprof:hover {
     background-color: rgb(211, 255, 203);
     
 }
-.formgaucheeleve {
+.formgaucheprof {
     margin-left: 10vw;
 }

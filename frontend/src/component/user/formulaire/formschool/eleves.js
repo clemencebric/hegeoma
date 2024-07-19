@@ -101,7 +101,7 @@ function Eleves() {
         <div className='deuxpartieseleve'>
           <div className='partieformeleve'>
             <div className='eleveform'>
-              <form className="formgauche" onSubmit={handleSubmit}>
+              <form className="formgaucheeleve" onSubmit={handleSubmit}>
               <label htmlFor="classe">Classe:</label>
                 <select
                   id="classe"
@@ -183,7 +183,7 @@ function Eleves() {
           </div>
         </div>
         <div>
-          <button className='boutonsuivanteleve' onClick={() => navigate('/eleves')}>Suivant</button>
+          <button className='boutonsuivanteleve' onClick={() => navigate('/prof')}>Suivant</button>
         </div>
       </div>
     </div>
