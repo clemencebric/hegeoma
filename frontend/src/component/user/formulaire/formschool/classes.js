@@ -24,22 +24,24 @@ function Classes() {
     };
   
     fetchClasses();
-  }, []);
+  }, [idecole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const classeData = {
       idutilisateur,
       nom,
       idecole, // Ajouter idecole aux données de la classe
     };
-
+  
     try {
       const response = await axios.post('http://localhost:8081/createclass', classeData);
       console.log(response.data);
       setNom('');
-      setClasses([...classes, response.data]);
+      // Vérifier si response.data a un nom, sinon utiliser le nom du state
+      const newClasse = { ...response.data, nom: response.data.nom || nom };
+      setClasses([...classes, newClasse]);
     } catch (error) {
       console.error(error);
     }
