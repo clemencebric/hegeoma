@@ -1,3 +1,4 @@
+/* pageadmin.css */
 .pageadmin {
     height: 100vh;
     font-size: 20px;
@@ -5,22 +6,30 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-.pageadmin {
     padding: 20px;
 }
 
-table {
+.table-container {
     width: 80%;
+    max-height: 300px; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Ajoutez une bordure pour le conteneur pour plus de clarté */
+}
+
+table {
+    width: 100%;
     border-collapse: collapse;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
 }
 
 th {
     background-color: #f2f2f2;
-    text-align: center;
+     position: sticky;
+     top: 0;
+     z-index: 0;
 }
