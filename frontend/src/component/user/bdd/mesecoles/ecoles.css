@@ -1,0 +1,32 @@
+.pageadmin {
+    height: 100vh;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.pageadmin {
+    padding: 20px;
+}
+
+table {
+
+    border-collapse: collapse;
+}
+.tableauecole {
+    width: 80%;
+    
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}

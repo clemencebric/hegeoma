@@ -11,15 +11,11 @@ const UserSchoolList = () => {
         const tokendata = getUserEmailAndStatus();
         const token = tokendata.token;
         const userId = tokendata.id; // récupère l'ID de l'utilisateur connecté
-        console.log(userId);
+
         const fetchSchools = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/userschool`, {
-                    headers: {
-                      Authorization: `Bearer ${token}`
-                    }
-                  });
-                setSchools(response.data);
+                const response = await get('userschool', token);
+                setSchools(response);
             } catch (error) {
                 console.error('Error fetching schools:', error);
             }
@@ -31,6 +27,7 @@ const UserSchoolList = () => {
     return (
         <div className='pageadmin'>
             <h2>Liste des écoles</h2>
+            <div className='tableauecole'>
             <table>
                 <thead>
                     <tr>
@@ -52,7 +49,7 @@ const UserSchoolList = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table></div>
         </div>
     );
 };
