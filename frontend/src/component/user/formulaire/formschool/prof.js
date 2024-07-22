@@ -55,7 +55,7 @@ function Prof() {
         idprof: professeurs[professeurs.length - 1].id,
         idclasses: selectedClasses,
       });
-      console.log(response);
+      //console.log(response);
       setSelectedClasses([]);
     } catch (error) {
       console.error(error);
@@ -63,6 +63,8 @@ function Prof() {
   };
   const getClassNames = async (idprof) => {
     try {
+        //console.log(idprof);
+        //console.log("bonjour")
       const response = await axios.get(`http://localhost:8081/profclasse/${idprof}`);
       const classNames = response.data.map((item) => item.classe);
       return classNames.join(', ');
@@ -88,7 +90,7 @@ function Prof() {
       const profsWithClasses = [];
   
       for (const prof of profs) {
-        const classNames = await getClassNames(prof.id);
+        const classNames = await getClassNames(prof.idprof);
         profsWithClasses.push({ ...prof, classe: classNames });
       }
   
