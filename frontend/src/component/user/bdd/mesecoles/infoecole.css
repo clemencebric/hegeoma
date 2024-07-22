@@ -2,5 +2,23 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+.forminfoecole {
+    overflow-y: auto;
+    height: 40vh;
+    display: flex;
+    align-items: center;
     justify-content: center;
+}
+.inputforminfoecole{
+    background-color: rgb(246, 246, 246);
+    border: solid 1px grey;
+    /*border-radius: 10px;*/
+    padding: 5px;
+    width: 15vw;
+}
+.boutonchercher{
+    border: none;
+    padding: 6px;
 }

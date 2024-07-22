@@ -305,14 +305,15 @@ app.get('/profclasse/:idprof', async (req, res) => {
 });
 /*barre de recherche*/
 app.get('/search', (req, res) => {
-  const { search } = req.query;
-  const query = `SELECT * FROM eleves WHERE nom LIKE '%${search}%'`;
+  const { search, idecole } = req.query;
+  const query = `SELECT * FROM eleves WHERE idecole = ? AND (nom LIKE ? OR prenom LIKE ? OR classe LIKE ?)`;
 
-  db_school.query(query, (err, results) => {
+  db_school.query(query, [idecole, `%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
     if (err) throw err;
     res.send(results);
   });
 });
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
