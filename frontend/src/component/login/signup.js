@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./login.css";
 import Validationn from './signupValidation';
 import axios from 'axios'
+import { post } from '../fonctions/getpost.js';
+
 function Signup() {
 
     const [values, setValues] = useState({
@@ -23,7 +25,7 @@ function Signup() {
     
         // Vérification des erreurs après avoir mis à jour les erreurs
         if(validationErrors.email === "" && validationErrors.password === "") {
-            axios.post('http://localhost:8081/signup', values)
+            post('signup', values)
             .then(res => {
                 navigate('/login');
             })
