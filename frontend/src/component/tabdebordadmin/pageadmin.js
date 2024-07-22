@@ -1,6 +1,7 @@
 // UserList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { get } from '../fonctions/getpost.js';
 import "./pageadmin.css"
 
 const UserList = () => {
@@ -9,8 +10,8 @@ const UserList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/users');
-                setUsers(response.data);
+                const response = await get('users');
+                setUsers(response);
             } catch (error) {
                 console.error('Error fetching users:', error);
             }

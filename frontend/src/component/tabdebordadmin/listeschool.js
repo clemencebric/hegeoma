@@ -1,32 +1,29 @@
 // UserList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { get } from '../fonctions/getpost.js';
 import { getUserEmailAndStatus } from '../header/statut';
 import "./pageadmin.css"
 
 const SchoolList = () => {
     const [schools, setUsers] = useState([]);
 
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const tokendata = getUserEmailAndStatus();
-                const token = tokendata.token;
-                
-                const response = await axios.get(`http://localhost:8081/school`, {
-                    headers: {
-                      Authorization: `Bearer ${token}`
-                    }
-                  });
-                setUsers(response.data);
+                const response = await get('school', token);
+                console.log(response);
+                setUsers(response);
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
         };
 
-        
         fetchUsers();
     }, []);
+
 
     return (
         <div className='pageadmin'>

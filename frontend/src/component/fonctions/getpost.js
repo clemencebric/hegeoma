@@ -18,8 +18,12 @@ const post = async (endpoint, data) => {
   return json;
 };
 
-const get = async (endpoint) => {
-  const response = await fetch(`${BASE_URL}/${endpoint}`);
+const get = async (endpoint, token) => {
+  const response = await fetch(`${BASE_URL}/${endpoint}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
 
   const json = await response.json();
 
