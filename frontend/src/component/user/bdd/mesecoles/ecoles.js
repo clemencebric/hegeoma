@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { get } from '../../../fonctions/getpost';
 import "./ecoles.css";

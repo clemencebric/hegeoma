@@ -1,6 +1,7 @@
 // frontend/src/SearchBar.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { get } from '../../../fonctions/getpost';
 import "./infoecole.css";
 
 const SearchBar = () => {
@@ -35,6 +36,7 @@ const SearchBar = () => {
         <button className="boutonchercher" type="submit">Search</button>
       </form>
       {error && <p>{error}</p>}
+      <div className='tableinfoecole'>
       <table>
         <thead>
           <tr>
@@ -52,7 +54,7 @@ const SearchBar = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 };
