@@ -3,7 +3,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-}
+
+    max-height: 80vh; /* Définir la hauteur maximale à 80% de la hauteur de la fenêtre */
+    overflow: auto; /* Afficher la barre de défilement lorsque le contenu dépasse la hauteur maximale */
+  }
 .forminfoecole {
     overflow-y: auto;
     height: 40vh;

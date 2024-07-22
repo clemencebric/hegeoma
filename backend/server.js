@@ -303,7 +303,7 @@ app.get('/profclasse/:idprof', async (req, res) => {
     res.status(500).send('Erreur serveur');
   }
 });
-/*barre de recherche*/
+/*barre de recherche pour eleves */
 app.get('/search', (req, res) => {
   const { search, idecole } = req.query;
   const query = `SELECT * FROM eleves WHERE idecole = ? AND (nom LIKE ? OR prenom LIKE ? OR classe LIKE ?)`;
@@ -313,7 +313,23 @@ app.get('/search', (req, res) => {
     res.send(results);
   });
 });
+/*barre de recherche pour eleves */
+app.get('/searchteachers', (req, res) => {
+  const { search, idecole } = req.query;
+  const query = `
+    SELECT p.idprof AS id, p.nom, p.prenom, GROUP_CONCAT(c.nom SEPARATOR ', ') AS classes
+    FROM professeurs p
+    JOIN profclasse pc ON p.idprof = pc.idprof
+    JOIN classes c ON pc.idclasse = c.idclasse
+    WHERE p.idecole = ? AND (p.nom LIKE ? OR p.prenom LIKE ? OR c.nom LIKE ?)
+    GROUP BY p.idprof
+  `;
 
+  db_school.query(query, [idecole, `%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+});
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
