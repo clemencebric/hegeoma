@@ -29,7 +29,19 @@ function Prof() {
       setIdclasse(idclasse);
     }
   };
-  
+  const updateClasses = async (idprof) => {
+    try {
+      const classNames = await getClassNames(idprof);
+      setClasses(classes.map(classe => {
+        if (classNames.includes(classe.nom)) {
+          return { ...classe, selected: true };
+        }
+        return classe;
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchClasses = async () => {
     try {
@@ -100,10 +112,12 @@ function Prof() {
       setNomProf('');
       setPrenomProf('');
       setEmail('');
-      setSelectedClasses([]);
+     
       setProfesseurs([...professeurs, response.data]);
       setRefresh(!refresh);
-      await fetchClasses(); // Mettre à jour l'état classes avec les nouvelles classes associées au nouveau professeur
+      await updateClasses(response.data.id); // Mettre à jour l'état classes avec les nouvelles classes associées au nouveau professeur
+      setSelectedClasses([]);
+      setRefresh(!refresh);
     } catch (error) {
       console.error(error);
     }

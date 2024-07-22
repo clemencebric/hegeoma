@@ -284,34 +284,7 @@ app.get('/userschool', (req, res) => {
     });
   });
   
-    /*creer des profs*//*
-    app.post('/createprofesseur', (req, res) => {
-      const { idecole, nom, prenom } = req.body;
-      //console.log(req.body)
-      const sql = 'INSERT INTO professeurs (idecole, nom, prenom) VALUES ( ?, ?, ?)';
-      db_school.query(sql, [idecole, nom, prenom], (err, result) => {
-        if (err) {
-          console.error('Database query error:', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-        //console.log(result)
-        const prof = { id: result.insertId, nom, prenom };
-        res.status(201).json(prof);
-      });
-    });
-    //liaison prof classe 
-    app.post('/addprofclasses', (req, res) => {
-      const { idprof, idclasses } = req.body;
-      const sql = 'INSERT INTO profclasse (idprof, idclasse) VALUES ?';
-      const values = idclasses.map((idclasse) => [idprof, idclasse]);
-      db_school.query(sql, [values], (err, result) => {
-        if (err) {
-          console.error('Database query error:', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-        res.status(200).json({ success: true, message: 'Classes added successfully' });
-      });
-    });*/
+    
 /*recuperer les classes attribuees a un professeur*/
 app.get('/profclasse/:idprof', async (req, res) => {
   try {
@@ -330,8 +303,16 @@ app.get('/profclasse/:idprof', async (req, res) => {
     res.status(500).send('Erreur serveur');
   }
 });
+/*barre de recherche*/
+app.get('/search', (req, res) => {
+  const { search } = req.query;
+  const query = `SELECT * FROM eleves WHERE nom LIKE '%${search}%'`;
 
-
+  db_school.query(query, (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+});
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
