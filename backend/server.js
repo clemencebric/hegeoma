@@ -315,7 +315,6 @@ app.get('/userschool', (req, res) => {
 /*recuperer les classes attribuees a un professeur*/
 app.get('/profclasse/:idprof', async (req, res) => {
   try {
-    console.log(req.params.idprof);
     const idprof = req.params.idprof;
     const sql = 'SELECT c.idclasse AS cidclasse, c.nom AS classe FROM classes c JOIN profclasse pc ON c.idclasse = pc.idclasse WHERE pc.idprof = ?';
     db_school.query(sql, [idprof], (err, results) => {

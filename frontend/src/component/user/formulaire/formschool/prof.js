@@ -19,16 +19,7 @@ function Prof() {
     const iduserData = getUserEmailAndStatus();
     const idutilisateur = iduserData.id;
 
-    const getClassName = async (idclasse) => {
-        try {
-          const response = await axios.get(`http://localhost:8081/classe/${idclasse}`);
-          console.log(response);
-          return response.data.classe;
-        } catch (error) {
-          console.error(error);
-          return null;
-        }
-      };
+
   const handleClassSelect = (idclasse) => {
     if (selectedClasses.includes(idclasse)) {
       setSelectedClasses(selectedClasses.filter((id) => id !== idclasse));
@@ -49,22 +40,9 @@ function Prof() {
       console.error(error);
     }
   };
-  const handleAddClasses = async () => {
-    try {
-      const response = await axios.post('http://localhost:8081/addprofclasses', {
-        idprof: professeurs[professeurs.length - 1].id,
-        idclasses: selectedClasses,
-      });
-      //console.log(response);
-      setSelectedClasses([]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   const getClassNames = async (idprof) => {
     try {
-        //console.log(idprof);
-        //console.log("bonjour")
       const response = await axios.get(`http://localhost:8081/profclasse/${idprof}`);
       const classNames = response.data.map((item) => item.classe);
       return classNames.join(', ');
@@ -95,11 +73,11 @@ function Prof() {
       }
   
       setProfesseurs(profsWithClasses);
+      setRefresh(!refresh); // Ajouter cette ligne pour forcer le rafraîchissement des classes
     };
   
     fetchData();
   }, []);
-  
 
   useEffect(() => {
     fetchClasses();
@@ -125,6 +103,7 @@ function Prof() {
       setSelectedClasses([]);
       setProfesseurs([...professeurs, response.data]);
       setRefresh(!refresh);
+      await fetchClasses(); // Mettre à jour l'état classes avec les nouvelles classes associées au nouveau professeur
     } catch (error) {
       console.error(error);
     }
@@ -132,7 +111,7 @@ function Prof() {
 
   return (
     <div className='pageprof'>
-      <div className='pageblancheprof'>
+      <div className='pageblancheprof'> <p className='titreprof'>INFORMATIONS SUR LES PROFESSEURS</p>
         <div className='deuxpartiesprof'>
           <div className='partieformprof'>
             <div className='profform'>
@@ -164,6 +143,7 @@ function Prof() {
         
         <div className="class-list">
             <h4>Classes</h4>
+            <div className='intclasslist'>
                  {classes.map((classe) => (
                  <div key={classe.idclasse} className="class-item">
                  <input
@@ -174,8 +154,8 @@ function Prof() {
                     />
                     <label htmlFor={`class-checkbox-${classe.idclasse}`}>{classe.nom}</label>
                      </div>
-                    ))}
-                    <button className="add-classes-btn" onClick={handleAddClasses} type="submit">Ajouter</button>
+                    ))}</div>
+                    <button className="boutonajouter add-classes-btn" type="submit">Ajouter</button>
                 </div>
       </form>
             </div>
@@ -206,7 +186,7 @@ function Prof() {
           </div>
         </div>
         <div>
-          <button className='boutonsuivantprof' onClick={() => navigate('/eleves')}>Suivant</button>
+          <button className='boutonsuivantprof' onClick={() => navigate('/eleves')}>Terminer</button>
         </div>
       </div>
     </div>
