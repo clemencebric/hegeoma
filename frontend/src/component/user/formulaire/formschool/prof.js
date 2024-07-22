@@ -12,27 +12,34 @@ function Prof() {
     const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null);
     const [professeurs, setProfesseurs] = useState([]);
     const [classes, setClasses] = useState([]);
+    const [selectedClasses, setSelectedClasses] = useState([]);
     const [idclasse, setIdclasse] = useState('');
     const [refresh, setRefresh] = useState(false); // état pour forcer le rafraîchissement des classes
     const navigate = useNavigate();
     const iduserData = getUserEmailAndStatus();
     const idutilisateur = iduserData.id;
 
-
-  const getClassName = async (idclasse) => {
-    try {
-      const response = await axios.get(`http://localhost:8081/classe/${idclasse}`);
-      console.log(response);
-      return response.data.classe;
-    } catch (error) {
-      console.error(error);
-      return null;
+    const getClassName = async (idclasse) => {
+        try {
+          const response = await axios.get(`http://localhost:8081/classe/${idclasse}`);
+          console.log(response);
+          return response.data.classe;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      };
+  const handleClassSelect = (idclasse) => {
+    if (selectedClasses.includes(idclasse)) {
+      setSelectedClasses(selectedClasses.filter((id) => id !== idclasse));
+      setIdclasse('');
+    } else {
+      setSelectedClasses([...selectedClasses, idclasse]);
+      setIdclasse(idclasse);
     }
   };
+  
 
-  const updateClasses = (newClass) => {
-    setClasses(prevClasses => [...prevClasses, newClass]);
-  };
   const fetchClasses = async () => {
     try {
       const idecole = localStorage.getItem('idecole');
@@ -42,6 +49,55 @@ function Prof() {
       console.error(error);
     }
   };
+  const handleAddClasses = async () => {
+    try {
+      const response = await axios.post('http://localhost:8081/addprofclasses', {
+        idprof: professeurs[professeurs.length - 1].id,
+        idclasses: selectedClasses,
+      });
+      console.log(response);
+      setSelectedClasses([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getClassNames = async (idprof) => {
+    try {
+      const response = await axios.get(`http://localhost:8081/profclasse/${idprof}`);
+      const classNames = response.data.map((item) => item.classe);
+      return classNames.join(', ');
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+  const fetchProfesseurs = async () => {
+    try {
+      const idecole = localStorage.getItem('idecole');
+      const response = await axios.get(`http://localhost:8081/professeurs/${idecole}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const idecole = localStorage.getItem('idecole');
+      const profs = await fetchProfesseurs(idecole);
+      const profsWithClasses = [];
+  
+      for (const prof of profs) {
+        const classNames = await getClassNames(prof.id);
+        profsWithClasses.push({ ...prof, classe: classNames });
+      }
+  
+      setProfesseurs(profsWithClasses);
+    };
+  
+    fetchData();
+  }, []);
+  
 
   useEffect(() => {
     fetchClasses();
@@ -50,15 +106,13 @@ function Prof() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const classeName = await getClassName(idclasse);
   
     const profData = {
       idecole,
-      idclasse,
       nom: nomProf,
       prenom: prenomProf,
-      classe: classeName, // Utilise le nom de la classe sélectionnée
       email,
+      idclasses: selectedClasses,
     };
   
     try {
@@ -66,13 +120,14 @@ function Prof() {
       setNomProf('');
       setPrenomProf('');
       setEmail('');
+      setSelectedClasses([]);
       setProfesseurs([...professeurs, response.data]);
       setRefresh(!refresh);
     } catch (error) {
       console.error(error);
     }
   };
-  
+
   return (
     <div className='pageprof'>
       <div className='pageblancheprof'>
@@ -104,7 +159,22 @@ function Prof() {
           placeholder="Entrez l'email du professeur"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button type="submit">Créer</button>
+        
+        <div className="class-list">
+            <h4>Classes</h4>
+                 {classes.map((classe) => (
+                 <div key={classe.idclasse} className="class-item">
+                 <input
+                    type="checkbox"
+                    id={`class-checkbox-${classe.idclasse}`}
+                    checked={selectedClasses.includes(classe.idclasse)}
+                    onChange={() => handleClassSelect(classe.idclasse)}
+                    />
+                    <label htmlFor={`class-checkbox-${classe.idclasse}`}>{classe.nom}</label>
+                     </div>
+                    ))}
+                    <button className="add-classes-btn" onClick={handleAddClasses} type="submit">Ajouter</button>
+                </div>
       </form>
             </div>
             <div className='proflist'>

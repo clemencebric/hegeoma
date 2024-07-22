@@ -127,7 +127,7 @@ app.post('/createschool', (req, res) => {
         }
         
         idecole = data.insertId;
-        console.log(idecole)
+        //console.log(idecole)
         return res.status(201).json({ success: true, message: "School created", idecole });
     });
     });
@@ -212,7 +212,7 @@ app.get('/userschool', (req, res) => {
   /*creer des eleves*/
   app.post('/createeleve', (req, res) => {
     const { idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux } = req.body;
-    console.log(req.body)
+    //console.log(req.body)
     const sql = 'INSERT INTO eleves (idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     db_school.query(sql, [idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux], (err, result) => {
       if (err) {
@@ -238,21 +238,101 @@ app.get('/userschool', (req, res) => {
       res.status(200).json({ success: true, classe });
     });
   });
-    /*creer des profs*/
+
+  /*creer classes et liaisons profclasse*/
+  app.post('/createprofesseur', async (req, res) => {
+    try {
+      const { idecole, nom, prenom, email, idclasses } = req.body;
+      const sql = 'INSERT INTO professeurs (idecole, nom, prenom, email) VALUES ( ?, ?, ?, ?)';
+      db_school.query(sql, [idecole, nom, prenom, email], (err, result) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+  
+        const prof = { id: result.insertId, nom, prenom, email };
+  
+        // Ajouter les relations entre le professeur et les classes sélectionnées
+        if (idclasses && idclasses.length > 0) {
+          const sql = 'INSERT INTO profclasse (idprof, idclasse) VALUES ?';
+          const values = idclasses.map((idclasse) => [result.insertId, idclasse]);
+          db_school.query(sql, [values], (err, result) => {
+            if (err) {
+              console.error('Database query error:', err);
+              return res.status(500).json({ success: false, message: 'Server error' });
+            }
+          });
+        }
+  
+        res.status(201).json(prof);
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Erreur serveur');
+    }
+  });
+  /*renvoyer seulement les profs de l'ecole en cours de creation */
+  app.get('/professeurs/:idecole', (req, res) => {
+    const idecole = req.params.idecole;
+    const sql = 'SELECT * FROM professeurs WHERE idecole = ?';
+    db_school.query(sql, [idecole], (err, results) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+      res.status(200).json(results);
+    });
+  });
+  
+    /*creer des profs*//*
     app.post('/createprofesseur', (req, res) => {
       const { idecole, nom, prenom } = req.body;
-      console.log(req.body)
+      //console.log(req.body)
       const sql = 'INSERT INTO professeurs (idecole, nom, prenom) VALUES ( ?, ?, ?)';
       db_school.query(sql, [idecole, nom, prenom], (err, result) => {
         if (err) {
           console.error('Database query error:', err);
           return res.status(500).json({ success: false, message: 'Server error' });
         }
-        console.log(result)
+        //console.log(result)
         const prof = { id: result.insertId, nom, prenom };
         res.status(201).json(prof);
       });
     });
+    //liaison prof classe 
+    app.post('/addprofclasses', (req, res) => {
+      const { idprof, idclasses } = req.body;
+      const sql = 'INSERT INTO profclasse (idprof, idclasse) VALUES ?';
+      const values = idclasses.map((idclasse) => [idprof, idclasse]);
+      db_school.query(sql, [values], (err, result) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json({ success: true, message: 'Classes added successfully' });
+      });
+    });*/
+/*recuperer les classes attribuees a un professeur*/
+app.get('/profclasse/:idprof', async (req, res) => {
+  try {
+    console.log(req.params.idprof);
+    const idprof = req.params.idprof;
+    const sql = 'SELECT c.idclasse AS cidclasse, c.nom AS classe FROM classes c JOIN profclasse pc ON c.idclasse = pc.idclasse WHERE pc.idprof = ?';
+    db_school.query(sql, [idprof], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Erreur serveur');
+      } else {
+        res.status(200).json(results);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur serveur');
+  }
+});
+
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
