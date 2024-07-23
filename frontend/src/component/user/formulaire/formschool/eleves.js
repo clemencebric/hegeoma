@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { get, post, remove } from '../../../fonctions/getpost';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import './eleves.css';
 
@@ -22,9 +22,8 @@ function Eleves() {
 
   const getClassName = async (idclasse) => {
     try {
-      const response = await axios.get(`http://localhost:8081/classe/${idclasse}`);
-      console.log(response);
-      return response.data.classe;
+      const response = await get(`classe/${idclasse}`);
+      return response.classe;
     } catch (error) {
       console.error(error);
       return null;
@@ -37,8 +36,8 @@ function Eleves() {
   const fetchClasses = async () => {
     try {
       const idecole = localStorage.getItem('idecole');
-      const response = await axios.get(`http://localhost:8081/classes/${idecole}`);
-      setClasses(response.data);
+      const response = await get(`classes/${idecole}`);
+      setClasses(response);
     } catch (error) {
       console.error(error);
     }
@@ -52,8 +51,8 @@ function Eleves() {
     const fetchEleves = async () => {
       try {
         const idecole = localStorage.getItem('idecole');
-        const response = await axios.get(`http://localhost:8081/eleves/${idecole}`);
-        setEleves(response.data);
+        const response = await get(`eleves/${idecole}`);
+        setEleves(response);
       } catch (error) {
         console.error(error);
       }
@@ -76,13 +75,13 @@ function Eleves() {
     };
   
     try {
-      const response = await axios.post('http://localhost:8081/createeleve', eleveData);
+      const response = await post('createeleve', eleveData);
       setNom('');
       setPrenom('');
       // Ne pas réinitialiser idclasse et selectedClassName
       setEmailpun('');
       setEmaildeux('');
-      const newEleve = { ...response.data, nom, prenom, classe: className, idclasse };
+      const newEleve = { ...response, nom, prenom, classe: className, idclasse };
       setEleves([...eleves, newEleve]);
       setRefresh(!refresh);
   
