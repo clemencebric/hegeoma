@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
+import { get, post, remove } from '../../../fonctions/getpost';
 import './classes.css';
 
 function Classes() {
@@ -18,8 +18,8 @@ function Classes() {
     const fetchClasses = async () => {
       try {
         const idecole = localStorage.getItem('idecole');
-        const response = await axios.get(`http://localhost:8081/classes/${idecole}`); // Ajouter l'id de l'école à l'URL
-        setClasses(response.data);
+        const response = await get(`classes/${idecole}`); // Ajouter l'id de l'école à l'URL
+        setClasses(response);
       } catch (error) {
         console.error(error);
       }
@@ -38,24 +38,17 @@ function Classes() {
     };
   
     try {
-      const response = await axios.post('http://localhost:8081/createclass', classeData);
-      console.log(response.data);
+      const response = await post('createclass', classeData);
+      console.log(response);
       setNom('');
       // Vérifier si response.data a un nom, sinon utiliser le nom du state
-      const newClasse = { ...response.data, nom: response.data.nom || nom };
+      const newClasse = { ...response, nom: response.nom || nom };
       setClasses([...classes, newClasse]);
     } catch (error) {
       console.error(error);
     }
   };
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8081/deleteclass/${id}`);
-      setClasses(classes.filter(classe => classe.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   return (
     <div className='pageclasse'>
       <div className='pageblanche'>
@@ -87,7 +80,7 @@ function Classes() {
         <tr key={classe.id}>
           <td>{classe.nom}</td>
           <td>
-            <button onClick={() => handleDelete(classe.id)}>Supprimer</button>
+            <button>Supprimer</button>
           </td>
         </tr>
       ))}

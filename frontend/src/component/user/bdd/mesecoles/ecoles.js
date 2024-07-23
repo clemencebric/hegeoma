@@ -4,7 +4,6 @@ import { get } from '../../../fonctions/getpost';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./ecoles.css";
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { remove } from '../../../fonctions/getpost';

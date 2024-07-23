@@ -1,6 +1,5 @@
 // frontend/src/SearchTeachers.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import { get } from '../../../fonctions/getpost';
 import { useNavigate } from 'react-router-dom';
 import "./infoprofs.css";
