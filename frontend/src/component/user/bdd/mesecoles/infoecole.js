@@ -14,8 +14,8 @@ const SearchBar = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:8081/search?search=${searchTerm}&idecole=${idecole}`);
-      setResults(response.data);
+      const response = await get(`search?search=${searchTerm}&idecole=${idecole}`);
+      setResults(response);
       setError(null);
     } catch (error) {
       setError(error.message);

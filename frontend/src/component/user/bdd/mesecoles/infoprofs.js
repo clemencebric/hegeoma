@@ -1,6 +1,7 @@
 // frontend/src/SearchTeachers.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { get } from '../../../fonctions/getpost';
 import "./infoprofs.css";
 
 const SearchTeachers = () => {
@@ -13,8 +14,8 @@ const SearchTeachers = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:8081/searchteachers?search=${searchTerm}&idecole=${idecole}`);
-      setResults(response.data);
+      const response = await get(`searchteachers?search=${searchTerm}&idecole=${idecole}`);
+      setResults(response);
       setError(null);
     } catch (error) {
       setError(error.message);
