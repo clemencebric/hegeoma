@@ -81,7 +81,7 @@ app.post('/login', (req, res) => {
                 actif: result[0].actif
             };
                  // Génération du token JWT avec le payload et la clé secrète
-            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign(payload, secretKey, { expiresIn: '3h' });
 
                 // Renvoyer le token, l'email et le statut de l'utilisateur
                 return res.status(200).json({ token, email: result[0].email, statut: result[0].statut, actif: result[0].actif });
@@ -336,12 +336,37 @@ app.get('/searchteachers', (req, res) => {
     WHERE p.idecole = ? AND (p.nom LIKE ? OR p.prenom LIKE ? OR c.nom LIKE ?)
     GROUP BY p.idprof
   `;
-
   db_school.query(query, [idecole, `%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
     if (err) throw err;
     res.send(results);
   });
 });
+app.delete('/schools/:id', async (req, res) => {
+  try {
+    const schoolId = req.params.id;
+    console.log(req);
+    // Supprimez toutes les classes associées à l'école
+    await db_school.query('DELETE FROM profclasse WHERE idecole = ?', [schoolId]);
+
+    // Supprimez toutes les classes associées à l'école
+    await db_school.query('DELETE FROM classes WHERE idecole = ?', [schoolId]);
+
+    // Supprimez tous les élèves associés à l'école
+    await db_school.query('DELETE FROM eleves WHERE idecole = ?', [schoolId]);
+
+    // Supprimez tous les profs associés à l'école
+    await db_school.query('DELETE FROM professeurs WHERE idecole = ?', [schoolId]);
+
+    // Supprimez l'école
+    await db_school.query('DELETE FROM infoecole WHERE idecole = ?', [schoolId]);
+
+    res.status(200).json({ message: 'École supprimée avec succès' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la suppression de l\'école' });
+  }
+});
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
