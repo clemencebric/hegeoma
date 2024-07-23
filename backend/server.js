@@ -254,7 +254,7 @@ app.get('/ecole', (req, res) => {
   app.post('/createprofesseur', async (req, res) => {
     try {
       const { idecole, nom, prenom, email, idclasses } = req.body;
-      const sql = 'INSERT INTO professeurs (idecole, nom, prenom, email) VALUES ( ?, ?, ?, ?)';
+      const sql = 'INSERT INTO professeurs (idecole, nom, prenom, email) VALUES (?, ?, ?, ?)';
       db_school.query(sql, [idecole, nom, prenom, email], (err, result) => {
         if (err) {
           console.error('Database query error:', err);
@@ -265,8 +265,8 @@ app.get('/ecole', (req, res) => {
   
         // Ajouter les relations entre le professeur et les classes sélectionnées
         if (idclasses && idclasses.length > 0) {
-          const sql = 'INSERT INTO profclasse (idprof, idclasse) VALUES ?';
-          const values = idclasses.map((idclasse) => [result.insertId, idclasse]);
+          const sql = 'INSERT INTO profclasse (idprof, idclasse, idecole) VALUES ?';
+          const values = idclasses.map((idclasse) => [result.insertId, idclasse, idecole]);
           db_school.query(sql, [values], (err, result) => {
             if (err) {
               console.error('Database query error:', err);
@@ -282,6 +282,7 @@ app.get('/ecole', (req, res) => {
       res.status(500).send('Erreur serveur');
     }
   });
+  
   /*renvoyer seulement les profs de l'ecole en cours de creation */
   app.get('/professeurs/:idecole', (req, res) => {
     const idecole = req.params.idecole;
