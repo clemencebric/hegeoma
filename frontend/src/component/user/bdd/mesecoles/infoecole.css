@@ -1,0 +1,21 @@
+.pageinfoecolee {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.boutonsinfos {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 20vw;
+    height: 5vh;
+  
+}
+.boutoninfo {
+    border: none;
+    height: 60%;
+    width: 100px;
+    font-size: 15px;
+}

@@ -132,7 +132,7 @@ app.post('/createschool', (req, res) => {
     });
     });
 
-
+/*afficher toutes les ecoles pour l'admin*/
 app.get('/school', verifyToken, (req, res) => {
     const userStatut = req.userStatut; // récupère le statut de l'utilisateur connecté à partir de l'objet request
   
@@ -170,6 +170,17 @@ app.get('/userschool', (req, res) => {
       });
     });
   });
+/*afficher les informations d'une ecole en particulier */
+app.get('/ecole', (req, res) => {
+  const idecole = req.query.idecole;
+  db_school.query('SELECT * FROM infoecole WHERE idecole = ?', [idecole], (error, results) => {
+    if (error) {
+      res.status(500).json({ message: 'Erreur lors de la récupération des informations sur l\'école' });
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 /*creer des classes*/
   app.post('/createclass', (req, res) => {

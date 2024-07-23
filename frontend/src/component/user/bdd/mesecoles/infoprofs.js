@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { get } from '../../../fonctions/getpost';
+import { useNavigate } from 'react-router-dom';
 import "./infoprofs.css";
 
 const SearchTeachers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const idecole = localStorage.getItem('idecole');
 
   const handleSubmit = async (e) => {
@@ -20,6 +22,9 @@ const SearchTeachers = () => {
     } catch (error) {
       setError(error.message);
     }
+  };  
+  const handleInfoEcole = () => {
+    navigate('/infoecole');
   };
 
   return (
@@ -55,7 +60,8 @@ const SearchTeachers = () => {
           ))}
         </tbody>
       </table></div>
-    </div></div>
+    </div>
+    <button onClick={handleInfoEcole}>retour en arrière</button></div>
   );
 };
 

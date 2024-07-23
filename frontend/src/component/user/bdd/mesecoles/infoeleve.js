@@ -1,6 +1,6 @@
 // frontend/src/SearchBar.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { get } from '../../../fonctions/getpost';
 import "./infoeleve.css";
 
@@ -9,6 +9,7 @@ const SearchBar = () => {
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
   const idecole = localStorage.getItem('idecole');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +22,12 @@ const SearchBar = () => {
       setError(error.message);
     }
   };
-
+  const handleInfoEcole = () => {
+    navigate('/infoecole');
+  };
   return (
     <div className='pageinfoecole'>
+      <div>
       <form className='forminfoecole' onSubmit={handleSubmit}>
         <input
           className='inputforminfoecole'
@@ -34,7 +38,7 @@ const SearchBar = () => {
         />
         <input type="hidden" name="idecole" value={idecole} />
         <button className="boutonchercher" type="submit">Search</button>
-      </form>
+      </form></div>
       {error && <p>{error}</p>}
       <div className='tableinfoecole'>
       <table>
@@ -55,6 +59,7 @@ const SearchBar = () => {
           ))}
         </tbody>
       </table></div>
+      <button onClick={handleInfoEcole}>retour en arrière</button>
     </div>
   );
 };
