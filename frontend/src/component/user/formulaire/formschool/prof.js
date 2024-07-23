@@ -112,7 +112,6 @@ function Prof() {
       setNomProf('');
       setPrenomProf('');
       setEmail('');
-     
       setProfesseurs([...professeurs, response.data]);
       setRefresh(!refresh);
       await updateClasses(response.data.id); // Mettre à jour l'état classes avec les nouvelles classes associées au nouveau professeur
@@ -200,7 +199,7 @@ function Prof() {
           </div>
         </div>
         <div>
-          <button className='boutonsuivantprof' onClick={() => navigate('/eleves')}>Terminer</button>
+          <button className='boutonsuivantprof' onClick={() => navigate('/userschool')}>Terminer</button>
         </div>
       </div>
     </div>

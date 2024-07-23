@@ -16,7 +16,6 @@ table {
 }
 .tableauecole {
     width: 80%;
-    
     overflow-y: auto;
     border: 1px solid #ddd;
 }
@@ -29,4 +28,19 @@ th, td {
 th {
     background-color: #f2f2f2;
     text-align: center;
+}
+.caseactions {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.fondaction {
+    border-radius: 50%;
+    padding: 10px;
+}
+.fondeye {
+    background-color: rgb(180, 180, 255);
+}
+.fondbin {
+    background-color: rgb(255, 160, 160);
 }

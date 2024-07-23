@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { get } from '../../../fonctions/getpost';
-import "./infoecole.css";
+import "./infoeleve.css";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');

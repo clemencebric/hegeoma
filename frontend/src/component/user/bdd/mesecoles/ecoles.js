@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { get } from '../../../fonctions/getpost';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./ecoles.css";
 
 const UserSchoolList = () => {
     const [schools, setSchools] = useState([]);
-
+    /*const handleEye = () => {
+        navigate('/pagevuglobale');
+      };*/
     useEffect(() => {
         const tokendata = getUserEmailAndStatus();
         const token = tokendata.token;
@@ -35,6 +39,7 @@ const UserSchoolList = () => {
                         <th>Ville</th>
                         <th>Code Postal</th>
                         <th>Nom de domaine</th>
+                        <th>Autres actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +50,10 @@ const UserSchoolList = () => {
                             <td>{school.ville}</td>
                             <td>{school.codepostal}</td>
                             <td>{school.nomdomaine}</td>
+                            <td className='caseactions'>
+                            <div className='fondeye fondaction'><a className='icons' /*onClick={handleNext}*/><FontAwesomeIcon icon={faEye} style={{ color: "#000000" }} size="lg" /></a></div>
+                            <div className='fondbin fondaction'><a className='icons' href="https://fr.linkedin.com/company/hegeoma"><FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="lg" /></a></div>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
