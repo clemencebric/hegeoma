@@ -21,42 +21,44 @@ function Schoolapp() {
     const fetchApps = async () => {
       try {
         const response = await get(`getapps/${idecole}`);
-        setApps(response);
+        setApps(response.map(app => ({ idapp: app.idapp, nomapp: app.nomapp })));
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchApps();
   }, [idecole]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const AppData = {
       idecole,
       nomapp,
     };
-
+  
     try {
       const response = await post('createappshcool', AppData);
-      const newApp = { id: response.idapp, nomapp: response.nomapp || nomapp }; // Utilisation de idapp
+      const newApp = { idapp: response.insertId, nomapp: response.nomapp || nomapp }; // Utilisation de insertId
       setApps([...apps, newApp]);
       setNomApp('');
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   const handleDelete = async (appId) => {
     try {
-        console.log(appId);
+      console.log(appId);
       await remove(`deleteapp/${appId}`);
-      setApps(apps.filter(app => app.id !== appId));
+      setApps(apps.filter(app => app.idapp !== appId));
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <div className='pageclasse'>
@@ -92,7 +94,7 @@ function Schoolapp() {
                       <td>
                         <button
                           className='iconepoubelle'
-                          onClick={() => handleDelete(app.id)}
+                          onClick={() => handleDelete(app.idapp)}
                         >
                           <FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="2x" />
                         </button>
