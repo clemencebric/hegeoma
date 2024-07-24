@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
+import { get, post, remove } from '../../../fonctions/getpost';
 import "./formschool.css";
 
 
@@ -32,9 +32,9 @@ function SchoolForm() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8081/createschool', schoolData);
-      setIdecole(response.data.idecole); //id de l'ecole pour laquelle nous allons creer classe eleves et profs
-      localStorage.setItem('idecole', response.data.idecole);
+      const response = await post('createschool', schoolData);
+      setIdecole(response.idecole); //id de l'ecole pour laquelle nous allons creer classe eleves et profs
+      localStorage.setItem('idecole', response.idecole);
       navigate(`/appecole`);
     } catch (error) {
       console.error(error);
