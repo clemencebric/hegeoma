@@ -192,6 +192,7 @@ app.get('/ecole', (req, res) => {
         return res.status(500).json({ success: false, message: 'Server error',  });
       }
       const classe = { id: result.insertId,};
+      console.log(classe);
       res.status(201).json(classe);
     });
   });
@@ -234,6 +235,7 @@ app.get('/ecole', (req, res) => {
       res.status(201).json(eleve);
     });
   });
+/*afficher classes */
   app.get('/classe/:idclasse', (req, res) => {
     const { idclasse } = req.params;
     const sql = 'SELECT nom FROM classes WHERE idclasse = ?';
@@ -249,6 +251,19 @@ app.get('/ecole', (req, res) => {
       res.status(200).json({ success: true, classe });
     });
   });
+/*supprimer classes */
+app.delete('/deleteclass/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM classes WHERE idclasse = ?';
+  db_school.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json({ success: true, message: 'Classe supprimée avec succès' });
+  });
+});
+
 
   /*creer classes et liaisons profclasse*/
   app.post('/createprofesseur', async (req, res) => {
