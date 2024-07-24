@@ -272,6 +272,7 @@ app.get('/ecole', (req, res) => {
 app.delete('/deleteclass/:id', (req, res) => {
   const { id } = req.params;
   const updateSql = 'UPDATE eleves SET idclasse = NULL, classe = NULL WHERE idclasse = ?'; // Mettre à jour les élèves qui sont dans la classe à supprimer
+  const updateprofclasseSql = 'DELETE FROM profclasse WHERE idclasse = ?'; // Supprimer la classe
   const deleteSql = 'DELETE FROM classes WHERE idclasse = ?'; // Supprimer la classe
 
   db_school.query(updateSql, [id], (err, result) => {
@@ -279,7 +280,11 @@ app.delete('/deleteclass/:id', (req, res) => {
       console.error('Database query error:', err);
       return res.status(500).json({ success: false, message: 'Server error' });
     }
-
+    db_school.query(updateprofclasseSql, [id], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
     db_school.query(deleteSql, [id], (err, result) => {
       if (err) {
         console.error('Database query error:', err);
@@ -290,12 +295,13 @@ app.delete('/deleteclass/:id', (req, res) => {
     });
   }); 
 });
+});
 /*modifier la classe d'un eleve*/
 app.post('/updateeleve/:id', async (req, res) => {
   const { id } = req.params; // Récupérer l'ID de l'élève à partir des paramètres de la requête
   const { idclasse } = req.body; // Récupérer l'ID de la nouvelle classe à partir du corps de la requête
 
-  console.log("ideleve:", id, "idclasse:", idclasse);
+  //console.log("ideleve:", id, "idclasse:", idclasse);
 
   try {
     // Vérifiez que la nouvelle classe existe et récupérez le nom de la classe
@@ -473,7 +479,7 @@ app.get('/searchteachers', (req, res) => {
 app.delete('/schools/:id', async (req, res) => {
   try {
     const schoolId = req.params.id;
-    console.log(req);
+    //console.log(req);
     // Supprimez toutes les classes associées à l'école
     await db_school.query('DELETE FROM profclasse WHERE idecole = ?', [schoolId]);
 
