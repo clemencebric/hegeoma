@@ -374,7 +374,57 @@ app.post('/updateeleve/:id', async (req, res) => {
       res.status(200).json(results);
     });
   });
+ /*supprimer un professeur et ses classes attribuees*/
+ app.delete('/deleteprofesseur/:idprof', async (req, res) => {
+  const idprof = req.params.idprof;
   
+  try {
+    // Commencer une transaction pour garantir l'intégrité des données
+    await new Promise((resolve, reject) => {
+      db_school.beginTransaction((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+
+    // Supprimer les associations du professeur avec les classes
+    await new Promise((resolve, reject) => {
+      const sqlDeleteProfClasse = 'DELETE FROM profclasse WHERE idprof = ?';
+      db_school.query(sqlDeleteProfClasse, [idprof], (err, result) => {
+        if (err) {
+          db_school.rollback(() => reject(err));
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    // Supprimer le professeur
+    await new Promise((resolve, reject) => {
+      const sqlDeleteProfesseur = 'DELETE FROM professeurs WHERE idprof = ?';
+      db_school.query(sqlDeleteProfesseur, [idprof], (err, result) => {
+        if (err) {
+          db_school.rollback(() => reject(err));
+        } else {
+          db_school.commit((err) => {
+            if (err) {
+              db_school.rollback(() => reject(err));
+            } else {
+              resolve();
+            }
+          });
+        }
+      });
+    });
+
+    // Envoyer une réponse de succès
+    res.status(200).json({ success: true, message: 'Professeur supprimé avec succès' });
+  } catch (error) {
+    // En cas d'erreur, faire un rollback de la transaction
+    console.error('Database error:', error);
+    res.status(500).json({ success: false, message: 'Erreur serveur' });
+  }
+});  
     
 /*recuperer les classes attribuees a un professeur*/
 app.get('/profclasse/:idprof', async (req, res) => {

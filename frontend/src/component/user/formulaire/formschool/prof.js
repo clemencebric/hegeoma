@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import './prof.css';
 
 function Prof() {
@@ -103,11 +106,11 @@ function Prof() {
     const handleDeleteProf = async (idprof) => {
         try {
             await axios.delete(`http://localhost:8081/deleteprofesseur/${idprof}`);
-            // Mettre à jour la liste des professeurs
+            // Mettre à jour la liste des professeurs après la suppression
             setProfesseurs(prev => prev.filter(prof => prof.idprof !== idprof));
             setRefresh(!refresh);
         } catch (error) {
-            console.error(error);
+            console.error('Erreur lors de la suppression du professeur :', error);
         }
     };
 
@@ -180,7 +183,9 @@ function Prof() {
                                             <td>{prof.nom}</td>
                                             <td>{prof.classe}</td>
                                             <td>
-                                                <button onClick={() => handleDeleteProf(prof.idprof)}>Supprimer</button>
+                                                <button className="poubelleprof" onClick={() => handleDeleteProf(prof.idprof)}>
+                                                    <FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="2x" />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
