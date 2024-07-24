@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { get, post, remove} from '../../../fonctions/getpost';
 
 import './prof.css';
 
@@ -32,8 +33,8 @@ function Prof() {
     // Fetch des classes depuis l'API
     const fetchClasses = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/classes/${idecole}`);
-            setClasses(response.data);
+            const response = await get(`classes/${idecole}`);
+            setClasses(response);
         } catch (error) {
             console.error(error);
         }
@@ -42,8 +43,8 @@ function Prof() {
     // Fetch des professeurs depuis l'API
     const fetchProfesseurs = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/professeurs/${idecole}`);
-            const profs = response.data;
+            const response = await get(`professeurs/${idecole}`);
+            const profs = response;
             // Pour chaque professeur, fetch des classes associées
             const profsWithClasses = await Promise.all(profs.map(async (prof) => {
                 const classNames = await getClassNames(prof.idprof);
@@ -58,8 +59,8 @@ function Prof() {
     // Fetch des noms de classes associées à un professeur
     const getClassNames = async (idprof) => {
         try {
-            const response = await axios.get(`http://localhost:8081/profclasse/${idprof}`);
-            const classNames = response.data.map((item) => item.classe);
+            const response = await get(`profclasse/${idprof}`);
+            const classNames = response.map((item) => item.classe);
             return classNames.join(', ');
         } catch (error) {
             console.error(error);
@@ -88,13 +89,13 @@ function Prof() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8081/createprofesseur', profData);
+            const response = await post('createprofesseur', profData);
             // Réinitialiser les champs du formulaire
             setNomProf('');
             setPrenomProf('');
             setEmail('');
             // Ajouter le professeur à la liste et rafraîchir les données
-            setProfesseurs(prev => [...prev, response.data]);
+            setProfesseurs(prev => [...prev, response]);
             setSelectedClasses([]);
             setRefresh(!refresh);
         } catch (error) {
@@ -105,7 +106,7 @@ function Prof() {
     // Gestion de la suppression d'un professeur
     const handleDeleteProf = async (idprof) => {
         try {
-            await axios.delete(`http://localhost:8081/deleteprofesseur/${idprof}`);
+            await remove(`deleteprofesseur/${idprof}`);
             // Mettre à jour la liste des professeurs après la suppression
             setProfesseurs(prev => prev.filter(prof => prof.idprof !== idprof));
             setRefresh(!refresh);
