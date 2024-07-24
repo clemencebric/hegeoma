@@ -250,7 +250,7 @@ app.get('/ecole', (req, res) => {
       res.status(200).json({ success: true, classe });
     });
   });
-/*supprimer classes */
+/*supprimer classes */ 
 app.delete('/deleteclass/:id', (req, res) => {
   const { id } = req.params;
   const updateSql = 'UPDATE eleves SET idclasse = NULL, classe = NULL WHERE idclasse = ?'; // Mettre à jour les élèves qui sont dans la classe à supprimer
@@ -274,27 +274,41 @@ app.delete('/deleteclass/:id', (req, res) => {
 });
 /*modifier la classe d'un eleve*/
 app.post('/updateeleve/:id', async (req, res) => {
-  const { id } = req.params; //undefined
-  console.log(req.body)
-  const { idclasse } = req.body; //fonctionne
-  console.log(id, idclasse);
+  const { id } = req.params; // Récupérer l'ID de l'élève à partir des paramètres de la requête
+  const { idclasse } = req.body; // Récupérer l'ID de la nouvelle classe à partir du corps de la requête
+
+  console.log("ideleve:", id, "idclasse:", idclasse);
+
   try {
-    // Vérifiez que la nouvelle classe existe
-    const classe = await db_school.query('SELECT * FROM classes WHERE idclasse = ?', [idclasse]);
-    if (classe.length === 0) {
-      return res.status(400).json({ message: 'La classe sélectionnée n\'existe pas' });
-    }
+    // Vérifiez que la nouvelle classe existe et récupérez le nom de la classe
+    const getClassSql = 'SELECT idecole, nom FROM classes WHERE idclasse = ?';
+    db_school.query(getClassSql, [idclasse], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ message: 'Server error' });
+      }
 
-    // Mettez à jour la classe de l'élève dans la base de données
-    await db_school.query('UPDATE eleves SET idclasse = ? WHERE ideleve = ?', [idclasse, id]);
+      if (result.length === 0) {
+        return res.status(400).json({ message: 'La classe sélectionnée n\'existe pas' });
+      }
 
-    // Renvoie une réponse
-    res.status(200).json({ message: 'La classe de l\'élève a été mise à jour avec succès' });
+      const classe = result[0];
+     // console.log(classe.nom); // classe
+      const updateSql = 'UPDATE eleves SET idclasse = ?, classe = ? WHERE ideleve = ?';
+      db_school.query(updateSql, [idclasse, classe.nom, id], (updateErr, updateResult) => {
+        if (updateErr) {
+          console.error('Database query error:', updateErr);
+          return res.status(500).json({ message: 'Erreur lors de la mise à jour de la classe de l\'élève' });
+        }
+        res.status(200).json({ message: 'La classe de l\'élève a été mise à jour avec succès' });
+      });
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur lors de la mise à jour de la classe de l\'élève' });
   }
 });
+
 
 
   /*creer classes et liaisons profclasse*/
