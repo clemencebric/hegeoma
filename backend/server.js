@@ -234,6 +234,24 @@ app.get('/ecole', (req, res) => {
       res.status(201).json(eleve);
     });
   });
+  /*supprimer des eleves */
+  app.delete('/eleve/:ideleve', (req, res) => {
+    const { ideleve } = req.params;
+  
+    const sql = 'DELETE FROM eleves WHERE ideleve = ?'; 
+    db_school.query(sql, [ideleve], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ success: false, message: 'Élève non trouvé' });
+      }
+  
+      res.status(200).json({ success: true, message: 'Élève supprimé avec succès' });
+    });
+  });
 /*afficher classes */
   app.get('/classe/:idclasse', (req, res) => {
     const { idclasse } = req.params;

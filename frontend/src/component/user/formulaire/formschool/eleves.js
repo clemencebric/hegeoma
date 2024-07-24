@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { get, post, remove } from '../../../fonctions/getpost';
 import { getUserEmailAndStatus } from '../../../header/statut';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import './eleves.css';
 
 function Eleves() {
@@ -9,8 +11,8 @@ function Eleves() {
   const [prenom, setPrenom] = useState('');
   const [selectedClassName, setSelectedClassName] = useState('');
   const [selectedClasses, setSelectedClasses] = useState({});
-  const [emailpun, setEmailpun] = useState(''); //email parent 1
-  const [emailpdeux, setEmaildeux] = useState(''); //email parent 2
+  const [emailpun, setEmailpun] = useState(''); // email parent 1
+  const [emailpdeux, setEmaildeux] = useState(''); // email parent 2
   const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); 
   const [eleves, setEleves] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -102,12 +104,20 @@ function Eleves() {
   const handleClassConfirm = async (eleveId) => {
     try {
       const selectedClass = selectedClasses[eleveId];
-      console.log(eleveId)
       const response = await post(`updateeleve/${eleveId}`, { idclasse: selectedClass });
       const updatedClassName = await getClassName(selectedClass);
       setEleves(prevEleves => prevEleves.map(eleve => 
         eleve.ideleve === eleveId ? { ...eleve, idclasse: selectedClass, classe: updatedClassName } : eleve
       ));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteEleve = async (eleveId) => {
+    try {
+      await remove(`eleve/${eleveId}`);
+      setEleves(prevEleves => prevEleves.filter(eleve => eleve.ideleve !== eleveId));
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +131,7 @@ function Eleves() {
           <div className='partieformeleve'>
             <div className='eleveform'>
               <form className="formgaucheeleve" onSubmit={handleSubmit}>
-              <label htmlFor="classe">Classe:</label>
+                <label htmlFor="classe">Classe:</label>
                 <select
                   id="classe"
                   value={idclasse}
@@ -129,10 +139,9 @@ function Eleves() {
                     setIdclasse(e.target.value);
                     const selectedClass = classes.find(classe => classe.idclasse === e.target.value);
                     setSelectedClassName(selectedClass ? selectedClass.nom : '');
-                    console.log(selectedClass ? selectedClass.nom : '');
                   }}
                 >
-                  <option value="" classe="">Sélectionnez une classe</option>
+                  <option value="">Sélectionnez une classe</option>
                   {classes.map((classe) => (
                     <option key={classe.idclasse} value={classe.idclasse} classe={classe.nom}>
                       {classe.nom}
@@ -179,7 +188,7 @@ function Eleves() {
               <table className='tableaueleve'>
                 <thead className='table-headereleve'>
                   <tr>
-                    <th>Prenom</th>
+                    <th>Prénom</th>
                     <th>Nom</th>
                     <th>Classe</th>
                     <th>Supprimer</th>
@@ -206,7 +215,9 @@ function Eleves() {
                         )}
                       </td>
                       <td>
-                        <button>Supprimer</button>
+                        <button className='poubelleeleve' onClick={() => handleDeleteEleve(eleve.ideleve)}>
+                          <FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="2x" />
+                        </button>
                       </td>
                     </tr>
                   ))}
