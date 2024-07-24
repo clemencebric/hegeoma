@@ -272,6 +272,29 @@ app.delete('/deleteclass/:id', (req, res) => {
     });
   }); 
 });
+/*modifier la classe d'un eleve*/
+app.post('/updateeleve/:id', async (req, res) => {
+  const { id } = req.params; //undefined
+  console.log(req.body)
+  const { idclasse } = req.body; //fonctionne
+  console.log(id, idclasse);
+  try {
+    // Vérifiez que la nouvelle classe existe
+    const classe = await db_school.query('SELECT * FROM classes WHERE idclasse = ?', [idclasse]);
+    if (classe.length === 0) {
+      return res.status(400).json({ message: 'La classe sélectionnée n\'existe pas' });
+    }
+
+    // Mettez à jour la classe de l'élève dans la base de données
+    await db_school.query('UPDATE eleves SET idclasse = ? WHERE ideleve = ?', [idclasse, id]);
+
+    // Renvoie une réponse
+    res.status(200).json({ message: 'La classe de l\'élève a été mise à jour avec succès' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour de la classe de l\'élève' });
+  }
+});
 
 
   /*creer classes et liaisons profclasse*/

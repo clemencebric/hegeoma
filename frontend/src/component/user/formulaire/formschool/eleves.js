@@ -8,6 +8,9 @@ function Eleves() {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [selectedClassName, setSelectedClassName] = useState('');
+  const [selectedClass, setSelectedClass] = useState('');
+  const [selectedClasses, setSelectedClasses] = useState({});
+
   const [emailpun, setEmailpun] = useState(''); //email parent 1
   const [emailpdeux, setEmaildeux] = useState(''); //email parent 2
   const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); 
@@ -19,7 +22,12 @@ function Eleves() {
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
 
-
+  const handleClassChange = (e, eleveId) => {
+    setSelectedClasses(prevSelectedClasses => ({
+      ...prevSelectedClasses,
+      [eleveId]: e.target.value
+    }));
+  };
   const getClassName = async (idclasse) => {
     try {
       const response = await get(`classe/${idclasse}`);
@@ -73,7 +81,7 @@ function Eleves() {
       emailpun,
       emailpdeux,
     };
-  
+
     try {
       const response = await post('createeleve', eleveData);
       setNom('');
@@ -92,7 +100,17 @@ function Eleves() {
       console.error(error);
     }
   };
-  
+  const handleClassConfirm = async (eleveId) => {
+    try {
+      const selectedClass = selectedClasses[eleveId];
+      console.log(eleveId)
+      const response = await post(`updateeleve/${eleveId}`, { idclasse: selectedClass });
+      // Mettez à jour l'état `eleves` avec les nouvelles données
+      setEleves(prevEleves => prevEleves.map(eleve => eleve.ideleve === eleveId ? { ...eleve, idclasse, classe: selectedClassName } : eleve));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className='pageeleve'>
@@ -167,17 +185,31 @@ function Eleves() {
                   </tr>
                 </thead>
                 <tbody>
-                    {eleves.map(eleve => (
-                    <tr key={eleve.id}>
-                          <td>{eleve.prenom}</td>
-                          <td>{eleve.nom}</td>
-                          <td>{eleve.classe}</td>
-                           <td>
-                          <button>Supprimer</button>
-                         </td>
-                     </tr>
-                    ))}
-                </tbody>
+  {eleves.map(eleve => (
+    <tr key={eleve.ideleve}>
+      <td>{eleve.prenom}</td>
+      <td>{eleve.nom}</td>
+      <td>
+        {eleve.idclasse ? eleve.classe : (
+          <>
+            <select value={selectedClasses[eleve.ideleve]} onChange={(e) => handleClassChange(e, eleve.ideleve)}>
+              <option value="">Sélectionnez une classe</option>
+              {classes.map((classe) => (
+                <option key={classe.idclasse} value={classe.idclasse}>
+                  {classe.nom}
+                </option>
+              ))}
+            </select>
+            <button onClick={() => handleClassConfirm(eleve.ideleve)}>Confirmer</button>
+          </>
+        )}
+      </td>
+      <td>
+        <button>Supprimer</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
               </table>
             </div>
           </div>
