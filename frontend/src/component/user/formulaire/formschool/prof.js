@@ -124,7 +124,7 @@ function Prof() {
 
   return (
     <div className='pageprof'>
-      <div className='pageblancheprof'> <p className='titreprof'>INFORMATIONS SUR LES PROFESSEURS</p>
+      <div className='pageblancheprof'> <h1 className='titreprof'>INFORMATIONS SUR LES PROFESSEURS</h1>
         <div className='deuxpartiesprof'>
           <div className='partieformprof'>
             <div className='profform'>

@@ -97,6 +97,7 @@ function Eleves() {
   return (
     <div className='pageeleve'>
       <div className='pageblancheeleve'>
+        <h1>Informations sur les Eleves</h1>
         <div className='deuxpartieseleve'>
           <div className='partieformeleve'>
             <div className='eleveform'>

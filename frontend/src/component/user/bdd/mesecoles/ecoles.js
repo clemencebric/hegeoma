@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { get } from '../../../fonctions/getpost';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 import "./ecoles.css";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -106,7 +106,7 @@ const UserSchoolList = () => {
                             <td>{school.codepostal}</td>
                             <td>{school.nomdomaine}</td>
                             <td className='caseactions'>
-                            <div className='fondplus fondaction' onClick={() => handlePlusClick(school.idecole)}><a className='icons'><FontAwesomeIcon icon={faPlus} style={{ color: "#000000" }} size="lg" /></a></div>
+                            <div className='fondplus fondaction' onClick={() => handlePlusClick(school.idecole)}><a className='icons'><FontAwesomeIcon icon={faPen} style={{ color: "#000000" }} size="lg" /></a></div>
                             <div className='fondeye fondaction' onClick={() => handleEyeClick(school.idecole)}><a className='icons'><FontAwesomeIcon icon={faEye} style={{ color: "#000000" }} size="lg" /></a></div>
                             <div className='fondbin fondaction' onClick={() => handleDeleteClick(school.idecole)} ><a className='icons' ><FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="lg" /></a></div>
                             </td>

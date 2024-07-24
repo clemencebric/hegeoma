@@ -10,7 +10,8 @@
 .pageblanche {
     margin-top: 50px;
     background-color: white;
-    height: 65vh;
+    height: 75vh;
+    width:80%;
 }
 .classeform {
     flex-direction: column;
@@ -62,4 +63,10 @@
     height: 40vh;
     overflow-y: auto;
       
+}
+.iconepoubelle {
+    background-color: rgb(255, 165, 165);
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
 }

@@ -366,6 +366,45 @@ app.delete('/schools/:id', async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la suppression de l\'école' });
   }
 });
+/*ajouter des app pour les ecoles*/
+
+app.post('/createappshcool', (req, res) => {
+  const { idecole, nomapp } = req.body;
+  const sql = 'INSERT INTO applications (idecole, nomapp) VALUES (?, ?)';
+  db_school.query(sql, [idecole, nomapp], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    const appecole = { idapp: result.insertId, nomapp };
+    res.status(201).json(appecole);
+  });
+});
+
+/*afficher les app pour ecole creees*/
+app.get('/getapps/:idecole', (req, res) => {
+  const idecole = req.params.idecole;
+  const sql = 'SELECT * FROM applications WHERE idecole = ?';
+  db_school.query(sql, [idecole], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json(results);
+  });
+});
+/*supprimer une app pour ecole*/
+app.delete('/deleteapp/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = 'DELETE FROM applications WHERE idapp = ?';
+  db_school.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json({ success: true, message: 'Application deleted' });
+  });
+});
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");

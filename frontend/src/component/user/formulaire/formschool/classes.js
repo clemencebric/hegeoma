@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { get, post, remove } from '../../../fonctions/getpost';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import './classes.css';
 
 function Classes() {
@@ -52,6 +54,7 @@ function Classes() {
   return (
     <div className='pageclasse'>
       <div className='pageblanche'>
+        <h1>Creation des classes</h1>
       <div className='partieform'>
       <div className='classeform'>
         <form className="formgauche" onSubmit={handleSubmit}>
@@ -80,7 +83,7 @@ function Classes() {
         <tr key={classe.id}>
           <td>{classe.nom}</td>
           <td>
-            <button>Supprimer</button>
+            <button className='iconepoubelle'><a className='icons' ><FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="2x" /></a></button>
           </td>
         </tr>
       ))}

@@ -32,14 +32,12 @@ function SchoolForm() {
     };
 
     try {
-
       const response = await axios.post('http://localhost:8081/createschool', schoolData);
       setIdecole(response.data.idecole); //id de l'ecole pour laquelle nous allons creer classe eleves et profs
       localStorage.setItem('idecole', response.data.idecole);
-      navigate(`/classes`);
+      navigate(`/appecole`);
     } catch (error) {
       console.error(error);
-    
     }
   };
 
@@ -91,7 +89,6 @@ function SchoolForm() {
         <option value="prenom.nom@domaine">prenom.nom@domaine</option>
         <option value="initiale.nom@domaine">initiale.nom@domaine</option>
       </select>
-
 
       <button type="submit">Suivant</button>
     </form>
