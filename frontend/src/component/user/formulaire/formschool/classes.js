@@ -18,49 +18,50 @@ function Classes() {
   const handleNext = () => {
     navigate('/eleves');
   };
-
+  
   useEffect(() => {
     const fetchClasses = async () => {
       try {
         const response = await get(`classes/${idecole}`);
-        setClasses(response);
+        setClasses(response.map(classe => ({ idclasse: classe.idclasse, nom: classe.nom }))); // Utilisation de classe.idclasse au lieu de classe.id
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchClasses();
   }, [idecole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const classeData = {
       idutilisateur,
       nom,
       idecole,
     };
-
+  
     try {
       const response = await post('createclass', classeData);
       setNom('');
-      const newClasse = { id: response.id, nom: response.nom || nom }; // Utilisation des données de la réponse
+      const newClasse = { idclasse: response.idclasse, nom: response.nom || nom }; // Utilisation de response.idclasse au lieu de response.id
       setClasses([...classes, newClasse]);
-      setLastClassId(response.id); // Stocker l'ID de la dernière classe créée
+      setLastClassId(response.idclasse); // Utilisation de response.idclasse au lieu de response.id
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleDeleteClass = async (classId) => {
     try {
       await remove(`deleteclass/${classId}`);
-      setClasses(classes.filter(classe => classe.id !== classId));
+      setClasses(classes.filter(classe => classe.idclasse !== classId)); // Utilisation de classe.idclasse au lieu de classe.id
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   return (
     <div className='pageclasse'>
       <div className='pageblanche'>
@@ -90,12 +91,12 @@ function Classes() {
                 </thead>
                 <tbody>
                   {classes.map(classe => (
-                    <tr key={classe.id}>
+                    <tr key={classe.idclasse}>
                       <td>{classe.nom}</td>
                       <td>
                         <button
                           className='iconepoubelle'
-                          onClick={() => handleDeleteClass(classe.id)}
+                          onClick={() => handleDeleteClass(classe.idclasse)}
                         >
                           <FontAwesomeIcon icon={faTrash} style={{ color: "#000000" }} size="2x" />
                         </button>
@@ -108,6 +109,7 @@ function Classes() {
           </div>
         </div>
         <div>
+          
           <button onClick={handleNext} className='boutonsuivant'>Suivant</button>
         </div>
         {lastClassId && <p>Last created class ID: {lastClassId}</p>} {/* Affichage de l'ID */}

@@ -192,7 +192,6 @@ app.get('/ecole', (req, res) => {
         return res.status(500).json({ success: false, message: 'Server error',  });
       }
       const classe = { id: result.insertId,};
-      console.log(classe);
       res.status(201).json(classe);
     });
   });
@@ -254,14 +253,24 @@ app.get('/ecole', (req, res) => {
 /*supprimer classes */
 app.delete('/deleteclass/:id', (req, res) => {
   const { id } = req.params;
-  const sql = 'DELETE FROM classes WHERE idclasse = ?';
-  db_school.query(sql, [id], (err, result) => {
+  const updateSql = 'UPDATE eleves SET idclasse = NULL, classe = NULL WHERE idclasse = ?'; // Mettre à jour les élèves qui sont dans la classe à supprimer
+  const deleteSql = 'DELETE FROM classes WHERE idclasse = ?'; // Supprimer la classe
+
+  db_school.query(updateSql, [id], (err, result) => {
     if (err) {
       console.error('Database query error:', err);
       return res.status(500).json({ success: false, message: 'Server error' });
     }
-    res.status(200).json({ success: true, message: 'Classe supprimée avec succès' });
-  });
+
+    db_school.query(deleteSql, [id], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      res.status(200).json({ success: true, message: 'Classe supprimée avec succès' });
+    });
+  }); 
 });
 
 
