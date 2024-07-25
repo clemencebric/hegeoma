@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserEmailAndStatus } from '../../../header/statut';
 import { post } from '../../../fonctions/getpost';
 import "./orgform.css";
 
@@ -9,6 +8,7 @@ function OrgForm() {
   const [adresse, setAdresse] = useState('');
   const [codePostal, setCodePostal] = useState('');
   const [fournisseur, setFournisseur] = useState('');
+  const [autreFournisseur, setAutreFournisseur] = useState('');
   const [appareil, setAppareil] = useState('');
   const [jamf, setJamf] = useState('');
   const [appli, setAppli] = useState('');
@@ -19,11 +19,13 @@ function OrgForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const finalFournisseur = fournisseur === 'Autre' ? autreFournisseur : fournisseur;
+
     const orgData = {
       nom,
       adresse,
       codepostal: codePostal,
-      fournisseur,
+      fournisseur: finalFournisseur,
       appareil,
       jamf,
       appli,
@@ -56,14 +58,43 @@ function OrgForm() {
          
           <hr/>
 
-          <label className='labelformorg'>Quel est votre fournisseur d'identité</label>
-          <input className='inputformorg' placeholder="Entrez le fournisseur" value={fournisseur} onChange={(e) => setFournisseur(e.target.value)} required />
-          
           <label className='labelformorg'>Quel type d'appareil avez-vous ?</label>
-          <input className='inputformorg' placeholder="Entrez le type d'appareil" value={appareil} onChange={(e) => setAppareil(e.target.value)} required />
+          <select className='inputformorg' value={appareil} onChange={(e) => setAppareil(e.target.value)} required>
+            <option value="" disabled>Choisissez un type d'appareil</option>
+            <option value="iOS">iOS</option>
+            <option value="MacOS">MacOS</option>
+            <option value="VisionOS">VisionOS</option>
+            <option value="TvOS">TvOS</option>
+            <option value="Apple Watch">Apple Watch</option>
+          </select>
+          
+          <label className='labelformorg'>Quel est votre fournisseur d'identité</label>
+          <select className='inputformorg' value={fournisseur} onChange={(e) => setFournisseur(e.target.value)} required>
+            <option value="" disabled>Choisissez un fournisseur</option>
+            <option value="Office 365">Office 365</option>
+            <option value="WorkSpace">WorkSpace</option>
+            <option value="Okta">Okta</option>
+            <option value="OneLogin">OneLogin</option>
+            <option value="Autre">Autre</option>
+          </select>
+          {fournisseur === 'Autre' && (
+            <input 
+              className='inputformorg' 
+              placeholder="Entrez un autre fournisseur" 
+              value={autreFournisseur} 
+              onChange={(e) => setAutreFournisseur(e.target.value)} 
+              required 
+            />
+          )}
           
           <label className='labelformorg'>Quel service de Jamf voulez-vous utiliser ?</label>
-          <input className='inputformorg' placeholder="Entrez le service Jamf" value={jamf} onChange={(e) => setJamf(e.target.value)} required />
+          <select className='inputformorg' value={jamf} onChange={(e) => setJamf(e.target.value)} required>
+            <option value="" disabled>Choisissez un service Jamf</option>
+            <option value="Service 1">Jamf Pro</option>
+            <option value="Service 2">Jamf Protect</option>
+            <option value="Service 3">Jamf Connect</option>
+            <option value="Service 4">Jamf Business</option>
+          </select>
           
           <label className='labelformorg'>Quelles applications voulez-vous distribuer ?</label>
           <textarea className='inputformorg formlong' placeholder="Listez les applications" value={appli} onChange={(e) => setAppli(e.target.value)} required />
