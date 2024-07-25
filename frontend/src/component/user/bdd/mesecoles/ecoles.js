@@ -86,9 +86,9 @@ const UserSchoolList = () => {
         <div className='pageadmin'>
             <h2>Liste des écoles</h2>
             <div className='tableauecole'>
-            <table>
+              <table>
                 <thead>
-                    <tr>
+                    <tr>  
                         <th>Nom</th>
                         <th>Adresse</th>
                         <th>Ville</th>
@@ -113,7 +113,8 @@ const UserSchoolList = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table></div>
+            </table>
+          </div>
         </div>
     );
 };

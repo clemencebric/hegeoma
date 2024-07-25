@@ -12,9 +12,8 @@ function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useContext(AuthContext); // Utiliser le contexte d'authentification
+  const { login } = useContext(AuthContext);
 
-  // Lire le message d'expiration de la connexion depuis l'état de navigation
   const expirationMessage = location.state?.message;
 
   const handleSubmit = async (e) => {
@@ -27,15 +26,15 @@ function Login() {
         const token = response.token;
         const userEmail = response.email;
 
-        login(token, userEmail); // Utiliser la fonction login du contexte pour gérer le token et le statut de l'utilisateur
+        login(token, userEmail);
 
-        localStorage.setItem('token', token); // on stocke le token
+        localStorage.setItem('token', token);
         const userData = getUserEmailAndStatus();
-        const statut = userData.statut; // statut de l'user connecté
+        const statut = userData.statut;
         if (statut === 'admin') {
-          navigate('/admin'); // Rediriger l'utilisateur vers la page d'admin
+          navigate('/admin');
         } else {
-          navigate('/'); // Rediriger l'utilisateur vers la page d'accueil
+          navigate('/');
         }
       } else {
         setErrorMessage('Invalid credentials');

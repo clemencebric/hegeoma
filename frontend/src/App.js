@@ -103,7 +103,7 @@ function App() {
           <Route path="/mentionslegales" element={<Mentions />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="erreur" element={<Erreuracces />} />
+          <Route path="/erreur" element={<Erreuracces />} />
           <Route path="*" element={<Erreur />} />
         </Routes>
       </Layout>

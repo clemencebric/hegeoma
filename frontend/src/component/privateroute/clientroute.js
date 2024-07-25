@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import {getUserEmailAndStatus } from '../fonctions/jwtDecode';
+import { getUserEmailAndStatus } from '../fonctions/jwtDecode';
 const ClientRoute = () => {
   
   const userData = getUserEmailAndStatus();
@@ -9,7 +9,9 @@ const ClientRoute = () => {
   // Vérifier si l'utilisateur est authentifié et a le statut "client"
   const isAllowed =  statut === 'client';
   //console.log(isAllowed);
-
+  console.log("User data:", userData);
+  console.log("Statut:", statut);
+  
   return isAllowed ? (
     <Outlet />
   ) : (

@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
 
       if (response) {
        /* let token = jwt.sign({ id: result[0].id }, secretKey, { expiresIn: '1h' });*/
-        const token = jwt.sign({ id: result[0].id, email: result[0].email, statut: result[0].statut }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: result[0].id, email: result[0].email, statut: result[0].statut }, secretKey, { expiresIn: '1m' });
 
         /*res.send({ token, status: result[0].status});*/
         res.send({ token, email: result[0].email, statut: result[0].statut });

@@ -1,11 +1,35 @@
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
-function getUserEmailAndStatus() {
-    const token = localStorage.getItem('token'); // Remplacez 'token' par la clé que vous avez utilisée pour stocker le token dans le stockage local
-    if (!token) return { email: null, statut: null, actif : null };
+const getUserEmailAndStatus = () => {
+  const token = localStorage.getItem('token');
   
-    const decodedToken = jwtDecode(token);
-    /*console.log(decodedToken);*/
-    return { email: decodedToken.email, statut: decodedToken.statut, actif: decodedToken.actif };
+  // Vérifiez si le token est présent et est une chaîne de caractères
+  if (!token || typeof token !== 'string') {
+    console.log("No valid token found in localStorage");
+    return { email: null, statut: null, actif: null, isConnected: false };
   }
-  export { getUserEmailAndStatus };
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+
+    if (decodedToken.exp && decodedToken.exp < currentTime) {
+      console.log("Token expired");
+      return { email: null, statut: null, actif: null, isConnected: false };
+    }
+
+    return {
+      email: decodedToken.email,
+      statut: decodedToken.statut,
+      actif: decodedToken.actif,
+      isConnected: true,
+      token: token,
+      id: decodedToken.id
+    };
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return { email: null, statut: null, actif: null, isConnected: false };
+  }
+};
+
+export { getUserEmailAndStatus };
