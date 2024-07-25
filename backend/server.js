@@ -532,8 +532,8 @@ app.get('/getapps/:idecole', (req, res) => {
 });
 /*supprimer une app pour ecole*/
 app.post('/createorg', (req, res) => {
-  const { nom, adresse, codepostal, fournisseur, appareil, jamf, appli, restriction } = req.body;
-  
+  const { nom, adresse, codepostal, fournisseur, appareil, jamfs = [], appli, restriction } = req.body;
+  console.log(req.body);
   const sqlInsertOrganisme = 'INSERT INTO organisme (nom, adresse, codepostal, fournisseur, restrictions) VALUES (?, ?, ?, ?, ?)';
   db_org.query(sqlInsertOrganisme, [nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
     if (err) {
@@ -549,38 +549,45 @@ app.post('/createorg', (req, res) => {
         return res.status(500).json({ success: false, message: 'Server error' });
       }
 
-      const sqlInsertJamf = 'INSERT INTO jamf (nom, idorg) VALUES (?, ?)';
-      db_org.query(sqlInsertJamf, [jamf, idOrganisme], (err) => {
-        if (err) {
-          console.error('Database query error:', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-
-        // Insert each application individually
-        const sqlInsertAppli = 'INSERT INTO application (nom, idorg) VALUES (?, ?)';
-        const applicationPromises = appli.map(application => {
-          return new Promise((resolve, reject) => {
-            db_org.query(sqlInsertAppli, [application, idOrganisme], (err) => {
-              if (err) {
-                return reject(err);
-              }
-              resolve();
-            });
+      const sqlInsertJamfs = 'INSERT INTO jamf (nom, idorg) VALUES (?, ?)';
+      const jamfsPromises = jamfs.map(jamfsService => {
+        return new Promise((resolve, reject) => {
+          db_org.query(sqlInsertJamfs, [jamfsService, idOrganisme], (err) => {
+            if (err) {
+              return reject(err);
+            }
+            resolve();
           });
         });
-
-        Promise.all(applicationPromises)
-          .then(() => {
-            res.status(201).json({ success: true, idOrganisme });
-          })
-          .catch((err) => {
-            console.error('Database query error:', err);
-            res.status(500).json({ success: false, message: 'Server error' });
-          });
       });
+
+      Promise.all(jamfsPromises)
+        .then(() => {
+          const sqlInsertAppli = 'INSERT INTO application (nom, idorg) VALUES (?, ?)';
+          const applicationPromises = appli.map(application => {
+            return new Promise((resolve, reject) => {
+              db_org.query(sqlInsertAppli, [application, idOrganisme], (err) => {
+                if (err) {
+                  return reject(err);
+                }
+                resolve();
+              });
+            });
+          });
+
+          return Promise.all(applicationPromises);
+        })
+        .then(() => {
+          res.status(201).json({ success: true, idOrganisme });
+        })
+        .catch((err) => {
+          console.error('Database query error:', err);
+          res.status(500).json({ success: false, message: 'Server error' });
+        });
     });
   });
 });
+
 
 
 app.listen(8081, () => {

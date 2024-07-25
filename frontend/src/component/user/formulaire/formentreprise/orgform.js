@@ -10,7 +10,7 @@ function OrgForm() {
   const [fournisseur, setFournisseur] = useState('');
   const [autreFournisseur, setAutreFournisseur] = useState('');
   const [appareil, setAppareil] = useState('');
-  const [jamf, setJamf] = useState('');
+  const [jamfs, setJamfs] = useState([]);
   const [applications, setApplications] = useState(['']);
   const [restriction, setRestriction] = useState('');
 
@@ -27,7 +27,7 @@ function OrgForm() {
       codepostal: codePostal,
       fournisseur: finalFournisseur,
       appareil,
-      jamf,
+      jamfs,
       appli: applications,
       restriction,
     };
@@ -50,6 +50,17 @@ function OrgForm() {
 
   const addApplicationField = () => {
     setApplications([...applications, '']);
+  };
+
+  const handleJamfChange = (e) => {
+    const value = e.target.value;
+    setJamfs((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((jamf) => jamf !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
   };
 
   return (
@@ -98,13 +109,44 @@ function OrgForm() {
           )}
           
           <label className='labelformorg'>Quel service de Jamf voulez-vous utiliser ?</label>
-          <select className='inputformorg' value={jamf} onChange={(e) => setJamf(e.target.value)} required>
-            <option value="" disabled>Choisissez un service Jamf</option>
-            <option value="Service 1">Jamf Pro</option>
-            <option value="Service 2">Jamf Protect</option>
-            <option value="Service 3">Jamf Connect</option>
-            <option value="Service 4">Jamf Business</option>
-          </select>
+          <div className='checkbox-group'>
+            <label>
+              <input
+                type="checkbox"
+                value="Jamf Pro"
+                checked={jamfs.includes('Jamf Pro')}
+                onChange={handleJamfChange}
+              />
+              Jamf Pro
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Jamf Protect"
+                checked={jamfs.includes('Jamf Protect')}
+                onChange={handleJamfChange}
+              />
+              Jamf Protect
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Jamf Connect"
+                checked={jamfs.includes('Jamf Connect')}
+                onChange={handleJamfChange}
+              />
+              Jamf Connect
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Jamf Business"
+                checked={jamfs.includes('Jamf Business')}
+                onChange={handleJamfChange}
+              />
+              Jamf Business
+            </label>
+          </div>
           
           <label className='labelformorg'>Quelles applications voulez-vous distribuer ?</label>
           {applications.map((application, index) => (
