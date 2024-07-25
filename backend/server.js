@@ -82,7 +82,7 @@ app.post('/login', (req, res) => {
                 actif: result[0].actif
             };
                  // Génération du token JWT avec le payload et la clé secrète
-            const token = jwt.sign(payload, secretKey, { expiresIn: '3h' });
+            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); //a modifier pour changer la duree de validite de la session
 
                 // Renvoyer le token, l'email et le statut de l'utilisateur
                 return res.status(200).json({ token, email: result[0].email, statut: result[0].statut, nature: result[0].nature, actif: result[0].actif });

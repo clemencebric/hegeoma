@@ -1,0 +1,37 @@
+.pageorgform {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(85, 85, 85);
+}
+.pageblancheorg{
+    background-color: white;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.orgform {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+.labelformorg {
+    padding-top: 1vh;
+}
+.inputformorg{
+    border: none;
+    background-color: rgb(224, 224, 224);
+}
+.formlong {
+    height: 3vh;
+    resize: vertical;
+    max-height: 150px;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+  }

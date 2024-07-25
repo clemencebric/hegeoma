@@ -6,9 +6,10 @@ import { AuthContext } from '../privateroute/authcontext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import {isUserAuthorized} from "./statut.js";
-
+import { getUserEmailAndStatus } from '../fonctions/jwtDecode.js';
 const Header = () => {
-
+  const userData = getUserEmailAndStatus();
+  console.log(userData);
   const { isAuthenticated: contextIsAuthenticated, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -33,16 +34,19 @@ const Header = () => {
               <li><a href="/blog" onClick={toggleMenu}>Blog</a></li>
             </>
           ) : null}
-          {contextIsAuthenticated && isUserAuthorized('client') && (
+          {contextIsAuthenticated && isUserAuthorized('client')  && (
             <li><a href="/faq" onClick={toggleMenu}>FAQ</a></li>
           )}
-          {contextIsAuthenticated && isUserAuthorized('client') && (
+          {contextIsAuthenticated && isUserAuthorized('client') && userData.nature == "ecole" && (
             <li><a href="/schoolform" onClick={toggleMenu}>SchoolForm</a></li>
           )}
-                    
-                    
-          {contextIsAuthenticated && isUserAuthorized('client') && (
+                  
+          {contextIsAuthenticated && isUserAuthorized('client')  && userData.nature == "ecole" && (
             <li><a href="/userschool" onClick={toggleMenu}>Ecoles</a></li>
+          )}
+          
+          {contextIsAuthenticated && isUserAuthorized('client')  && userData.nature == "organisme" && (
+            <li><a href="/orgform" onClick={toggleMenu}>Form</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>

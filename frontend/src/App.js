@@ -19,6 +19,7 @@ import HegeomaRoute from './component/privateroute/hegeomaroute.js'; /*on ne peu
 import AdminRoute from './component/privateroute/adminroute.js';
 import NonConnecteRoute from './component/privateroute/nonconnecteroute.js';
 import ClientRoute from './component/privateroute/clientroute.js';
+import OrgRoute from './component/privateroute/orgroute.js';
 import UserSchoolList from './component/user/bdd/mesecoles/ecoles.js';
 import SchoolForm from './component/user/formulaire/formschool/formschool.js';
 import SchoolList from './component/tabdebordadmin/listeschool.js';
@@ -35,6 +36,7 @@ import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import SchoolRoute from './component/privateroute/schoolroute.js';
+import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
 import './App.css';
 
 
@@ -63,6 +65,7 @@ const AuthenticatedReponseFormulaire  = withAuthentication(ReponseFormulaire );
 const AuthenticatedAdminPage = withAuthentication(AdminPage);
 const AuthenticatedSchoolList = withAuthentication(SchoolList);
 
+const AuthenticatedOrgForm = withAuthentication(OrgForm);
 function App() {
 
   return (
@@ -78,8 +81,11 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
           </Route>
 
+          <Route element={<ClientRoute />}>
+                <Route path="/faq" element= {<Authenticatedfaq />} />
+          </Route>
+
           <Route element={<SchoolRoute />}>
-              <Route path="/faq" element= {<Authenticatedfaq />} /> 
               <Route path="/schoolform" element= {<AuthenticatedSchoolForm />} /> 
               <Route path="/userschool" element= {<AuthenticatedUserSchoolList />} /> 
               <Route path="/classes" element= {<AuthenticatedClasses/>} /> 
@@ -90,7 +96,9 @@ function App() {
               <Route path='/infoecole' element={<AuthenticatedEcoleInfo />} />
               <Route path='/appecole' element={<AuthenticatedSchoolapp/>} />
           </Route>
-
+          <Route element={<OrgRoute />}>
+              <Route path="/orgform" element= {<AuthenticatedOrgForm />} />  
+          </Route>
           <Route element={<HegeomaRoute />}>
               <Route path="/reponse-formulaire" element={<AuthenticatedReponseFormulaire />} />
            </Route>
