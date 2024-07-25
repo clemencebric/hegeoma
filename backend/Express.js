@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../backend/database');
-
+/*const db_school = require('./databaseecole');
+const db_org = require('./databaseorganisme');*/
 router.delete('/logout', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {

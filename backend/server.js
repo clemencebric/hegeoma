@@ -1,6 +1,7 @@
 require('dotenv').config(); //utiliser .env
 const db = require('./database.js');
 const db_school = require('./databaseecole.js');
+const db_org = require('./databaseorganisme.js');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
 const bodyParser = require("body-parser");
@@ -539,6 +540,46 @@ app.delete('/deleteapp/:id', (req, res) => {
       return res.status(500).json({ success: false, message: 'Server error' });
     }
     res.status(200).json({ success: true, message: 'Application deleted' });
+  });
+});
+
+/*creer l'organisme dans la table organisme*/
+app.post('/createorg', (req, res) => {
+  const { nom, adresse, codepostal, fournisseur, appareil, jamf, appli, restriction } = req.body;
+  
+  const sqlInsertOrganisme = 'INSERT INTO organisme (nom, adresse, codepostal, fournisseur, restrictions) VALUES (?, ?, ?, ?, ?)';
+  db_org.query(sqlInsertOrganisme, [nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    const idOrganisme = result.insertId;
+    
+    const sqlInsertAppareil = 'INSERT INTO appareils (nom, idorg) VALUES (?, ?)';
+    db_org.query(sqlInsertAppareil, [appareil, idOrganisme], (err) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      const sqlInsertJamf = 'INSERT INTO jamf (nom, idorg) VALUES (?, ?)';
+      db_org.query(sqlInsertJamf, [jamf, idOrganisme], (err) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+
+        const sqlInsertAppli = 'INSERT INTO application (nom, idorg) VALUES (?, ?)';
+        db_org.query(sqlInsertAppli, [appli, idOrganisme], (err) => {
+          if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+          }
+
+          res.status(201).json({ success: true, idOrganisme });
+        });
+      });
+    });
   });
 });
 
