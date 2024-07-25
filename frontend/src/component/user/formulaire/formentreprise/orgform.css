@@ -1,49 +1,128 @@
+/* Container de la page */
 .pageorgform {
-    height: 100vh;
-    
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: rgb(85, 85, 85);
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #f4f4f4;
 }
-.pageblancheorg{
+
+/* Conteneur principal du formulaire */
+.pageblancheorg {
     background-color: white;
-    height: 80vh;
-    width: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 30px;
+    margin: 20px;
+    margin-top: 12vh;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    overflow: auto; /* Gestion des débordements */
 }
+
+/* Style du formulaire */
 .orgform {
     display: flex;
     flex-direction: column;
-    width: 80%;
-}
-.labelformorg {
-    padding-top: 1vh;
-}
-.inputformorg{
-    border: none;
-    background-color: rgb(224, 224, 224);
-}
-.formlong {
-    height: 3vh;
-    resize: vertical;
-    max-height: 100px;
 }
 
+/* Style des labels */
+.labelformorg {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* Style des champs de saisie */
+.inputformorg {
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* Style des zones de texte longues */
+.formlong {
+    height: 100px;
+    resize: vertical;
+    max-height: 200px;
+}
+
+/* Style pour les groupes de cases à cocher */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* Style des boutons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.addAppButton {
+    background-color: #28a745;
+    width: 50%;
+    height: 30px;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addAppButton:hover {
+    background-color: #218838;
+}
+
+/* Style de la ligne de séparation */
 hr {
     border: 0;
     border-top: 1px solid #ccc;
     margin: 20px 0;
-  }
-@media (max-height: 1000px) {
-    .pageblancheorg{
-        height: 100vh;
+}
+
+/* Adaptations pour écrans plus petits */
+@media (max-width: 920px) {
+    .pageblancheorg {
+        padding: 10px;
+        margin: 10px;
     }
-    .pageorgform {
-        height: 120vh;
+}
+
+@media (max-width: 530px) {
+    .inputformorg {
+        font-size: 12px;
     }
+    .labelformorg {
+        font-size: 14px;
+    }
+}
+
+/* Espacement entre les éléments */
+* {
+    box-sizing: border-box;
 }

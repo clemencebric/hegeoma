@@ -9,7 +9,7 @@ function OrgForm() {
   const [codePostal, setCodePostal] = useState('');
   const [fournisseur, setFournisseur] = useState('');
   const [autreFournisseur, setAutreFournisseur] = useState('');
-  const [appareil, setAppareil] = useState('');
+  const [appareils, setAppareils] = useState([]);
   const [jamfs, setJamfs] = useState([]);
   const [applications, setApplications] = useState(['']);
   const [restriction, setRestriction] = useState('');
@@ -26,7 +26,7 @@ function OrgForm() {
       adresse,
       codepostal: codePostal,
       fournisseur: finalFournisseur,
-      appareil,
+      appareils,
       jamfs,
       appli: applications,
       restriction,
@@ -35,7 +35,7 @@ function OrgForm() {
     try {
       const response = await post('createorg', orgData);
       if (response.success) {
-        navigate(`/appecole/${response.idOrganisme}`);
+        navigate(`/orgform`);
       }
     } catch (error) {
       console.error(error);
@@ -63,6 +63,17 @@ function OrgForm() {
     });
   };
 
+  const handleAppareilChange = (e) => {
+    const value = e.target.value;
+    setAppareils((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((appareil) => appareil !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
+  };
+
   return (
     <div className='pageorgform'>
       <div className='pageblancheorg'>
@@ -78,17 +89,6 @@ function OrgForm() {
           <input className='inputformorg' placeholder="Entrez le code postal" value={codePostal} onChange={(e) => setCodePostal(e.target.value)} required />
          
           <hr/>
-
-          <label className='labelformorg'>Quel type d'appareil avez-vous ?</label>
-          <select className='inputformorg' value={appareil} onChange={(e) => setAppareil(e.target.value)} required>
-            <option value="" disabled>Choisissez un type d'appareil</option>
-            <option value="iOS">iOS</option>
-            <option value="MacOS">MacOS</option>
-            <option value="VisionOS">VisionOS</option>
-            <option value="TvOS">TvOS</option>
-            <option value="Apple Watch">Apple Watch</option>
-          </select>
-          
           <label className='labelformorg'>Quel est votre fournisseur d'identité</label>
           <select className='inputformorg' value={fournisseur} onChange={(e) => setFournisseur(e.target.value)} required>
             <option value="" disabled>Choisissez un fournisseur</option>
@@ -107,6 +107,56 @@ function OrgForm() {
               required 
             />
           )}
+          <label className='labelformorg'>Quels types d'appareils avez-vous ?</label>
+          <div className='checkbox-group'>
+            <label>
+              <input
+                type="checkbox"
+                value="iOS"
+                checked={appareils.includes('iOS')}
+                onChange={handleAppareilChange}
+              />
+              iOS
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="MacOS"
+                checked={appareils.includes('MacOS')}
+                onChange={handleAppareilChange}
+              />
+              MacOS
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="VisionOS"
+                checked={appareils.includes('VisionOS')}
+                onChange={handleAppareilChange}
+              />
+              VisionOS
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="TvOS"
+                checked={appareils.includes('TvOS')}
+                onChange={handleAppareilChange}
+              />
+              TvOS
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Apple Watch"
+                checked={appareils.includes('Apple Watch')}
+                onChange={handleAppareilChange}
+              />
+              Apple Watch
+            </label>
+          </div>
+          
+         
           
           <label className='labelformorg'>Quel service de Jamf voulez-vous utiliser ?</label>
           <div className='checkbox-group'>
