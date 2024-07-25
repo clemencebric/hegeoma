@@ -1,5 +1,6 @@
 .pageorgform {
     height: 100vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,11 +8,13 @@
 }
 .pageblancheorg{
     background-color: white;
-    height: 70vh;
+    height: 80vh;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 30px;
 }
 .orgform {
     display: flex;
@@ -28,10 +31,19 @@
 .formlong {
     height: 3vh;
     resize: vertical;
-    max-height: 150px;
+    max-height: 100px;
 }
+
 hr {
     border: 0;
     border-top: 1px solid #ccc;
     margin: 20px 0;
   }
+@media (max-height: 1000px) {
+    .pageblancheorg{
+        height: 100vh;
+    }
+    .pageorgform {
+        height: 120vh;
+    }
+}

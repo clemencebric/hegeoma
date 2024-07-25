@@ -57,7 +57,7 @@ function OrgForm() {
             <label className='labelformorg'>Quel fournisseur d'identité utilisez-vous ?</label>
             <input className='inputformorg'></input>
             <label className='labelformorg'>Quel restriction voulez vous imposer ?</label>
-            <input className='inputformorg formlong'></input>
+            <textarea className='inputformorg formlong'></textarea>
             <label className='labelformorg'> Quelles application voulez vous distribuer ?</label>
             <textarea className='inputformorg formlong'></textarea>
         </form>
