@@ -29,6 +29,7 @@ import Schoolapp from './component/user/formulaire/formschool/appschool.js';
 import SearchBar from "./component/user/bdd/mesecoles/infoeleve.js";
 import SearchTeachers from './component/user/bdd/mesecoles/infoprofs.js';
 import EcoleInfo from './component/user/bdd/mesecoles/infoecole.js';
+import withAuthentication from './component/fonctions/hoc.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
@@ -45,6 +46,21 @@ const Layout = ({ children }) => {
     </div>
   );
 };
+const Authenticatedfaq = withAuthentication(Faq);
+const AuthenticatedSchoolForm = withAuthentication(SchoolForm);
+const AuthenticatedUserSchoolList = withAuthentication(UserSchoolList);
+const AuthenticatedClasses = withAuthentication(Classes);
+const AuthenticatedEleves = withAuthentication(Eleves);
+const AuthenticatedProf = withAuthentication(Prof);
+const AuthenticatedSearchBar = withAuthentication(SearchBar);
+const AuthenticatedSearchTeachers = withAuthentication(SearchTeachers);
+const AuthenticatedEcoleInfo = withAuthentication(EcoleInfo);
+const AuthenticatedSchoolapp = withAuthentication(Schoolapp);
+
+const AuthenticatedReponseFormulaire  = withAuthentication(ReponseFormulaire );
+
+const AuthenticatedAdminPage = withAuthentication(AdminPage);
+const AuthenticatedSchoolList = withAuthentication(SchoolList);
 
 function App() {
 
@@ -62,25 +78,25 @@ function App() {
           </Route>
 
           <Route element={<ClientRoute />}>
-              <Route path="/faq" element= {<Faq />} /> 
-              <Route path="/schoolform" element= {<SchoolForm />} /> 
-              <Route path="/userschool" element= {<UserSchoolList />} /> 
-              <Route path="/classes" element= {<Classes/>} /> 
-              <Route path="/eleves" element= {<Eleves/>} /> 
-              <Route path="/prof" element= {<Prof/>} /> 
-              <Route path='/infoeleve' element={<SearchBar/>} />
-              <Route path='/infoprof' element={<SearchTeachers/>} />
-              <Route path='/infoecole' element={<EcoleInfo />} />
-              <Route path='/appecole' element={<Schoolapp/>} />
+              <Route path="/faq" element= {<Authenticatedfaq />} /> 
+              <Route path="/schoolform" element= {<AuthenticatedSchoolForm />} /> 
+              <Route path="/userschool" element= {<AuthenticatedUserSchoolList />} /> 
+              <Route path="/classes" element= {<AuthenticatedClasses/>} /> 
+              <Route path="/eleves" element= {<AuthenticatedEleves/>} /> 
+              <Route path="/prof" element= {<AuthenticatedProf/>} /> 
+              <Route path='/infoeleve' element={<AuthenticatedSearchBar />} />
+              <Route path='/infoprof' element={<AuthenticatedSearchTeachers/>} />
+              <Route path='/infoecole' element={<AuthenticatedEcoleInfo />} />
+              <Route path='/appecole' element={<AuthenticatedSchoolapp/>} />
           </Route>
 
           <Route element={<HegeomaRoute />}>
-              <Route path="/reponse-formulaire" element={<ReponseFormulaire />} />
+              <Route path="/reponse-formulaire" element={<AuthenticatedReponseFormulaire />} />
            </Route>
 
           <Route element={<AdminRoute />}>
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/school" element={<SchoolList />} />
+              <Route path="/admin" element={<AuthenticatedAdminPage />} />
+              <Route path="/school" element={<AuthenticatedSchoolList />} />
            </Route>
 
 
