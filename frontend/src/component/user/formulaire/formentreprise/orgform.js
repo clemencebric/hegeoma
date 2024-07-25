@@ -11,7 +11,7 @@ function OrgForm() {
   const [autreFournisseur, setAutreFournisseur] = useState('');
   const [appareil, setAppareil] = useState('');
   const [jamf, setJamf] = useState('');
-  const [appli, setAppli] = useState('');
+  const [applications, setApplications] = useState(['']);
   const [restriction, setRestriction] = useState('');
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function OrgForm() {
       fournisseur: finalFournisseur,
       appareil,
       jamf,
-      appli,
+      appli: applications,
       restriction,
     };
 
@@ -40,6 +40,16 @@ function OrgForm() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleApplicationChange = (index, value) => {
+    const newApplications = [...applications];
+    newApplications[index] = value;
+    setApplications(newApplications);
+  };
+
+  const addApplicationField = () => {
+    setApplications([...applications, '']);
   };
 
   return (
@@ -97,9 +107,22 @@ function OrgForm() {
           </select>
           
           <label className='labelformorg'>Quelles applications voulez-vous distribuer ?</label>
-          <textarea className='inputformorg formlong' placeholder="Listez les applications" value={appli} onChange={(e) => setAppli(e.target.value)} required />
+          {applications.map((application, index) => (
+            <div key={index}>
+              <input
+                className='inputformorg'
+                placeholder={`Application ${index + 1}`}
+                value={application}
+                onChange={(e) => handleApplicationChange(index, e.target.value)}
+                required
+              />
+            </div>
+          ))}
+          <button type="button" onClick={addApplicationField} className='addAppButton'>
+            Ajouter une application
+          </button>
 
-          <label className='labelformorg'>Quelles restrictions voulez vous mettre en place ?</label>
+          <label className='labelformorg'>Quelles restrictions voulez-vous mettre en place ?</label>
           <textarea className='inputformorg formlong' placeholder="Listez les restrictions" value={restriction} onChange={(e) => setRestriction(e.target.value)} required />
           
           <button type="submit" className='submitformorg'>Soumettre</button>

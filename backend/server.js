@@ -531,19 +531,6 @@ app.get('/getapps/:idecole', (req, res) => {
   });
 });
 /*supprimer une app pour ecole*/
-app.delete('/deleteapp/:id', (req, res) => {
-  const id = req.params.id;
-  const sql = 'DELETE FROM applications WHERE idapp = ?';
-  db_school.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error('Database query error:', err);
-      return res.status(500).json({ success: false, message: 'Server error' });
-    }
-    res.status(200).json({ success: true, message: 'Application deleted' });
-  });
-});
-
-/*creer l'organisme dans la table organisme*/
 app.post('/createorg', (req, res) => {
   const { nom, adresse, codepostal, fournisseur, appareil, jamf, appli, restriction } = req.body;
   
@@ -569,19 +556,32 @@ app.post('/createorg', (req, res) => {
           return res.status(500).json({ success: false, message: 'Server error' });
         }
 
+        // Insert each application individually
         const sqlInsertAppli = 'INSERT INTO application (nom, idorg) VALUES (?, ?)';
-        db_org.query(sqlInsertAppli, [appli, idOrganisme], (err) => {
-          if (err) {
-            console.error('Database query error:', err);
-            return res.status(500).json({ success: false, message: 'Server error' });
-          }
-
-          res.status(201).json({ success: true, idOrganisme });
+        const applicationPromises = appli.map(application => {
+          return new Promise((resolve, reject) => {
+            db_org.query(sqlInsertAppli, [application, idOrganisme], (err) => {
+              if (err) {
+                return reject(err);
+              }
+              resolve();
+            });
+          });
         });
+
+        Promise.all(applicationPromises)
+          .then(() => {
+            res.status(201).json({ success: true, idOrganisme });
+          })
+          .catch((err) => {
+            console.error('Database query error:', err);
+            res.status(500).json({ success: false, message: 'Server error' });
+          });
       });
     });
   });
 });
+
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
