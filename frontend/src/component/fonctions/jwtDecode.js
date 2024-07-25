@@ -12,7 +12,7 @@ const getUserEmailAndStatus = () => {
   try {
     const decodedToken = jwtDecode(token);
     const currentTime = Date.now() / 1000;
-
+    console.log(decodedToken);
     if (decodedToken.exp && decodedToken.exp < currentTime) {
       console.log("Token expired");
       return { email: null, statut: null, actif: null, isConnected: false };
@@ -23,6 +23,7 @@ const getUserEmailAndStatus = () => {
       statut: decodedToken.statut,
       actif: decodedToken.actif,
       isConnected: true,
+      nature: decodedToken.nature,
       token: token,
       id: decodedToken.id
     };

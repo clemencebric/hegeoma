@@ -34,6 +34,7 @@ import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
+import SchoolRoute from './component/privateroute/schoolroute.js';
 import './App.css';
 
 
@@ -77,7 +78,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
           </Route>
 
-          <Route element={<ClientRoute />}>
+          <Route element={<SchoolRoute />}>
               <Route path="/faq" element= {<Authenticatedfaq />} /> 
               <Route path="/schoolform" element= {<AuthenticatedSchoolForm />} /> 
               <Route path="/userschool" element= {<AuthenticatedUserSchoolList />} /> 
