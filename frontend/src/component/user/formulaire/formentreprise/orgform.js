@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../../../fonctions/getpost';
+import { getUserEmailAndStatus } from '../../../header/statut';
 import "./orgform.css";
 
 function OrgForm() {
@@ -13,15 +14,16 @@ function OrgForm() {
   const [jamfs, setJamfs] = useState([]);
   const [applications, setApplications] = useState(['']);
   const [restriction, setRestriction] = useState('');
-
+  const userData = getUserEmailAndStatus();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const idutilisateur = userData.id;
     const finalFournisseur = fournisseur === 'Autre' ? autreFournisseur : fournisseur;
 
     const orgData = {
+      idutilisateur,
       nom,
       adresse,
       codepostal: codePostal,

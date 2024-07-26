@@ -49,7 +49,7 @@ const Header = () => {
             <li><a href="/orgform" onClick={toggleMenu}>Form</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
-            <li><a href="/admin" onClick={toggleMenu}>Admin</a></li>
+            <li><a href="/admin" onClick={toggleMenu}>Utilisateurs</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/school" onClick={toggleMenu}>Ecoles</a></li>

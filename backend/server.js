@@ -531,17 +531,30 @@ app.get('/getapps/:idecole', (req, res) => {
   });
 });
 /*supprimer une app pour ecole*/
+app.delete('/deleteapp/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = 'DELETE FROM applications WHERE idapp = ?';
+  db_school.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json({ success: true, message: 'Application deleted' });
+  });
+});
+/*creer un organisme*/
 app.post('/createorg', (req, res) => {
-  const { nom, adresse, codepostal, fournisseur, appareils = [], jamfs = [], appli, restriction } = req.body;
+  const { idutilisateur, nom, adresse, codepostal, fournisseur, appareils = [], jamfs = [], appli, restriction } = req.body;
   console.log(req.body);
 
-  const sqlInsertOrganisme = 'INSERT INTO organisme (nom, adresse, codepostal, fournisseur, restrictions) VALUES (?, ?, ?, ?, ?)';
-  db_org.query(sqlInsertOrganisme, [nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
+  const sqlInsertOrganisme = 'INSERT INTO organisme (idutilisateur, nom, adresse, codepostal, fournisseur, restrictions) VALUES (? ,? , ?, ?, ?, ?)';
+  db_org.query(sqlInsertOrganisme, [idutilisateur, nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
     if (err) {
       console.error('Database query error for organisme:', err);
       return res.status(500).json({ success: false, message: 'Server error' });
     }
     const idOrganisme = result.insertId;
+
 
     // Insérer les appareils
     const sqlInsertAppareil = 'INSERT INTO appareils (nom, idorg) VALUES (?, ?)';

@@ -30,6 +30,7 @@ import Schoolapp from './component/user/formulaire/formschool/appschool.js';
 import SearchBar from "./component/user/bdd/mesecoles/infoeleve.js";
 import SearchTeachers from './component/user/bdd/mesecoles/infoprofs.js';
 import EcoleInfo from './component/user/bdd/mesecoles/infoecole.js';
+import Entreprises from './component/user/bdd/mesentreprises/entreprises.js';
 import withAuthentication from './component/fonctions/hoc.js';
 import { AuthProvider } from './component/privateroute/authcontext.js';
 import Erreuracces from './component/erreur/pasacces.js';
@@ -66,6 +67,7 @@ const AuthenticatedAdminPage = withAuthentication(AdminPage);
 const AuthenticatedSchoolList = withAuthentication(SchoolList);
 
 const AuthenticatedOrgForm = withAuthentication(OrgForm);
+const AuthenticatedEntreprises = withAuthentication(Entreprises);
 function App() {
 
   return (
@@ -98,6 +100,7 @@ function App() {
           </Route>
           <Route element={<OrgRoute />}>
               <Route path="/orgform" element= {<AuthenticatedOrgForm />} />  
+              <Route path="/organismes" element= {<AuthenticatedEntreprises />} />  
           </Route>
           <Route element={<HegeomaRoute />}>
               <Route path="/reponse-formulaire" element={<AuthenticatedReponseFormulaire />} />

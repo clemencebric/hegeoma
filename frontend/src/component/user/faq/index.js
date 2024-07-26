@@ -3,7 +3,7 @@ import './faq.css'
 function Faq() {
   return (
     <div className='pagefaq'>
-      page secrete
+      page faq
     </div>
   )
 }
