@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(87, 87, 87);
+    background-color: #6c6c6c;
 }
 .pageblancheentreprise{
     background-color: white;
@@ -49,4 +49,10 @@
     margin: 5px 0;
     padding: 10px;
     border-radius: 4px;
+  }
+  .boutonsupprimer {
+    background-color: rgb(255, 39, 39);
+  }
+  .boutonsupprimer:hover {
+    background-color: rgb(203, 0, 0);
   }

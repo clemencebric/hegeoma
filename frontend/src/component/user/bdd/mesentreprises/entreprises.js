@@ -70,7 +70,7 @@ function Entreprises() {
                 <td>{organisme.codepostal}</td>
                 <td>
                   <button onClick={() => handleVoirPlus(organisme.idorg)}>Voir plus</button>
-                  <button onClick={() => handleDeleteOrganisme(organisme.idorg)}>Supprimer</button>
+                  <button className='boutonsupprimer' onClick={() => handleDeleteOrganisme(organisme.idorg)}>Supprimer</button>
                 </td>
               </tr>
             ))}

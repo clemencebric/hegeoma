@@ -81,7 +81,7 @@ function OrganismeDetails() {
           ))}
         </ul>
 
-        <h3>Jamf</h3>
+        <h3>Produit Jamf</h3>
         <ul>
           {jamf.map((j, index) => (
             <li key={index}>{j.nom}</li>

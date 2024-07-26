@@ -3,14 +3,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(77, 77, 77);
+    background-color: #6c6c6c;
   }
   
   .pageblancheinfosup {
     background-color: white;
     margin-top: 10vh;
     padding: 30px;
-    min-height: 80vh;
+    min-height: 20vh;
     max-height: 80vh; /* Fixed height to prevent overflow */
     overflow-y: auto; /* Add vertical scroll */
     width: 70vw;
