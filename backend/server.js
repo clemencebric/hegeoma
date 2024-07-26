@@ -166,6 +166,21 @@ app.get('/school', verifyToken, (req, res) => {
       res.status(200).json(results);
     });
   });
+/*afficher toutes les entreprises pour l'admin*/
+app.get('/listentreprises', verifyToken, (req, res) => {
+  const userStatut = req.userStatut; // récupère le statut de l'utilisateur connecté à partir de l'objet request
+
+  if (userStatut !== 'admin') return res.status(403).send('Access denied...');
+
+  const sql = 'SELECT * FROM organisme';
+  db_org.query(sql, (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json(results);
+  });
+});
 /*afficher seulement les ecoles de l'user*/
 app.get('/userschool', (req, res) => {
     const authorizationHeader = req.headers['authorization']; // récupère la valeur de l'en-tête Authorization

@@ -41,6 +41,7 @@ import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
 import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentreprise.js';
 import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
 import OrgList from './component/tabdebordadmin/voirplusorganisme.js';
+import ListeEntreprises from './component/tabdebordadmin/entreprises.js';
 import './App.css';
 
 
@@ -74,6 +75,7 @@ const AuthenticatedEntreprises = withAuthentication(Entreprises);
 const AuthenticatedOrganismeDetails = withAuthentication(OrganismeDetails);
 const AuthenticatedSchoolListt = withAuthentication(SchoolListt);
 const AuthenticatedOrgList = withAuthentication(OrgList);
+const AuthenticatedListeEntreprises = withAuthentication(ListeEntreprises);
 
 function App() {
 
@@ -119,6 +121,7 @@ function App() {
               <Route path="/school" element={<AuthenticatedSchoolList />} />
               <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
               <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
+              <Route path="/entreprises" element={<AuthenticatedListeEntreprises />} />
            </Route>
 
 
