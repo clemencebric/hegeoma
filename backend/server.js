@@ -38,8 +38,8 @@ const verifyToken = (req, res, next) => {
     bcrypt.hash(req.body.password.toString(), saltRounds, (err, hash) => {
         if (err) return res.status(500).json({ error: "Error hashing password" });
 
-        const sql = "INSERT INTO login (`email`, `password`, `role`) VALUES (?, ?, ?)";
-        const values = [req.body.email, hash, req.body.role];
+        const sql = "INSERT INTO login (`email`, `password`, `nature`, `statut`) VALUES (?, ?, ?, ?)";
+        const values = [req.body.email, hash, req.body.role, req.body.statut];
         db.query(sql, values, (err, data) => {
             if (err) {
                 console.error("Error during insertion:", err);

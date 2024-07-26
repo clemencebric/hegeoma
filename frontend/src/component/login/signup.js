@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./login.css";
 import Validationn from './signupValidation';
-import { post } from '../fonctions/getpost.js';
+import { post, get } from '../fonctions/getpost.js';
 
 function Signup() {
     const [values, setValues] = useState({
         email: '',
         password: '',
-        role: '' // Ajout du champ de rôle
+        role: '', // Ajout du champ de rôle
+        statut: '' // Ajout du champ de statut
     });
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
@@ -23,7 +24,7 @@ function Signup() {
         setErrors(validationErrors);
 
         // Vérification des erreurs après avoir mis à jour les erreurs
-        if (validationErrors.email === "" && validationErrors.password === "" && validationErrors.role === "") {
+        if (validationErrors.email === "" && validationErrors.password === "" ) {
             post('signup', values)
                 .then(res => {
                     navigate('/login');
@@ -58,6 +59,16 @@ function Signup() {
                                 <option value="entreprise">Entreprise</option>
                             </select>
                             {errors.role && <span className='messageerreur'> {errors.role} </span>}
+                        </div>
+
+                        <div className='mb-3'>
+                            <label htmlFor='statut'>statut</label>
+                            <select name='statut' onChange={handleInput}>
+                                <option value="">Select statut</option>
+                                <option value="admin">Admin</option>
+                                <option value="client">Client</option>
+                            </select>
+                            {errors.statut && <span className='messageerreur'> {errors.statut} </span>}
                         </div>
 
                         <button type='submit' className='btn btn-success'>Signup</button>
