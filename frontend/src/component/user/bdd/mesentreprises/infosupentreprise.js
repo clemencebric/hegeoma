@@ -26,6 +26,18 @@ function OrganismeDetails() {
     };
 
     fetchData();
+
+    // Ajouter un gestionnaire d'événements pour beforeunload
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('idorg');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Nettoyer le gestionnaire d'événements lorsque le composant est démonté
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   if (loading) return <div className='pageorganismeinfosup'>Loading...</div>;
