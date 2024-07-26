@@ -478,6 +478,7 @@ app.get('/searchteachers', (req, res) => {
     res.send(results);
   });
 });
+/*supprimer des écoles*/
 app.delete('/schools/:id', async (req, res) => {
   try {
     const schoolId = req.params.id;
@@ -683,7 +684,49 @@ app.get('/organisme/:idorg', (req, res) => {
     });
   });
 });
+/*supprimer des organismes */
+app.delete('/deleteorganisme/:id', (req, res) => {
+  const { id } = req.params;
 
+  // Supprimer les applications correspondant à l'idorg
+  const deleteApplicationsSql = 'DELETE FROM application WHERE idorg = ?';
+  // Supprimer les entrées jamf correspondant à l'idorg
+  const deleteJamfSql = 'DELETE FROM jamf WHERE idorg = ?';
+  // Supprimer les appareils correspondant à l'idorg
+  const deleteAppareilsSql = 'DELETE FROM appareils WHERE idorg = ?';
+  // Supprimer l'organisme correspondant à l'idorg
+  const deleteOrganismeSql = 'DELETE FROM organisme WHERE idorg = ?';
+
+  db_org.query(deleteApplicationsSql, [id], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+
+    db_org.query(deleteJamfSql, [id], (err, result) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      db_org.query(deleteAppareilsSql, [id], (err, result) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+
+        db_org.query(deleteOrganismeSql, [id], (err, result) => {
+          if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+          }
+
+          res.status(200).json({ success: true, message: 'Organisme supprimé avec succès' });
+        });
+      });
+    });
+  });
+});
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
