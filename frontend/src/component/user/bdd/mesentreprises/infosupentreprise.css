@@ -1,6 +1,61 @@
 .pageorganismeinfosup {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    background-color: rgb(77, 77, 77);
+  }
+  
+  .pageblancheinfosup {
+    background-color: white;
+    margin-top: 10vh;
+    padding: 30px;
+    min-height: 80vh;
+    max-height: 80vh; /* Fixed height to prevent overflow */
+    overflow-y: auto; /* Add vertical scroll */
+    width: 70vw;
+  }
+  
+  .tableaudetailsinfosup {
+    width: 80%; /* Ensure the table takes full width */
+    border-collapse: collapse; /* Collapse borders for better look */
+    margin: 0 auto; /* Center the table */
+  }
+  
+  .tableaudetailsinfosup th,
+  .tableaudetailsinfosup td {
+    border: 1px solid #ddd; /* Add border for cells */
+    padding: 8px; /* Add padding for cells */
+  }
+  
+  .tableaudetailsinfosup th {
+    background-color: #f2f2f2; /* Light background for header */
+    text-align: left; /* Align text to left */
+  }
+  
+  .detailsinfosup h1,
+  .detailsinfosup h2 {
+    margin-bottom: 10px;
+  }
+  
+  .detailsinfosup p {
+    margin: 5px 0;
+  }
+  
+  .detailsinfosup h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .detailsinfosup ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .detailsinfosup ul li {
+    background-color: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  

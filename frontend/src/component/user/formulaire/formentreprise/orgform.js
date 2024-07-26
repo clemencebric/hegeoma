@@ -75,7 +75,10 @@ function OrgForm() {
       }
     });
   };
-
+  const handleNext = () => {
+    navigate('/organismes');
+  };
+  
   return (
     <div className='pageorgform'>
       <div className='pageblancheorg'>
@@ -219,7 +222,7 @@ function OrgForm() {
           <label className='labelformorg'>Quelles restrictions voulez-vous mettre en place ?</label>
           <textarea className='inputformorg formlong' placeholder="Listez les restrictions" value={restriction} onChange={(e) => setRestriction(e.target.value)} required />
           
-          <button type="submit" className='submitformorg'>Soumettre</button>
+          <button type="submit" /*onClick={handleNext}*/ className='submitformorg'>Soumettre</button>
         </form>
       </div>
     </div>

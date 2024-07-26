@@ -35,14 +35,33 @@ function OrganismeDetails() {
 
   return (
     <div className='pageorganismeinfosup'>
-      <div className='details'>
+     <div className='pageblancheinfosup'>
+      <div className='detailsinfosup'>
         <h1>Détails de l'Organisme</h1>
-        <h2>{organisme.nom}</h2>
-        <p>Adresse: {organisme.adresse}</p>
-        <p>Code Postal: {organisme.codepostal}</p>
-        <p>Fournisseur: {organisme.fournisseur}</p>
-        <p>Restrictions: {organisme.restrictions}</p>
-
+        <table className='tableaudetailsinfosup'>
+          <tbody>
+            <tr>
+              <th>Nom</th>
+              <td>{organisme.nom}</td>
+            </tr>
+            <tr>
+              <th>Adresse</th>
+              <td>{organisme.adresse}</td>
+            </tr>
+            <tr>
+              <th>Code Postal</th>
+              <td>{organisme.codepostal}</td>
+            </tr>
+            <tr>
+              <th>Fournisseur</th>
+              <td>{organisme.fournisseur}</td>
+            </tr>
+            <tr>
+              <th>Restrictions</th>
+              <td>{organisme.restrictions}</td>
+            </tr>
+          </tbody>
+        </table>
         <h3>Appareils</h3>
         <ul>
           {appareils.map((appareil, index) => (
@@ -64,6 +83,7 @@ function OrganismeDetails() {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   );
 }
