@@ -37,7 +37,7 @@ function OrgForm() {
     try {
       const response = await post('createorg', orgData);
       if (response.success) {
-        navigate(`/orgform`);
+        navigate(`/organismes`);
       }
     } catch (error) {
       console.error(error);
@@ -75,9 +75,7 @@ function OrgForm() {
       }
     });
   };
-  const handleNext = () => {
-    navigate('/organismes');
-  };
+
   
   return (
     <div className='pageorgform'>
@@ -222,7 +220,7 @@ function OrgForm() {
           <label className='labelformorg'>Quelles restrictions voulez-vous mettre en place ?</label>
           <textarea className='inputformorg formlong' placeholder="Listez les restrictions" value={restriction} onChange={(e) => setRestriction(e.target.value)} required />
           
-          <button type="submit" /*onClick={handleNext}*/ className='submitformorg'>Soumettre</button>
+          <button type="submit" className='submitformorg'>Soumettre</button>
         </form>
       </div>
     </div>
