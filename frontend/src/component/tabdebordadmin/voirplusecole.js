@@ -41,6 +41,7 @@ const SchoolListt = () => {
                             <tr>
                                 <th>Nom</th>
                                 <th>Adresse</th>
+                                <th>Ville</th>
                                 <th>Code Postal</th>
                                 <th>Action</th>
                             </tr>
@@ -50,6 +51,7 @@ const SchoolListt = () => {
                                 <tr key={school.id}>
                                     <td>{school.nom}</td>
                                     <td>{school.adresse}</td>
+                                    <td>{school.ville}</td>
                                     <td>{school.codepostal}</td>
                                     <td>
                                         <button onClick={() => navigate(`/school/${school.id}`)}>Telecharger en excel</button>

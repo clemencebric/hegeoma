@@ -34,13 +34,14 @@ const OrgList = () => {
     return (
         <div className='pagevoirplusecole'>
             <div className='page-contentvoirplusecole'>
-                <h2>Liste des Écoles</h2>
+                <h2>Liste des Entreprises</h2>
                 <div className='table-container'>
                     <table>
                         <thead>
                             <tr>
                                 <th>Nom</th>
                                 <th>Adresse</th>
+                                <th>Ville</th>
                                 <th>Code Postal</th>
                                 <th>Action</th>
                             </tr>
@@ -50,6 +51,7 @@ const OrgList = () => {
                                 <tr key={org.id}>
                                     <td>{org.nom}</td>
                                     <td>{org.adresse}</td>
+                                    <td>{org.ville}</td>
                                     <td>{org.codepostal}</td>
                                     <td>
                                         <button onClick={() => navigate(`/org/${org.id}`)}>Telecharger en excel</button>

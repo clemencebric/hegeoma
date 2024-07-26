@@ -577,10 +577,10 @@ app.delete('/deleteapp/:id', (req, res) => {
 });
 /*creer un organisme*/
 app.post('/createorg', (req, res) => {
-  const { idutilisateur, nom, adresse, codepostal, fournisseur, appareils = [], jamfs = [], appli, restriction } = req.body;
+  const { idutilisateur, nom, adresse, ville, codepostal, fournisseur, appareils = [], jamfs = [], appli, restriction } = req.body;
 
-  const sqlInsertOrganisme = 'INSERT INTO organisme (idutilisateur, nom, adresse, codepostal, fournisseur, restrictions) VALUES (? ,? , ?, ?, ?, ?)';
-  db_org.query(sqlInsertOrganisme, [idutilisateur, nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
+  const sqlInsertOrganisme = 'INSERT INTO organisme (idutilisateur, nom, adresse, ville, codepostal, fournisseur, restrictions) VALUES (? ,? , ?, ?, ?, ?, ?)';
+  db_org.query(sqlInsertOrganisme, [idutilisateur, nom, adresse, ville, codepostal, fournisseur, restriction], (err, result) => {
     if (err) {
       console.error('Database query error for organisme:', err);
       return res.status(500).json({ success: false, message: 'Server error' });

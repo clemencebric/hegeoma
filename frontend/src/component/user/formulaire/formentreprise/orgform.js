@@ -6,6 +6,7 @@ import "./orgform.css";
 
 function OrgForm() {
   const [nom, setNom] = useState('');
+  const [ville, setVille] = useState('');
   const [adresse, setAdresse] = useState('');
   const [codePostal, setCodePostal] = useState('');
   const [fournisseur, setFournisseur] = useState('');
@@ -26,6 +27,7 @@ function OrgForm() {
       idutilisateur,
       nom,
       adresse,
+      ville,
       codepostal: codePostal,
       fournisseur: finalFournisseur,
       appareils,
@@ -84,9 +86,12 @@ function OrgForm() {
         <form className="orgform" onSubmit={handleSubmit}>
           <label className='labelformorg'>Nom de l'organisme</label>
           <input className='inputformorg' placeholder='Entrez le nom' value={nom} onChange={(e) => setNom(e.target.value)} required />
-          
+       
           <label className='labelformorg'>Adresse de l'organisme</label>
           <input className='inputformorg' placeholder="Entrez l'adresse" value={adresse} onChange={(e) => setAdresse(e.target.value)} required />
+          
+          <label className='labelformorg'>Ville</label>
+          <input className='inputformorg' placeholder="Entrez la ville" value={ville} onChange={(e) => setVille(e.target.value)} required />
           
           <label className='labelformorg'>Code postal</label>
           <input className='inputformorg' placeholder="Entrez le code postal" value={codePostal} onChange={(e) => setCodePostal(e.target.value)} required />
