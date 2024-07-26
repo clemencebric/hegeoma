@@ -37,7 +37,9 @@ function Entreprises() {
 
   return (
     <div className='pageentreprise'>
-      <table>
+    <div className='pageblancheentreprise'>
+        <h1>Informations sur les Organismes</h1>
+      <table className='tableauorganismes'>
         <thead>
           <tr>
             <th>Nom</th>
@@ -59,6 +61,7 @@ function Entreprises() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }
