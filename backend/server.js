@@ -745,6 +745,48 @@ app.delete('/deleteorganisme/:id', (req, res) => {
   });
 });
 
+/*afficher seulement les ecoles d'une personne*/
+// Route pour récupérer les écoles d'un utilisateur spécifique
+app.get('/infoschools/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  // Valider que userId est un nombre (ou un autre type selon votre base de données)
+  if (!userId || isNaN(userId)) {
+      return res.status(400).json({ success: false, message: 'Invalid user ID' });
+  }
+
+  const query = 'SELECT * FROM infoecole WHERE idutilisateur = ?';
+
+  db_school.query(query, [userId], (err, results) => {
+      if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      res.status(200).json(results);
+  });
+});
+/*afficher seulement les ecoles d'une personne*/
+// Route pour récupérer les écoles d'un utilisateur spécifique
+app.get('/infoorg/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  // Valider que userId est un nombre (ou un autre type selon votre base de données)
+  if (!userId || isNaN(userId)) {
+      return res.status(400).json({ success: false, message: 'Invalid user ID' });
+  }
+
+  const query = 'SELECT * FROM organisme WHERE idutilisateur = ?';
+
+  db_org.query(query, [userId], (err, results) => {
+      if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      res.status(200).json(results);
+  });
+});
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

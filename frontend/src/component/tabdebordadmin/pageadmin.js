@@ -28,9 +28,9 @@ const UserList = () => {
             const userNature = userDetails.data.nature;
             
             if (userNature === 'ecole') {
-                navigate(`/ecole/${userId}`);
+                navigate(`/infoschool`);
             } else if (userNature === 'organisme') {
-                navigate(`/organisme/${userId}`);
+                navigate(`/infousersorg`);
             } else {
                 console.error('Nature inconnue:', userNature);
             }

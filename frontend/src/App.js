@@ -39,6 +39,8 @@ import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import SchoolRoute from './component/privateroute/schoolroute.js';
 import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
 import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentreprise.js';
+import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
+import OrgList from './component/tabdebordadmin/voirplusorganisme.js';
 import './App.css';
 
 
@@ -70,6 +72,9 @@ const AuthenticatedSchoolList = withAuthentication(SchoolList);
 const AuthenticatedOrgForm = withAuthentication(OrgForm);
 const AuthenticatedEntreprises = withAuthentication(Entreprises);
 const AuthenticatedOrganismeDetails = withAuthentication(OrganismeDetails);
+const AuthenticatedSchoolListt = withAuthentication(SchoolListt);
+const AuthenticatedOrgList = withAuthentication(OrgList);
+
 function App() {
 
   return (
@@ -112,6 +117,8 @@ function App() {
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AuthenticatedAdminPage />} />
               <Route path="/school" element={<AuthenticatedSchoolList />} />
+              <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
+              <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
            </Route>
 
 
