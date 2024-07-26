@@ -615,7 +615,24 @@ app.post('/createorg', (req, res) => {
   });
 });
 
-
+/*afficher un organisme*/
+app.get('/organismes/:idutilisateur', (req, res) => {
+  const idutilisateur = req.params.idutilisateur;
+  console.log(idutilisateur)
+  const sql = 'SELECT nom, adresse, codepostal FROM organisme WHERE idutilisateur = ?';
+  db_org.query(sql, [idutilisateur], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    if (result.length === 0) {
+      console.log('No organismes found for user:', idutilisateur);
+    } else {
+      console.log('Organismes found:', result);
+    }
+    res.status(200).json(result);
+  });
+});
 
 
 app.listen(8081, () => {

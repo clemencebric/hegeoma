@@ -48,6 +48,10 @@ const Header = () => {
           {contextIsAuthenticated && isUserAuthorized('client')  && userData.nature == "organisme" && (
             <li><a href="/orgform" onClick={toggleMenu}>Form</a></li>
           )}
+          {contextIsAuthenticated && isUserAuthorized('client')  && userData.nature == "organisme" && (
+            <li><a href="/organismes" onClick={toggleMenu}>Organismes</a></li>
+          )}
+
           {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/admin" onClick={toggleMenu}>Utilisateurs</a></li>
           )}
