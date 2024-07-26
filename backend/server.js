@@ -105,7 +105,7 @@ app.get('/profile', verifyToken, (req, res) => {
         res.status(200).send(result);
     });
 });
-
+/*recuperer toutes les infos des personnes connectees*/
 app.get('/users', (req, res) => {
     const sql = 'SELECT * FROM login';
     db.query(sql, (err, results) => {
@@ -116,7 +116,24 @@ app.get('/users', (req, res) => {
         res.status(200).json(results);
     });
 });
+/*recuperer les donnees dun untilisateur en particulier */
+app.get('/adminuser/:id', (req, res) => {
+  const userId = req.params.id;
+  console.log(req.params.id)
+  const sql = 'SELECT * FROM login WHERE id = ?';
+  db.query(sql, [userId], (err, result) => {
+      if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+      }
 
+      if (result.length === 0) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+      }
+
+      res.status(200).json({ success: true, data: result[0] });
+  });
+});
 
 /*ajouter des écoles*/
 app.post('/createschool', (req, res) => {
