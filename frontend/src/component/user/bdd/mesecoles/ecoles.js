@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { remove } from '../../../fonctions/getpost';
 const UserSchoolList = () => {
+    localStorage.removeItem('idecole');
     const [schools, setSchools] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {

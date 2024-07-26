@@ -1,6 +1,7 @@
 import "./contact.css"
 
 function Contact() {
+  localStorage.removeItem('idecole');
   return (
     <div className="pagecontact">
         <div className='minipage'>

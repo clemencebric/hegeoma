@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { removeAuthenticationToken } from '../privateroute/authservice.js';
 
 const Logout = () => {
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
     removeAuthenticationToken();
+    localStorage.removeItem('idecole');
     navigate('/');
   };
 

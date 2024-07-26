@@ -67,7 +67,7 @@ const Header = () => {
           </>
            ) : null}
           {contextIsAuthenticated ? (
-            <li><a href="#" onClick={logout}>Déconnexion</a></li>
+            <li><a href="#" onClick={logout} >Déconnexion</a></li>
           ) : (
             <li><a href="/login" onClick={toggleMenu}>Se connecter</a></li>
           )}
