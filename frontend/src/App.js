@@ -119,15 +119,15 @@ function App() {
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AuthenticatedAdminPage />} />
               <Route path="/school" element={<AuthenticatedSchoolList />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
               <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
               <Route path="/entreprises" element={<AuthenticatedListeEntreprises />} />
            </Route>
 
-
           <Route path="/mentionslegales" element={<Mentions />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+         
           <Route path="/erreur" element={<Erreuracces />} />
           <Route path="*" element={<Erreur />} />
         </Routes>

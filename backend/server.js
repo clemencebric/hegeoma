@@ -33,13 +33,13 @@ const verifyToken = (req, res, next) => {
       next();
     });
   };
-  
-app.post('/signup', (req, res) => {
+
+  app.post('/signup', (req, res) => {
     bcrypt.hash(req.body.password.toString(), saltRounds, (err, hash) => {
         if (err) return res.status(500).json({ error: "Error hashing password" });
 
-        const sql = "INSERT INTO login (`email`, `password`) VALUES (?, ?)";
-        const values = [req.body.email, hash];
+        const sql = "INSERT INTO login (`email`, `password`, `role`) VALUES (?, ?, ?)";
+        const values = [req.body.email, hash, req.body.role];
         db.query(sql, values, (err, data) => {
             if (err) {
                 console.error("Error during insertion:", err);
@@ -49,6 +49,7 @@ app.post('/signup', (req, res) => {
         });
     });
 });
+
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
