@@ -38,6 +38,7 @@ import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseform
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import SchoolRoute from './component/privateroute/schoolroute.js';
 import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
+import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentreprise.js';
 import './App.css';
 
 
@@ -68,6 +69,7 @@ const AuthenticatedSchoolList = withAuthentication(SchoolList);
 
 const AuthenticatedOrgForm = withAuthentication(OrgForm);
 const AuthenticatedEntreprises = withAuthentication(Entreprises);
+const AuthenticatedOrganismeDetails = withAuthentication(OrganismeDetails);
 function App() {
 
   return (
@@ -101,6 +103,7 @@ function App() {
           <Route element={<OrgRoute />}>
               <Route path="/orgform" element= {<AuthenticatedOrgForm />} />  
               <Route path="/organismes" element= {<AuthenticatedEntreprises />} />  
+              <Route path="/infoorg" element= {<AuthenticatedOrganismeDetails />} /> 
           </Route>
           <Route element={<HegeomaRoute />}>
               <Route path="/reponse-formulaire" element={<AuthenticatedReponseFormulaire />} />

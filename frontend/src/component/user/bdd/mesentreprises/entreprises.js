@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './entreprise.css';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { useNavigate } from 'react-router-dom';
@@ -15,8 +14,7 @@ function Entreprises() {
     const fetchData = async () => {
       try {
         const idutilisateur = userData.id;
-        console.log(idutilisateur);
-        const response = await get(`organismes/${idutilisateur}`, idutilisateur);
+        const response = await get(`organismes/${idutilisateur}`);
         setOrganismes(response);
       } catch (err) {
         setError(err.message);
@@ -29,7 +27,8 @@ function Entreprises() {
   }, []);
 
   const handleVoirPlus = (idorg) => {
-    navigate(`/organisme/${idorg}`);
+    localStorage.setItem('idorg', idorg);
+    navigate(`/infoorg`);
   };
 
   if (loading) return <div className='pageentreprise'>Loading...</div>;
@@ -55,7 +54,7 @@ function Entreprises() {
               <td>{organisme.adresse}</td>
               <td>{organisme.codepostal}</td>
               <td>
-                <button onClick={() => handleVoirPlus(organisme.id)}>Voir plus</button>
+                <button onClick={() => handleVoirPlus(organisme.idorg)}>Voir plus</button>
               </td>
             </tr>
           ))}

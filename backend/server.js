@@ -545,7 +545,6 @@ app.delete('/deleteapp/:id', (req, res) => {
 /*creer un organisme*/
 app.post('/createorg', (req, res) => {
   const { idutilisateur, nom, adresse, codepostal, fournisseur, appareils = [], jamfs = [], appli, restriction } = req.body;
-  console.log(req.body);
 
   const sqlInsertOrganisme = 'INSERT INTO organisme (idutilisateur, nom, adresse, codepostal, fournisseur, restrictions) VALUES (? ,? , ?, ?, ?, ?)';
   db_org.query(sqlInsertOrganisme, [idutilisateur, nom, adresse, codepostal, fournisseur, restriction], (err, result) => {
@@ -618,19 +617,70 @@ app.post('/createorg', (req, res) => {
 /*afficher un organisme*/
 app.get('/organismes/:idutilisateur', (req, res) => {
   const idutilisateur = req.params.idutilisateur;
-  console.log(idutilisateur)
-  const sql = 'SELECT nom, adresse, codepostal FROM organisme WHERE idutilisateur = ?';
+
+  const sql = 'SELECT idorg, nom, adresse, codepostal FROM organisme WHERE idutilisateur = ?';
   db_org.query(sql, [idutilisateur], (err, result) => {
     if (err) {
       console.error('Database query error:', err);
       return res.status(500).json({ success: false, message: 'Server error' });
     }
+    /*
     if (result.length === 0) {
       console.log('No organismes found for user:', idutilisateur);
     } else {
       console.log('Organismes found:', result);
-    }
+    }*/
     res.status(200).json(result);
+  });
+});
+
+/*afficher le reste des informations sur l'organisme */
+app.get('/organisme/:idorg', (req, res) => {
+  const idorg = req.params.idorg;
+
+  const sqlOrganisme = 'SELECT nom, adresse, codepostal, fournisseur, restrictions FROM organisme WHERE idorg = ?';
+  const sqlAppareils = 'SELECT nom FROM appareils WHERE idorg = ?';
+  const sqlJamf = 'SELECT nom FROM jamf WHERE idorg = ?';
+  const sqlAppli = 'SELECT nom FROM application WHERE idorg = ?';
+
+  db_org.query(sqlOrganisme, [idorg], (err, resultOrganisme) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    if (resultOrganisme.length === 0) {
+      return res.status(404).json({ success: false, message: 'Organisme not found' });
+    }
+
+    const organisme = resultOrganisme[0];
+
+    db_org.query(sqlAppareils, [idorg], (err, resultAppareils) => {
+      if (err) {
+        console.error('Database query error:', err);
+        return res.status(500).json({ success: false, message: 'Server error' });
+      }
+
+      db_org.query(sqlJamf, [idorg], (err, resultJamf) => {
+        if (err) {
+          console.error('Database query error:', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+
+        db_org.query(sqlAppli, [idorg], (err, resultAppli) => {
+          if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
+          }
+
+          res.status(200).json({
+            organisme,
+            appareils: resultAppareils,
+            jamf: resultJamf,
+            appli: resultAppli,
+          });
+        });
+      });
+    });
   });
 });
 
