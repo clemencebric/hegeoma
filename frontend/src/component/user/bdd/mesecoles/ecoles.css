@@ -48,3 +48,6 @@ th {
 .fondplus {
     background-color: rgb(157, 232, 255);
 }
+button:hover {
+    background-color: red;
+}

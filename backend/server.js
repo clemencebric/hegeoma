@@ -255,6 +255,7 @@ app.get('/ecole', (req, res) => {
           res.status(200).json(results);
         });
       });
+
   /*creer des eleves*/
   app.post('/createeleve', (req, res) => {
     const { idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux } = req.body;
@@ -266,9 +267,48 @@ app.get('/ecole', (req, res) => {
         return res.status(500).json({ success: false, message: 'Server error' });
       }
       const eleve = { id: result.insertId, nom, prenom, idclasse };
+      console.log(eleve)
       res.status(201).json(eleve);
     });
+  });/*
+//generer addresse email
+const generateEmail = (prenom, nom, format, domaine) => {
+  if (format === "prenom.nom@domaine") {
+      return `${prenom.toLowerCase()}.${nom.toLowerCase()}@${domaine}`;
+  } else if (format === "initiale.nom@domaine") {
+      return `${prenom.charAt(0).toLowerCase()}.${nom.toLowerCase()}@${domaine}`;
+  }
+  return null;
+};
+
+// Route to create an eleve with email generation
+app.post('/createeleve', (req, res) => {
+  const { idecole, idclasse, nom, prenom, classe, emailpun, emailpdeux, emailFormat } = req.body;
+  
+  // Fetch the domain from the database
+  const fetchDomainQuery = "SELECT nomdomaine FROM infoecole WHERE idecole = ?";
+  db_school.query(fetchDomainQuery, [idecole], (err, result) => {
+      if (err) {
+          console.error('Error fetching domain:', err);
+          return res.status(500).json({ error: "Error fetching domain" });
+      }
+      
+      const domaine = result[0].nomdomaine;
+      const email = generateEmail(prenom, nom, emailFormat, domaine);
+
+      // Insert the eleve into the database
+      const insertEleveQuery = "INSERT INTO eleves (idecole, idclasse, nom, prenom, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      db_school.query(insertEleveQuery, [idecole, idclasse, nom, prenom, email, emailpun, emailpdeux], (err, result) => {
+          if (err) {
+              console.error('Error inserting eleve:', err);
+              return res.status(500).json({ error: "Error inserting eleve" });
+          }
+          res.status(201).json({ ideleve: result.insertId, nom, prenom, email, classe });
+      });
   });
+});
+
+*/
   /*supprimer des eleves */
   app.delete('/eleve/:ideleve', (req, res) => {
     const { ideleve } = req.params;
@@ -803,6 +843,10 @@ app.get('/infoorg/:userId', (req, res) => {
       res.status(200).json(results);
   });
 });
+
+
+
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

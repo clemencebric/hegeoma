@@ -33,7 +33,7 @@ const UserSchoolList = () => {
     };
     const handlePlusClick = (schoolId) => {
         localStorage.setItem('idecole', schoolId);
-        navigate('/classes'); // remplacez '/pagevuglobale' par le chemin de la page que vous souhaitez afficher
+        navigate('/appecole'); // remplacez '/pagevuglobale' par le chemin de la page que vous souhaitez afficher
     };
     const handleDeleteClick = async (schoolId) => {
         const result = await Swal.fire({

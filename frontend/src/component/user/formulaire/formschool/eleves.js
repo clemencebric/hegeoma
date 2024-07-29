@@ -13,7 +13,7 @@ function Eleves() {
   const [selectedClasses, setSelectedClasses] = useState({});
   const [emailpun, setEmailpun] = useState(''); // email parent 1
   const [emailpdeux, setEmaildeux] = useState(''); // email parent 2
-  const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null); 
+  const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null);
   const [eleves, setEleves] = useState([]);
   const [classes, setClasses] = useState([]);
   const [idclasse, setIdclasse] = useState('');
@@ -68,12 +68,12 @@ function Eleves() {
       }
     };
     fetchEleves();
-  }, [idecole]);
+  }, [idecole, refresh]); // ajouter refresh comme dépendance
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const className = await getClassName(idclasse);
-  
+
     const eleveData = {
       idecole,
       idclasse,
@@ -86,16 +86,18 @@ function Eleves() {
 
     try {
       const response = await post('createeleve', eleveData);
+      const newEleve = { ...response, nom, prenom, classe: className, idclasse };
+      setEleves(prevEleves => [...prevEleves, newEleve]);
+      setRefresh(!refresh);
+
+      const newClass = { idclasse: idclasse, nom: selectedClassName };
+      updateClasses(newClass);
+
+      // Réinitialiser les champs du formulaire
       setNom('');
       setPrenom('');
       setEmailpun('');
       setEmaildeux('');
-      const newEleve = { ...response, nom, prenom, classe: className, idclasse };
-      setEleves([...eleves, newEleve]);
-      setRefresh(!refresh);
-  
-      const newClass = { idclasse: idclasse, nom: selectedClassName };
-      updateClasses(newClass);
     } catch (error) {
       console.error(error);
     }
@@ -106,7 +108,7 @@ function Eleves() {
       const selectedClass = selectedClasses[eleveId];
       const response = await post(`updateeleve/${eleveId}`, { idclasse: selectedClass });
       const updatedClassName = await getClassName(selectedClass);
-      setEleves(prevEleves => prevEleves.map(eleve => 
+      setEleves(prevEleves => prevEleves.map(eleve =>
         eleve.ideleve === eleveId ? { ...eleve, idclasse: selectedClass, classe: updatedClassName } : eleve
       ));
     } catch (error) {
@@ -143,7 +145,7 @@ function Eleves() {
                 >
                   <option value="">Sélectionnez une classe</option>
                   {classes.map((classe) => (
-                    <option key={classe.idclasse} value={classe.idclasse} classe={classe.nom}>
+                    <option key={classe.idclasse} value={classe.idclasse}>
                       {classe.nom}
                     </option>
                   ))}

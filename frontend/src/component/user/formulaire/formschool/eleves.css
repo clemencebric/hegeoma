@@ -77,6 +77,10 @@
     border-radius: 50px;
     padding: 10px;
   }
+  .poubelleeleve:hover {
+    background-color: rgb(255, 120, 120);
+  }
+  
   .boutonsuivanteleve {
     background-color: rgb(136, 223, 131);
     font-size: 20px;

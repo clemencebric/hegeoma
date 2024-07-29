@@ -1,7 +1,83 @@
-.schoolform {
-    height: 100vh;
+.fond-page-form-ecole {
+    background-color: #5A5A5A;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.page-blanche-form-ecole {
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-width: 800px;
+}
+
+.page-blanche-form-ecole h1 {
+    margin-bottom: 2rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-school-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #E9E9E9;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+    font-size: 18px;
+}
+
+.form-school-input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.school-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.label-school-form {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.select-school-form {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #E9E9E9;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+}
+
+.select-school-form:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.button-school-form {
+    background-color: #007BFF;
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.button-school-form:hover {
+    background-color: #0056b3;
 }
