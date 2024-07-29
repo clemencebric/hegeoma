@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const express = require('express');
 const XLSX = require('xlsx'); //pour excel
 const path = require('path'); //pour excel
-const fs = require('fs'); //pour excel
+const fs = require('fs');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -866,57 +866,60 @@ app.get('/infoorg/:userId', (req, res) => {
 });
 
 /*telecharger le excel*/
+/* Télécharger le fichier Excel */
 app.get('/downloadExcel/:idecole', (req, res) => {
   const { idecole } = req.params;
 
   // Fetch data from multiple tables
   const queries = {
-      ecole: "SELECT * FROM infoecole WHERE idecole = ?",
-      eleves: "SELECT * FROM eleves WHERE idecole = ?",
-      classes: "SELECT * FROM classes WHERE idecole = ?",
-      professeurs: "SELECT * FROM professeurs WHERE idecole = ?",
-      appareils: "SELECT * FROM appareils WHERE idecole = ?",
-      application: "SELECT * FROM applications WHERE idecole = ?"
+    ecole: "SELECT * FROM infoecole WHERE idecole = ?",
+    eleves: "SELECT * FROM eleves WHERE idecole = ?",
+    classes: "SELECT * FROM classes WHERE idecole = ?",
+    professeurs: "SELECT * FROM professeurs WHERE idecole = ?",
+    appareils: "SELECT * FROM appareils WHERE idecole = ?",
+    application: "SELECT * FROM applications WHERE idecole = ?"
   };
 
   let workbook = XLSX.utils.book_new();
 
   const fetchData = (query, tableName) => {
-      return new Promise((resolve, reject) => {
-          db_school.query(query, [idecole], (err, results) => {
-              if (err) return reject(err);
-              const ws = XLSX.utils.json_to_sheet(results);
-              XLSX.utils.book_append_sheet(workbook, ws, tableName);
-              resolve();
-          });
+    return new Promise((resolve, reject) => {
+      db_school.query(query, [idecole], (err, results) => {
+        if (err) return reject(err);
+        const ws = XLSX.utils.json_to_sheet(results);
+        XLSX.utils.book_append_sheet(workbook, ws, tableName);
+        resolve();
       });
+    });
   };
 
   Promise.all([
-      fetchData(queries.ecole, 'Ecole'),
-      fetchData(queries.eleves, 'Eleves'),
-      fetchData(queries.professeurs, 'Professeurs'),
-      fetchData(queries.appareils, 'Appareils'),
-      fetchData(queries.application, 'Application'),
-      fetchData(queries.classes, 'Classes')
+    fetchData(queries.ecole, 'Ecole'),
+    fetchData(queries.eleves, 'Eleves'),
+    fetchData(queries.classes, 'Classes'),
+    fetchData(queries.professeurs, 'Professeurs'),
+    fetchData(queries.appareils, 'Appareils'),
+    fetchData(queries.application, 'Application')
   ])
-  .then(() => {
+    .then(() => {
       // Create a buffer from the workbook and send it as a file download
       const filePath = path.join(__dirname, 'report.xlsx');
       XLSX.writeFile(workbook, filePath);
 
       res.download(filePath, 'report.xlsx', (err) => {
-          if (err) {
-              console.error('Error downloading file:', err);
-          }
-          fs.unlinkSync(filePath); // Clean up the file after sending
+        if (err) {
+          console.error('Error downloading file:', err);
+        }
+        fs.unlinkSync(filePath); // Clean up the file after sending
       });
-  })
-  .catch((err) => {
+    })
+    .catch((err) => {
       console.error('Error fetching data or generating file:', err);
       res.status(500).send('Internal Server Error');
-  });
+    });
 });
+
+
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
