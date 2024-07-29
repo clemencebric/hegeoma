@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { get } from '../fonctions/getpost.js';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { get, remove } from '../fonctions/getpost'; // Assurez-vous que remove est importé depuis getpost
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importez sweetalert2
 import "./pageadmin.css";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
-    localStorage.removeItem('userId');
-    const navigate = useNavigate(); // Initialiser useNavigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -25,9 +25,9 @@ const UserList = () => {
         localStorage.setItem('userId', userId);
 
         try {
-            const userDetails = await get(`adminuser/${userId}`); // Supposons que cette route renvoie les détails de l'utilisateur
+            const userDetails = await get(`adminuser/${userId}`);
             const userNature = userDetails.data.nature;
-            
+
             if (userNature === 'ecole') {
                 navigate(`/infoschool`);
             } else if (userNature === 'organisme') {
@@ -38,6 +38,40 @@ const UserList = () => {
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
+    };
+
+    const handleDelete = (userId) => {
+        Swal.fire({
+            title: 'Êtes-vous sûr ?',
+            text: 'Cette action est irréversible. Voulez-vous vraiment continuer ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, supprimer !',
+            cancelButtonText: 'Annuler'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                remove(`users/${userId}`)
+                    .then(() => {
+                        // Supprimez l'utilisateur de la liste locale après la suppression réussie
+                        setUsers(users.filter(user => user.id !== userId));
+                        Swal.fire(
+                            'Supprimé !',
+                            'L\'utilisateur a été supprimé.',
+                            'success'
+                        );
+                    })
+                    .catch(error => {
+                        console.error('Error deleting user:', error);
+                        Swal.fire(
+                            'Erreur !',
+                            'Une erreur est survenue lors de la suppression.',
+                            'error'
+                        );
+                    });
+            }
+        });
     };
 
     return (
@@ -63,6 +97,7 @@ const UserList = () => {
                                 <td>{user.actif}</td>
                                 <td>
                                     <button onClick={() => handleVoirPlus(user.id)}>Voir plus</button>
+                                    <button onClick={() => handleDelete(user.id)}>Supprimer</button>
                                 </td>
                             </tr>
                         ))}
