@@ -136,7 +136,7 @@ app.get('/adminuser/:id', (req, res) => {
   });
 });
 
-/*ajouter des écoles*/
+/*ajouter des écoles*//*
 app.post('/createschool', (req, res) => {
     const sql = "INSERT INTO infoecole (`idutilisateur`, `nom`, `adresse`, `ville`, `codepostal`, `nomdomaine`, `emaileleve`) VALUES (?, ?, ?, ?, ?, ?, ?)";
     const values = [req.body.idutilisateur, req.body.nom, req.body.adresse, req.body.ville, req.body.codepostal, req.body.nomdomaine, req.body.emaileleve];
@@ -150,7 +150,35 @@ app.post('/createschool', (req, res) => {
         //console.log(idecole)
         return res.status(201).json({ success: true, message: "School created", idecole });
     });
+    });*/
+    app.post('/createschool', (req, res) => {
+      const { idutilisateur, nom, adresse, ville, codepostal, nomdomaine, emaileleve, appareils } = req.body;
+    
+      // Insert school into the database
+      const insertSchoolQuery = "INSERT INTO infoecole (idutilisateur, nom, adresse, ville, codepostal, nomdomaine, emaileleve) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      db_school.query(insertSchoolQuery, [idutilisateur, nom, adresse, ville, codepostal, nomdomaine, emaileleve], (err, result) => {
+        if (err) {
+          console.error('Error inserting school:', err);
+          return res.status(500).json({ error: "Error inserting school" });
+        }
+        const idecole = result.insertId;
+    
+        // Insert appareils into the database
+        if (appareils && appareils.length > 0) {
+          const insertAppareilsQuery = "INSERT INTO appareils (idecole, nom) VALUES ?";
+          const values = appareils.map((appareil) => [idecole, appareil]);
+          db_school.query(insertAppareilsQuery, [values], (err, result) => {
+            if (err) {
+              console.error('Error inserting appareils:', err);
+              return res.status(500).json({ error: "Error inserting appareils" });
+            }
+          });
+        }
+    
+        res.status(201).json({ idecole });
+      });
     });
+    
 
 /*afficher toutes les ecoles pour l'admin*/
 app.get('/school', verifyToken, (req, res) => {
@@ -256,22 +284,7 @@ app.get('/ecole', (req, res) => {
         });
       });
 
-  /*creer des eleves*/
-  /*
-  app.post('/createeleve', (req, res) => {
-    const { idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux } = req.body;
-    //console.log(req.body)
-    const sql = 'INSERT INTO eleves (idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    db_school.query(sql, [idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux], (err, result) => {
-      if (err) {
-        console.error('Database query error:', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
-      }
-      const eleve = { id: result.insertId, nom, prenom, idclasse };
-      console.log(eleve)
-      res.status(201).json(eleve);
-    });
-  });*/
+
 //generer addresse email
 const generateEmail = (prenom, nom, format, domaine) => {
   if (format === "prenom.nom@domaine") {
@@ -282,11 +295,11 @@ const generateEmail = (prenom, nom, format, domaine) => {
   return null;
 };
 
-// Route to create an eleve with email generation
+// creer des eleves avec leurs emails
 app.post('/createeleve', (req, res) => {
   const { idecole, idclasse, nom, prenom, classe, emailpun, emailpdeux } = req.body;
   
-  // Fetch the domain and email format from the database
+  // chercher le domaine et le format de l'email
   const fetchDomainAndFormatQuery = "SELECT nomdomaine, emaileleve FROM infoecole WHERE idecole = ?";
   db_school.query(fetchDomainAndFormatQuery, [idecole], (err, result) => {
       if (err) {
@@ -297,7 +310,7 @@ app.post('/createeleve', (req, res) => {
       const { nomdomaine: domaine, emaileleve: format } = result[0];
       const email = generateEmail(prenom, nom, format, domaine);
      
-      // Insert the eleve into the database
+      // inserer l'eleve dans la table eleves
       const insertEleveQuery = "INSERT INTO eleves (idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       db_school.query(insertEleveQuery, [idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux], (err, result) => {
           if (err) {
@@ -409,38 +422,7 @@ app.post('/updateeleve/:id', async (req, res) => {
 
 
 
-  /*creer classes et liaisons profclasse*//*
-  app.post('/createprofesseur', async (req, res) => {
-    try {
-      const { idecole, nom, prenom, email, idclasses } = req.body;
-      const sql = 'INSERT INTO professeurs (idecole, nom, prenom, email) VALUES (?, ?, ?, ?)';
-      db_school.query(sql, [idecole, nom, prenom, email], (err, result) => {
-        if (err) {
-          console.error('Database query error:', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-  
-        const prof = { id: result.insertId, nom, prenom, email };
-  
-        // Ajouter les relations entre le professeur et les classes sélectionnées
-        if (idclasses && idclasses.length > 0) {
-          const sql = 'INSERT INTO profclasse (idprof, idclasse, idecole) VALUES ?';
-          const values = idclasses.map((idclasse) => [result.insertId, idclasse, idecole]);
-          db_school.query(sql, [values], (err, result) => {
-            if (err) {
-              console.error('Database query error:', err);
-              return res.status(500).json({ success: false, message: 'Server error' });
-            }
-          });
-        }
-  
-        res.status(201).json(prof);
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Erreur serveur');
-    }
-  });*/
+  /*creer classes et liaisons profclasse avec emails*/
   app.post('/createprofesseur', (req, res) => {
     const { idecole, nom, prenom, idclasses } = req.body;
     

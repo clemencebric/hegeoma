@@ -11,6 +11,7 @@ function SchoolForm() {
   const [codePostal, setCodePostal] = useState('');
   const [nomDomaine, setNomDomaine] = useState('@');
   const [emaileleve, setEmaileleve] = useState('');
+  const [appareils, setAppareils] = useState([]);
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
@@ -21,6 +22,15 @@ function SchoolForm() {
       setNomDomaine(value);
     } else {
       setNomDomaine('@' + value);
+    }
+  };
+
+  const handleAppareilChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setAppareils([...appareils, value]);
+    } else {
+      setAppareils(appareils.filter((appareil) => appareil !== value));
     }
   };
 
@@ -35,6 +45,7 @@ function SchoolForm() {
       codepostal: codePostal,
       nomdomaine: nomDomaine,
       emaileleve,
+      appareils,
     };
 
     try {
@@ -112,6 +123,30 @@ function SchoolForm() {
             <option value="prenom.nom@domaine">prenom.nom@domaine</option>
             <option value="initiale.nom@domaine">initiale.nom@domaine</option>
           </select>
+
+          <label className="label-school-form" htmlFor="appareils">Types d'appareils:</label>
+          <div className="checkbox-group">
+            <label>
+              <input type="checkbox" value="iOS" onChange={handleAppareilChange} />
+              iOS
+            </label>
+            <label>
+              <input type="checkbox" value="macOS" onChange={handleAppareilChange} />
+              macOS
+            </label>
+            <label>
+              <input type="checkbox" value="applewatch" onChange={handleAppareilChange} />
+              Apple Watch
+            </label>
+            <label>
+              <input type="checkbox" value="visionOS" onChange={handleAppareilChange} />
+              visionOS
+            </label>
+            <label>
+              <input type="checkbox" value="tvOS" onChange={handleAppareilChange} />
+              tvOS
+            </label>
+          </div>
 
           <button className="button-school-form" type="submit">Suivant</button>
         </form>

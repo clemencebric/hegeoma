@@ -37,6 +37,7 @@ import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import SchoolRoute from './component/privateroute/schoolroute.js';
+
 import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
 import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentreprise.js';
 import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
@@ -64,6 +65,7 @@ const AuthenticatedSearchBar = withAuthentication(SearchBar);
 const AuthenticatedSearchTeachers = withAuthentication(SearchTeachers);
 const AuthenticatedEcoleInfo = withAuthentication(EcoleInfo);
 const AuthenticatedSchoolapp = withAuthentication(Schoolapp);
+
 
 const AuthenticatedReponseFormulaire  = withAuthentication(ReponseFormulaire );
 
@@ -106,6 +108,7 @@ function App() {
               <Route path='/infoprof' element={<AuthenticatedSearchTeachers/>} />
               <Route path='/infoecole' element={<AuthenticatedEcoleInfo />} />
               <Route path='/appecole' element={<AuthenticatedSchoolapp/>} />
+           
           </Route>
           <Route element={<OrgRoute />}>
               <Route path="/orgform" element= {<AuthenticatedOrgForm />} />  
