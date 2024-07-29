@@ -5,7 +5,7 @@ import "./pageadmin.css"
 
 const SchoolList = () => {
     const [schools, setUsers] = useState([]);
-
+    localStorage.removeItem('userId');
     const token = localStorage.getItem('token');
 
     useEffect(() => {

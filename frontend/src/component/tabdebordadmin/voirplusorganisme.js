@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { get } from '../fonctions/getpost.js'; // Votre fonction pour faire des requêtes GET
 import { useNavigate } from 'react-router-dom';
-import "./voirplusecole.css"
+import "./voirplusecole.css";
+
 const OrgList = () => {
     const [orgs, setorg] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const userId = localStorage.getItem('userId');
     const navigate = useNavigate();
-
+    localStorage.removeItem('idorg');
     useEffect(() => {
         const fetchorg = async () => {
             try {
@@ -27,6 +28,11 @@ const OrgList = () => {
             setLoading(false);
         }
     }, [userId]);
+
+    const handleViewMore = (orgId) => {
+        localStorage.setItem('idorg', orgId);
+        navigate(`/orgdetailadmin`);
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -48,13 +54,13 @@ const OrgList = () => {
                         </thead>
                         <tbody>
                             {orgs.map((org) => (
-                                <tr key={org.id}>
+                                <tr key={org.idorg}>
                                     <td>{org.nom}</td>
                                     <td>{org.adresse}</td>
                                     <td>{org.ville}</td>
                                     <td>{org.codepostal}</td>
                                     <td>
-                                        <button onClick={() => navigate(`/org/${org.id}`)}>Telecharger en excel</button>
+                                        <button onClick={() => handleViewMore(org.idorg)}>Voir plus</button>
                                     </td>
                                 </tr>
                             ))}

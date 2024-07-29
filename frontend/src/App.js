@@ -37,7 +37,7 @@ import Erreuracces from './component/erreur/pasacces.js';
 import ReponseFormulaire from './component/hegeoma/reponseformulaire/reponseformulaire.js';
 import ClientnoncoRoute from './component/privateroute/clientetnoncoroute.js';
 import SchoolRoute from './component/privateroute/schoolroute.js';
-
+import OrganismeDetailsAdmin from './component/tabdebordadmin/infosupporgadmin.js';
 import OrgForm from './component/user/formulaire/formentreprise/orgform.js';
 import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentreprise.js';
 import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
@@ -71,6 +71,7 @@ const AuthenticatedReponseFormulaire  = withAuthentication(ReponseFormulaire );
 
 const AuthenticatedAdminPage = withAuthentication(AdminPage);
 const AuthenticatedSchoolList = withAuthentication(SchoolList);
+const AuthenticatedOrganismeDetailsAdmin = withAuthentication(OrganismeDetailsAdmin);
 
 const AuthenticatedOrgForm = withAuthentication(OrgForm);
 const AuthenticatedEntreprises = withAuthentication(Entreprises);
@@ -78,6 +79,7 @@ const AuthenticatedOrganismeDetails = withAuthentication(OrganismeDetails);
 const AuthenticatedSchoolListt = withAuthentication(SchoolListt);
 const AuthenticatedOrgList = withAuthentication(OrgList);
 const AuthenticatedListeEntreprises = withAuthentication(ListeEntreprises);
+
 
 function App() {
 
@@ -126,6 +128,7 @@ function App() {
               <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
               <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
               <Route path="/entreprises" element={<AuthenticatedListeEntreprises />} />
+              <Route path="/orgdetailadmin" element={<AuthenticatedOrganismeDetailsAdmin/>} />
            </Route>
 
           <Route path="/mentionslegales" element={<Mentions />} />

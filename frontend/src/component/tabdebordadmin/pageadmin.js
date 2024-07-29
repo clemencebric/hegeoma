@@ -5,6 +5,7 @@ import "./pageadmin.css";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
+    localStorage.removeItem('userId');
     const navigate = useNavigate(); // Initialiser useNavigate
 
     useEffect(() => {
