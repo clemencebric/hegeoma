@@ -28,6 +28,17 @@ const SchoolListt = () => {
             setError('No user ID found in local storage');
             setLoading(false);
         }
+
+        const handleUnload = () => {
+            localStorage.removeItem('userId');
+        };
+
+        window.addEventListener('unload', handleUnload);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('unload', handleUnload);
+        };
     }, [userId]);
 
     const handleDownload = (schoolId) => {
@@ -61,7 +72,6 @@ const SchoolListt = () => {
                                     <td>{school.ville}</td>
                                     <td>{school.codepostal}</td>
                                     <td>
-                                        <button onClick={() => navigate(`/school/${school.idecole}`)}>Voir les détails</button>
                                         <button onClick={() => handleDownload(school.idecole)}>Télécharger en Excel</button>
                                     </td>
                                 </tr>
