@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { get, post, remove } from '../../../fonctions/getpost';
 import { getUserEmailAndStatus } from '../../../header/statut';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { get, post, remove} from '../../../fonctions/getpost';
-
 import './prof.css';
 
 function Prof() {
     const [nomProf, setNomProf] = useState('');
     const [prenomProf, setPrenomProf] = useState('');
-    const [email, setEmail] = useState(''); // Email du professeur
     const [idecole, setIdecole] = useState(localStorage.getItem('idecole') || null);
     const [professeurs, setProfesseurs] = useState([]);
     const [classes, setClasses] = useState([]);
     const [selectedClasses, setSelectedClasses] = useState([]);
-    const [refresh, setRefresh] = useState(false); // État pour forcer le rafraîchissement
+    const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
     const iduserData = getUserEmailAndStatus();
     const idutilisateur = iduserData.id;
 
-    // Gestion de la sélection des classes
     const handleClassSelect = (idclasse) => {
         if (selectedClasses.includes(idclasse)) {
             setSelectedClasses(selectedClasses.filter((id) => id !== idclasse));
@@ -30,7 +26,6 @@ function Prof() {
         }
     };
 
-    // Fetch des classes depuis l'API
     const fetchClasses = async () => {
         try {
             const response = await get(`classes/${idecole}`);
@@ -40,12 +35,10 @@ function Prof() {
         }
     };
 
-    // Fetch des professeurs depuis l'API
     const fetchProfesseurs = async () => {
         try {
             const response = await get(`professeurs/${idecole}`);
             const profs = response;
-            // Pour chaque professeur, fetch des classes associées
             const profsWithClasses = await Promise.all(profs.map(async (prof) => {
                 const classNames = await getClassNames(prof.idprof);
                 return { ...prof, classe: classNames };
@@ -56,7 +49,6 @@ function Prof() {
         }
     };
 
-    // Fetch des noms de classes associées à un professeur
     const getClassNames = async (idprof) => {
         try {
             const response = await get(`profclasse/${idprof}`);
@@ -70,13 +62,12 @@ function Prof() {
 
     useEffect(() => {
         fetchClasses();
-    }, [idecole, refresh]); // Rechercher les classes au chargement et lors du rafraîchissement
+    }, [idecole, refresh]);
 
     useEffect(() => {
         fetchProfesseurs();
-    }, [refresh]); // Rechercher les professeurs au chargement et lors du rafraîchissement
+    }, [refresh]);
 
-    // Gestion de l'ajout d'un professeur
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -84,18 +75,13 @@ function Prof() {
             idecole,
             nom: nomProf,
             prenom: prenomProf,
-            email,
             idclasses: selectedClasses,
         };
 
         try {
             const response = await post('createprofesseur', profData);
-            // Réinitialiser les champs du formulaire
             setNomProf('');
             setPrenomProf('');
-            setEmail('');
-            // Ajouter le professeur à la liste et rafraîchir les données
-            setProfesseurs(prev => [...prev, response]);
             setSelectedClasses([]);
             setRefresh(!refresh);
         } catch (error) {
@@ -103,12 +89,9 @@ function Prof() {
         }
     };
 
-    // Gestion de la suppression d'un professeur
     const handleDeleteProf = async (idprof) => {
         try {
             await remove(`deleteprofesseur/${idprof}`);
-            // Mettre à jour la liste des professeurs après la suppression
-            setProfesseurs(prev => prev.filter(prof => prof.idprof !== idprof));
             setRefresh(!refresh);
         } catch (error) {
             console.error('Erreur lors de la suppression du professeur :', error);
@@ -139,14 +122,6 @@ function Prof() {
                                     placeholder="Entrez le prénom du professeur"
                                     onChange={(e) => setPrenomProf(e.target.value)}
                                 />
-                                <label htmlFor="email">Email:</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={email}
-                                    placeholder="Entrez l'email du professeur"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
 
                                 <div className="class-list">
                                     <h4>Classes</h4>
@@ -173,6 +148,7 @@ function Prof() {
                                     <tr>
                                         <th>Prénom</th>
                                         <th>Nom</th>
+                                        <th>Email</th>
                                         <th>Classe</th>
                                         <th>Supprimer</th>
                                     </tr>
@@ -182,6 +158,7 @@ function Prof() {
                                         <tr key={prof.idprof}>
                                             <td>{prof.prenom}</td>
                                             <td>{prof.nom}</td>
+                                            <td>{prof.email}</td>
                                             <td>{prof.classe}</td>
                                             <td>
                                                 <button className="poubelleprof" onClick={() => handleDeleteProf(prof.idprof)}>

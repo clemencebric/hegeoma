@@ -409,7 +409,7 @@ app.post('/updateeleve/:id', async (req, res) => {
 
 
 
-  /*creer classes et liaisons profclasse*/
+  /*creer classes et liaisons profclasse*//*
   app.post('/createprofesseur', async (req, res) => {
     try {
       const { idecole, nom, prenom, email, idclasses } = req.body;
@@ -440,6 +440,45 @@ app.post('/updateeleve/:id', async (req, res) => {
       console.error(error);
       res.status(500).send('Erreur serveur');
     }
+  });*/
+  app.post('/createprofesseur', (req, res) => {
+    const { idecole, nom, prenom, idclasses } = req.body;
+    
+    // Fetch the domain and email format from the database
+    const fetchDomainAndFormatQuery = "SELECT nomdomaine, emaileleve FROM infoecole WHERE idecole = ?";
+    db_school.query(fetchDomainAndFormatQuery, [idecole], (err, result) => {
+        if (err) {
+            console.error('Error fetching domain and email format:', err);
+            return res.status(500).json({ error: "Error fetching domain and email format" });
+        }
+  
+        const { nomdomaine: domaine, emaileleve: format } = result[0];
+        const email = generateEmail(prenom, nom, format, domaine);
+       
+        // Insert the professeur into the database
+        const insertProfesseurQuery = "INSERT INTO professeurs (idecole, nom, prenom, email) VALUES (?, ?, ?, ?)";
+        db_school.query(insertProfesseurQuery, [idecole, nom, prenom, email], (err, result) => {
+            if (err) {
+                console.error('Error inserting professeur:', err);
+                return res.status(500).json({ error: "Error inserting professeur" });
+            }
+            const profId = result.insertId;
+  
+            // Add the relations between the professeur and the selected classes
+            if (idclasses && idclasses.length > 0) {
+                const insertProfClasseQuery = 'INSERT INTO profclasse (idprof, idclasse, idecole) VALUES ?';
+                const values = idclasses.map((idclasse) => [profId, idclasse, idecole]);
+                db_school.query(insertProfClasseQuery, [values], (err, result) => {
+                    if (err) {
+                        console.error('Error inserting profclasse:', err);
+                        return res.status(500).json({ error: "Error inserting profclasse" });
+                    }
+                });
+            }
+  
+            res.status(201).json({ idprof: profId, nom, prenom, email });
+        });
+    });
   });
   
   /*renvoyer seulement les profs de l'ecole en cours de creation */
