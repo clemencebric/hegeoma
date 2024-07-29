@@ -875,7 +875,14 @@ app.get('/downloadExcel/:idecole', (req, res) => {
     ecole: "SELECT * FROM infoecole WHERE idecole = ?",
     eleves: "SELECT * FROM eleves WHERE idecole = ?",
     classes: "SELECT * FROM classes WHERE idecole = ?",
-    professeurs: "SELECT * FROM professeurs WHERE idecole = ?",
+    professeurs: `
+      SELECT p.*, GROUP_CONCAT(c.nom SEPARATOR ', ') AS classes
+      FROM professeurs p
+      LEFT JOIN profclasse pc ON p.idprof = pc.idprof
+      LEFT JOIN classes c ON pc.idclasse = c.idclasse
+      WHERE p.idecole = ?
+      GROUP BY p.idprof
+    `,
     appareils: "SELECT * FROM appareils WHERE idecole = ?",
     application: "SELECT * FROM applications WHERE idecole = ?"
   };
@@ -885,7 +892,11 @@ app.get('/downloadExcel/:idecole', (req, res) => {
   const fetchData = (query, tableName) => {
     return new Promise((resolve, reject) => {
       db_school.query(query, [idecole], (err, results) => {
-        if (err) return reject(err);
+        if (err) {
+          console.error(`Error fetching data for ${tableName}:`, err);
+          return reject(err);
+        }
+        console.log(`Data fetched for ${tableName}:`, results); // Log fetched data
         const ws = XLSX.utils.json_to_sheet(results);
         XLSX.utils.book_append_sheet(workbook, ws, tableName);
         resolve();
@@ -905,6 +916,8 @@ app.get('/downloadExcel/:idecole', (req, res) => {
       // Create a buffer from the workbook and send it as a file download
       const filePath = path.join(__dirname, 'report.xlsx');
       XLSX.writeFile(workbook, filePath);
+      
+      console.log(`Workbook created at ${filePath}`);
 
       res.download(filePath, 'report.xlsx', (err) => {
         if (err) {
@@ -918,8 +931,6 @@ app.get('/downloadExcel/:idecole', (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
-
-
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
