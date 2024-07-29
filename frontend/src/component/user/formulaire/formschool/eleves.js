@@ -81,7 +81,7 @@ function Eleves() {
       prenom,
       classe: className, // Utilise le nom de la classe sélectionnée
       emailpun,
-      emailpdeux,
+      emailpdeux
     };
 
     try {
@@ -166,7 +166,6 @@ function Eleves() {
                   placeholder="Entrez le prénom de l'élève"
                   onChange={(e) => setPrenom(e.target.value)}
                 />
-
                 <label htmlFor="emailpun">Email parent 1:</label>
                 <input
                   type="email"
@@ -192,6 +191,7 @@ function Eleves() {
                   <tr>
                     <th>Prénom</th>
                     <th>Nom</th>
+                    <th>Email</th>
                     <th>Classe</th>
                     <th>Supprimer</th>
                   </tr>
@@ -201,6 +201,7 @@ function Eleves() {
                     <tr key={eleve.ideleve}>
                       <td>{eleve.prenom}</td>
                       <td>{eleve.nom}</td>
+                      <td>{eleve.email}</td>
                       <td>
                         {eleve.classe ? eleve.classe : (
                           <>

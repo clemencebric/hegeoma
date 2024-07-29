@@ -257,6 +257,7 @@ app.get('/ecole', (req, res) => {
       });
 
   /*creer des eleves*/
+  /*
   app.post('/createeleve', (req, res) => {
     const { idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux } = req.body;
     //console.log(req.body)
@@ -270,35 +271,35 @@ app.get('/ecole', (req, res) => {
       console.log(eleve)
       res.status(201).json(eleve);
     });
-  });/*
+  });*/
 //generer addresse email
 const generateEmail = (prenom, nom, format, domaine) => {
   if (format === "prenom.nom@domaine") {
-      return `${prenom.toLowerCase()}.${nom.toLowerCase()}@${domaine}`;
+      return `${prenom.toLowerCase()}.${nom.toLowerCase()}${domaine}`;
   } else if (format === "initiale.nom@domaine") {
-      return `${prenom.charAt(0).toLowerCase()}.${nom.toLowerCase()}@${domaine}`;
+      return `${prenom.charAt(0).toLowerCase()}.${nom.toLowerCase()}${domaine}`;
   }
   return null;
 };
 
 // Route to create an eleve with email generation
 app.post('/createeleve', (req, res) => {
-  const { idecole, idclasse, nom, prenom, classe, emailpun, emailpdeux, emailFormat } = req.body;
+  const { idecole, idclasse, nom, prenom, classe, emailpun, emailpdeux } = req.body;
   
-  // Fetch the domain from the database
-  const fetchDomainQuery = "SELECT nomdomaine FROM infoecole WHERE idecole = ?";
-  db_school.query(fetchDomainQuery, [idecole], (err, result) => {
+  // Fetch the domain and email format from the database
+  const fetchDomainAndFormatQuery = "SELECT nomdomaine, emaileleve FROM infoecole WHERE idecole = ?";
+  db_school.query(fetchDomainAndFormatQuery, [idecole], (err, result) => {
       if (err) {
-          console.error('Error fetching domain:', err);
-          return res.status(500).json({ error: "Error fetching domain" });
+          console.error('Error fetching domain and email format:', err);
+          return res.status(500).json({ error: "Error fetching domain and email format" });
       }
-      
-      const domaine = result[0].nomdomaine;
-      const email = generateEmail(prenom, nom, emailFormat, domaine);
 
+      const { nomdomaine: domaine, emaileleve: format } = result[0];
+      const email = generateEmail(prenom, nom, format, domaine);
+     
       // Insert the eleve into the database
-      const insertEleveQuery = "INSERT INTO eleves (idecole, idclasse, nom, prenom, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?)";
-      db_school.query(insertEleveQuery, [idecole, idclasse, nom, prenom, email, emailpun, emailpdeux], (err, result) => {
+      const insertEleveQuery = "INSERT INTO eleves (idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      db_school.query(insertEleveQuery, [idecole, idclasse, nom, prenom, classe, email, emailpun, emailpdeux], (err, result) => {
           if (err) {
               console.error('Error inserting eleve:', err);
               return res.status(500).json({ error: "Error inserting eleve" });
@@ -307,9 +308,7 @@ app.post('/createeleve', (req, res) => {
       });
   });
 });
-
-*/
-  /*supprimer des eleves */
+/*supprimer des eleves */
   app.delete('/eleve/:ideleve', (req, res) => {
     const { ideleve } = req.params;
   

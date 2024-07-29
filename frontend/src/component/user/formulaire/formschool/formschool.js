@@ -9,11 +9,20 @@ function SchoolForm() {
   const [adresse, setAdresse] = useState('');
   const [ville, setVille] = useState('');
   const [codePostal, setCodePostal] = useState('');
-  const [nomDomaine, setNomDomaine] = useState('');
+  const [nomDomaine, setNomDomaine] = useState('@');
   const [emaileleve, setEmaileleve] = useState('');
   const navigate = useNavigate();
   const iduserData = getUserEmailAndStatus();
   const idutilisateur = iduserData.id;
+
+  const handleNomDomaineChange = (e) => {
+    const value = e.target.value;
+    if (value.includes('@')) {
+      setNomDomaine(value);
+    } else {
+      setNomDomaine('@' + value);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,16 +97,16 @@ function SchoolForm() {
             type="text"
             id="nomDomaine"
             value={nomDomaine}
-            onChange={(e) => setNomDomaine(e.target.value)}
+            onChange={handleNomDomaineChange}
             required
           />
 
           <label className="label-school-form" htmlFor="emaileleve">Emaileleve:</label>
-          <select 
-            className="select-school-form" 
-            id="emaileleve" 
-            value={emaileleve} 
-            onChange={(e) => setEmaileleve(e.target.value)} 
+          <select
+            className="select-school-form"
+            id="emaileleve"
+            value={emaileleve}
+            onChange={(e) => setEmaileleve(e.target.value)}
             required>
             <option value="">Sélectionnez une option</option>
             <option value="prenom.nom@domaine">prenom.nom@domaine</option>
