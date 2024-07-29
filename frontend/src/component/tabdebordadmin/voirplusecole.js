@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { get } from '../fonctions/getpost.js'; // Votre fonction pour faire des requêtes GET
 import { useNavigate } from 'react-router-dom';
-import "./voirplusecole.css"
+import { getApiUrl } from '../fonctions/getpost.js';
+import "./voirplusecole.css";
+
 const SchoolListt = () => {
     const [schools, setSchools] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -28,6 +30,11 @@ const SchoolListt = () => {
         }
     }, [userId]);
 
+    const handleDownload = (schoolId) => {
+        const url = getApiUrl(`downloadExcel/${schoolId}`);
+        window.location.href = url;
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -48,13 +55,14 @@ const SchoolListt = () => {
                         </thead>
                         <tbody>
                             {schools.map((school) => (
-                                <tr key={school.id}>
+                                <tr key={school.idecole}>
                                     <td>{school.nom}</td>
                                     <td>{school.adresse}</td>
                                     <td>{school.ville}</td>
                                     <td>{school.codepostal}</td>
                                     <td>
-                                        <button onClick={() => navigate(`/school/${school.id}`)}>Telecharger en excel</button>
+                                        <button onClick={() => navigate(`/school/${school.idecole}`)}>Voir les détails</button>
+                                        <button onClick={() => handleDownload(school.idecole)}>Télécharger en Excel</button>
                                     </td>
                                 </tr>
                             ))}

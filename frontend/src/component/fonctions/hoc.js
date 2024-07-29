@@ -9,8 +9,8 @@ const withAuthProtection = (WrappedComponent) => {
 
     useEffect(() => {
       const userData = getUserEmailAndStatus();
-      console.log("uderdata:", userData);
-      console.log("isconnected", userData.isConnected)
+      //console.log("uderdata:", userData);
+      //console.log("isconnected", userData.isConnected)
       if (!userData.isConnected) {
         setIsTokenValid(false);
       } else {

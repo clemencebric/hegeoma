@@ -53,4 +53,11 @@ const remove = async (endpoint, token) => {
 
   return json;
 };
+
+export const getApiUrl = (endpoint) => {
+  const apiUrl = process.env.REACT_APP_API_URL || BASE_URL;
+  return `${apiUrl}/${endpoint}`;
+};
+
+
 export { post, get, remove };
