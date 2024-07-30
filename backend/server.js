@@ -587,6 +587,23 @@ app.get('/searchecoles', (req, res) => {
     res.json(results);
   });
 });
+
+/*barre de recherche pour entreprises */
+app.get('/searchentreprises', (req, res) => {
+  const { search = '' } = req.query; // Valeur par défaut pour la recherche
+  const query = `SELECT * FROM organisme WHERE (nom LIKE ? OR adresse LIKE ? OR ville LIKE ?)`;
+
+  db_org.query(query, [`%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      res.json(results);
+  });
+});
+
+
+
 /*supprimer des écoles*/
 app.delete('/schools/:id', async (req, res) => {
   try {
@@ -1029,7 +1046,7 @@ const deleteEcolesAndRelatedData = (userId, callback) => {
     }
   });
 };
-
+/*supprimer utilisateurs*/
 app.delete('/deleteusers/:id', (req, res) => {
   const userId = req.params.id;
   const query = 'SELECT nature FROM login WHERE id = ?';
@@ -1079,7 +1096,45 @@ const deleteUser = (userId, res) => {
     res.status(200).send('User and associated data deleted');
   });
 };
-
+/*page de contact créer un message*/
+app.post('/submit-message', (req, res) => {
+  const { userId, userEmail, message } = req.body;
+  console.log(req.body)
+  
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois sont indexés à partir de 0
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+  const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  console.log(formattedDate); // Exemple : "01/10/2023 14:30:45"
+  
+  
+  const query = 'INSERT INTO messages (iduser, email, message, date) VALUES (?, ?, ?, ?)';
+  db.query(query, [userId, userEmail, message, formattedDate], (err, result) => {
+    if (err) {
+      console.error('Error inserting message:', err);
+      res.status(500).send('Error inserting message');
+    } else {
+      res.status(200).send('Message submitted successfully');
+    }
+  });
+});
+/*recuperer les messages pour l'admin*/
+app.get('/messages', (req, res) => {
+  const query = 'SELECT * FROM messages';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching messages:', err);
+      res.status(500).send('Error fetching messages');
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");
