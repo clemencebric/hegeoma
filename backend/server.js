@@ -1098,8 +1098,7 @@ const deleteUser = (userId, res) => {
 };
 /*page de contact créer un message*/
 app.post('/submit-message', (req, res) => {
-  const { userId, userEmail, message } = req.body;
-  console.log(req.body);
+  const { userId, userEmail, message, nom} = req.body;
 
   const date = new Date();
   const day = String(date.getDate()).padStart(2, '0');
@@ -1110,10 +1109,10 @@ app.post('/submit-message', (req, res) => {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-  console.log(formattedDate); // Exemple : "01/10/2023 14:30:45"
 
-  const query = 'INSERT INTO messages (iduser, email, message, date) VALUES (?, ?, ?, ?)';
-  db.query(query, [userId, userEmail, message, formattedDate], (err, result) => {
+
+  const query = 'INSERT INTO messages (iduser, email, message, nom, date) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [userId, userEmail, message, nom, formattedDate], (err, result) => {
     if (err) {
       console.error('Error inserting message:', err);
       res.status(500).json({ message: 'Error inserting message' });

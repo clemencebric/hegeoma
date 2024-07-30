@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import "./contact.css";
 import { post } from '../fonctions/getpost';
 import { getUserEmailAndStatus } from '../fonctions/jwtDecode';
 
 function Contact() {
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [nom, setNom] = useState('');
   const userData = getUserEmailAndStatus();
   const userEmail = userData.email;
   const userId = userData.id;
@@ -29,7 +28,7 @@ function Contact() {
     // Si l'utilisateur confirme, envoyer le message
     if (result.isConfirmed) {
       try {
-        const response = await post('submit-message', { userId, userEmail, message });
+        const response = await post('submit-message', { userId, userEmail, message, nom });
         console.log('Response from server:', response); // Ajouter un log ici
         if (response.message === 'Message submitted successfully') {
           Swal.fire({
@@ -38,7 +37,6 @@ function Contact() {
             showConfirmButton: false,
             timer: 1500
           });
-          setEmail('');
           setMessage('');
         } else {
           Swal.fire({
@@ -62,14 +60,24 @@ function Contact() {
     <div className="pagecontact">
       <div className='minipage'>
         <h1>Contactez-nous</h1>
-        <form onSubmit={handleSubmit}>
+        <form className="formulairecontact" onSubmit={handleSubmit}>
           <div className="partiegauche">
             votre email : {userEmail}
           </div>
           <div className="partiedroite">
             <label>
+              Nom de l'organisme:
+              <input
+                className='textareacontact'
+                value={nom}
+                onChange={(e) => setNom(e.target.value)}
+                required
+              />
+            </label>
+            <label>
               Message:
               <textarea
+                className='textareacontact'
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
