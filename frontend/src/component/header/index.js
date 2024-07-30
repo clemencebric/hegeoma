@@ -9,7 +9,7 @@ import {isUserAuthorized} from "./statut.js";
 import { getUserEmailAndStatus } from '../fonctions/jwtDecode.js';
 const Header = () => {
   const userData = getUserEmailAndStatus();
-  console.log(userData);
+  //console.log(userData);
   const { isAuthenticated: contextIsAuthenticated, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

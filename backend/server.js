@@ -1130,7 +1130,7 @@ app.post('/submit-message', async (req, res) => {
 });
 async function sendEmail(userEmail, message, nom) {
   console.log(userEmail)
-  // Créez un transporteur réutilisable en utilisant le transport SMTP par défaut
+  // un transporteur réutilisable en utilisant le transport SMTP par défaut
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -1139,16 +1139,17 @@ async function sendEmail(userEmail, message, nom) {
     }
   });
 
-  // Définissez les options de l'e-mail
+  //  options de l'e-mail
   let mailOptions = {
     from: userEmail, // adresse de l'expéditeur
     to: process.env.EMAIL_USER, // adresse du destinataire (votre adresse e-mail)
-    subject: `Message from ${nom}`, // sujet de l'e-mail
+    replyTo: userEmail,
+    subject: `Message de : ${nom}`, // sujet de l'e-mail
     text: `Message: ${message}\n\nVous pouvez recontacter cet utilisateur à l'adresse suivante : ${userEmail}`, // contenu de l'e-mail en texte brut
     html: `<b>Message:</b> ${message}<br><br><b>Vous pouvez recontacter cet utilisateur à l'adresse suivante :</b> ${userEmail}` // contenu de l'e-mail en HTML
   };
 
-  // Envoyez l'e-mail avec les options définies ci-dessus
+  // Envoyer l'e-mail avec les options définies ci-dessus
   return transporter.sendMail(mailOptions);
 }
 
@@ -1164,7 +1165,6 @@ app.get('/messages', (req, res) => {
     }
   });
 });*/
-
 
 
 app.listen(8081, () => {
