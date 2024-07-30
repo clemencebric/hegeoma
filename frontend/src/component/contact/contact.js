@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import "./contact.css";
 import { post } from '../fonctions/getpost';
 import { getUserEmailAndStatus } from '../fonctions/jwtDecode';
+
 function Contact() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -13,13 +15,31 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await post('submit-message', { userId, userEmail, message });
-      alert('Message submitted successfully');
-      setEmail('');
-      setMessage('');
+      const response = await post('submit-message', { userId, userEmail, message });
+      console.log('Response from server:', response); // Ajouter un log ici
+      if (response.message === 'Message submitted successfully') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Message submitted successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setEmail('');
+        setMessage('');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error submitting message',
+          text: response.message,
+        });
+      }
     } catch (error) {
       console.error('Error submitting message:', error);
-      alert('Error submitting messagee');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error submitting message',
+        text: error.message,
+      });
     }
   };
 
