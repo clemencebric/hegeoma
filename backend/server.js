@@ -932,6 +932,146 @@ app.get('/downloadExcel/:idecole', (req, res) => {
     });
 });
 
+
+
+// Fonction pour supprimer les données associées aux organismes
+// Fonction pour supprimer les données associées aux organismes
+const deleteOrganismesAndRelatedData = (userId, callback) => {
+  // Récupérer les organismes associés à l'utilisateur
+  const query = 'SELECT idorg FROM organisme WHERE idutilisateur = ?';
+  db_org.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error retrieving organizations:', err);
+      return callback(err);
+    }
+
+    const idorgs = results.map(row => row.idorg);
+
+    if (idorgs.length > 0) {
+      // Supprimer les données associées
+      const deleteQueries = [
+        'DELETE FROM appareils WHERE idorg IN (?)',
+        'DELETE FROM jamf WHERE idorg IN (?)',
+        'DELETE FROM application WHERE idorg IN (?)',
+        'DELETE FROM organisme WHERE idorg IN (?)'
+      ];
+
+      let completedQueries = 0;
+      const totalQueries = deleteQueries.length;
+
+      deleteQueries.forEach(query => {
+        db_org.query(query, [idorgs], (err) => {
+          if (err) {
+            console.error('Error deleting related data:', err);
+            return callback(err);
+          }
+          completedQueries += 1;
+          if (completedQueries === totalQueries) {
+            callback(null);
+          }
+        });
+      });
+    } else {
+      callback(null);
+    }
+  });
+};
+
+// Fonction pour supprimer les données associées aux écoles
+const deleteEcolesAndRelatedData = (userId, callback) => {
+  // Récupérer les écoles associées à l'utilisateur
+  const query = 'SELECT idecole FROM infoecole WHERE idutilisateur = ?';
+  db_school.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error retrieving schools:', err);
+      return callback(err);
+    }
+
+    const idecoles = results.map(row => row.idecole);
+
+    if (idecoles.length > 0) {
+      // Supprimer les données associées
+      const deleteQueries = [
+        'DELETE FROM profclasse WHERE idecole IN (?)',
+        'DELETE FROM classes WHERE idecole IN (?)',
+        'DELETE FROM eleves WHERE idecole IN (?)',
+        'DELETE FROM professeurs WHERE idecole IN (?)',
+        'DELETE FROM infoecole WHERE idecole IN (?)'
+      ];
+
+      let completedQueries = 0;
+      const totalQueries = deleteQueries.length;
+
+      deleteQueries.forEach(query => {
+        db_school.query(query, [idecoles], (err) => {
+          if (err) {
+            console.error('Error deleting related data:', err);
+            return callback(err);
+          }
+          completedQueries += 1;
+          if (completedQueries === totalQueries) {
+            callback(null);
+          }
+        });
+      });
+    } else {
+      callback(null);
+    }
+  });
+};
+
+app.delete('/deleteusers/:id', (req, res) => {
+  const userId = req.params.id;
+
+  // Trouver les détails de l'utilisateur
+  const query = 'SELECT nature FROM login WHERE id = ?';
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching user:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send('User not found');
+    }
+
+    const user = results[0];
+    console.log('User nature:', user.nature);
+
+    if (user.nature === 'ecole') {
+      deleteEcolesAndRelatedData(userId, (err) => {
+        if (err) {
+          console.error('Error deleting schools and related data for school:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+        deleteUser(userId, res);
+      });
+    } else if (user.nature === 'organisme') {
+      deleteOrganismesAndRelatedData(userId, (err) => {
+        if (err) {
+          console.error('Error deleting organizations and related data for organisme:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+        deleteUser(userId, res);
+      });
+    } else {
+      return res.status(400).send('Unsupported user nature');
+    }
+  });
+});
+
+const deleteUser = (userId, res) => {
+  const query = 'DELETE FROM login WHERE id = ?';
+  db.query(query, [userId], (err) => {
+    if (err) {
+      console.error('Error deleting user:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.status(200).send('User and associated data deleted');
+  });
+};
+
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

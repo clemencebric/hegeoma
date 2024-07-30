@@ -52,7 +52,8 @@ const UserList = () => {
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                remove(`users/${userId}`)
+                console.log(userId)
+                remove(`deleteusers/${userId}`)
                     .then(() => {
                         // Supprimez l'utilisateur de la liste locale après la suppression réussie
                         setUsers(users.filter(user => user.id !== userId));

@@ -56,7 +56,7 @@ function Signup() {
                             <select name='role' onChange={handleInput}>
                                 <option value="">Select Role</option>
                                 <option value="ecole">École</option>
-                                <option value="entreprise">Entreprise</option>
+                                <option value="organisme">Entreprise</option>
                             </select>
                             {errors.role && <span className='messageerreur'> {errors.role} </span>}
                         </div>
