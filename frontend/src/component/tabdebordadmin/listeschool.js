@@ -8,22 +8,27 @@ const SchoolList = () => {
     const [error, setError] = useState(null);
     const token = localStorage.getItem('token');
 
-    // Fonction pour récupérer les écoles en fonction du terme de recherche
-    const fetchSchools = async () => {
+    // Fonction pour récupérer les écoles
+    const fetchSchools = async (search = '') => {
         try {
-            const response = await get(`searchecoles?search=${searchTerm}`, token);
+            const endpoint = search ? `searchecoles?search=${search}` : 'searchecoles?search='; // Fetch all if no search term
+            const response = await get(endpoint, token);
             setSchools(response);
             setError(null);
         } catch (error) {
             setError(error.message);
         }
     };
-    
+
+    // Appeler fetchSchools lors du premier chargement de la page
+    useEffect(() => {
+        fetchSchools();
+    }, [token]); // Appel initial
 
     // Fonction pour gérer la soumission du formulaire de recherche
     const handleSubmit = (e) => {
         e.preventDefault(); // Empêche le rechargement de la page
-        fetchSchools();
+        fetchSchools(searchTerm); // Recherche basée sur le terme de recherche
     };
 
     // Fonction pour gérer le changement dans la barre de recherche
