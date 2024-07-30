@@ -14,32 +14,47 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await post('submit-message', { userId, userEmail, message });
-      console.log('Response from server:', response); // Ajouter un log ici
-      if (response.message === 'Message submitted successfully') {
-        Swal.fire({
-          icon: 'success',
-          title: 'Message submitted successfully',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        setEmail('');
-        setMessage('');
-      } else {
+
+    // Afficher la boîte de dialogue de confirmation
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit it!'
+    });
+
+    // Si l'utilisateur confirme, envoyer le message
+    if (result.isConfirmed) {
+      try {
+        const response = await post('submit-message', { userId, userEmail, message });
+        console.log('Response from server:', response); // Ajouter un log ici
+        if (response.message === 'Message submitted successfully') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Message submitted successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setEmail('');
+          setMessage('');
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error submitting message',
+            text: response.message,
+          });
+        }
+      } catch (error) {
+        console.error('Error submitting message:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error submitting message',
-          text: response.message,
+          text: error.message,
         });
       }
-    } catch (error) {
-      console.error('Error submitting message:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error submitting message',
-        text: error.message,
-      });
     }
   };
 
