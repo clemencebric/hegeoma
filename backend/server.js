@@ -558,7 +558,7 @@ app.get('/search', (req, res) => {
     res.send(results);
   });
 });
-/*barre de recherche pour eleves */
+/*barre de recherche pour profs */
 app.get('/searchteachers', (req, res) => {
   const { search, idecole } = req.query;
   const query = `
@@ -572,6 +572,19 @@ app.get('/searchteachers', (req, res) => {
   db_school.query(query, [idecole, `%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
     if (err) throw err;
     res.send(results);
+  });
+});
+/*barre de recherche pour ecoles */
+app.get('/searchecoles', (req, res) => {
+  const { search } = req.query;
+  const query = `SELECT * FROM infoecole WHERE (nom LIKE ? OR adresse LIKE ? OR nomdomaine LIKE ?)`;
+
+  db_school.query(query, [`%${search}%`, `%${search}%`, `%${search}%`], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    res.json(results);
   });
 });
 /*supprimer des écoles*/
@@ -987,6 +1000,7 @@ const deleteEcolesAndRelatedData = (userId, callback) => {
 
     if (idecoles.length > 0) {
       const deleteQueries = [
+
         'DELETE FROM infoecole WHERE idecole IN (?)',
         'DELETE FROM profclasse WHERE idecole IN (?)',
         'DELETE FROM classes WHERE idecole IN (?)',
