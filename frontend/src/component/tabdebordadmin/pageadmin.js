@@ -52,9 +52,9 @@ const UserList = () => {
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                
                 remove(`deleteusers/${userId}`)
-                    .then(() => {console.log("reussi");
+                    .then(() => {
+                        console.log("reussi");
                         setUsers(users.filter(user => user.id !== userId));
                         Swal.fire(
                             'Supprimé !',
@@ -96,9 +96,9 @@ const UserList = () => {
                                 <td>{user.statut}</td>
                                 <td>{user.nature}</td>
                                 <td>{user.actif}</td>
-                                <td>
+                                <td className='colonneactionuser'>
                                     <button onClick={() => handleVoirPlus(user.id)}>Voir plus</button>
-                                    <button onClick={() => handleDelete(user.id)}>Supprimer</button>
+                                    <button className="boutonsupprimeruser" onClick={() => handleDelete(user.id)}>Supprimer</button>
                                 </td>
                             </tr>
                         ))}

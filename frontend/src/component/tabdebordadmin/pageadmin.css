@@ -33,3 +33,15 @@ th {
      top: 0;
      z-index: 0;
 }
+
+.boutonsupprimeruser{
+    background-color: red;
+}
+.boutonsupprimeruser:hover {
+    background-color: rgb(192, 0, 0);
+}
+.colonneactionuser {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
