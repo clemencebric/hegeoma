@@ -935,9 +935,7 @@ app.get('/downloadExcel/:idecole', (req, res) => {
 
 
 // Fonction pour supprimer les données associées aux organismes
-// Fonction pour supprimer les données associées aux organismes
 const deleteOrganismesAndRelatedData = (userId, callback) => {
-  // Récupérer les organismes associés à l'utilisateur
   const query = 'SELECT idorg FROM organisme WHERE idutilisateur = ?';
   db_org.query(query, [userId], (err, results) => {
     if (err) {
@@ -948,7 +946,6 @@ const deleteOrganismesAndRelatedData = (userId, callback) => {
     const idorgs = results.map(row => row.idorg);
 
     if (idorgs.length > 0) {
-      // Supprimer les données associées
       const deleteQueries = [
         'DELETE FROM appareils WHERE idorg IN (?)',
         'DELETE FROM jamf WHERE idorg IN (?)',
@@ -979,7 +976,6 @@ const deleteOrganismesAndRelatedData = (userId, callback) => {
 
 // Fonction pour supprimer les données associées aux écoles
 const deleteEcolesAndRelatedData = (userId, callback) => {
-  // Récupérer les écoles associées à l'utilisateur
   const query = 'SELECT idecole FROM infoecole WHERE idutilisateur = ?';
   db_school.query(query, [userId], (err, results) => {
     if (err) {
@@ -990,13 +986,13 @@ const deleteEcolesAndRelatedData = (userId, callback) => {
     const idecoles = results.map(row => row.idecole);
 
     if (idecoles.length > 0) {
-      // Supprimer les données associées
       const deleteQueries = [
+        'DELETE FROM infoecole WHERE idecole IN (?)',
         'DELETE FROM profclasse WHERE idecole IN (?)',
         'DELETE FROM classes WHERE idecole IN (?)',
         'DELETE FROM eleves WHERE idecole IN (?)',
-        'DELETE FROM professeurs WHERE idecole IN (?)',
-        'DELETE FROM infoecole WHERE idecole IN (?)'
+        'DELETE FROM professeurs WHERE idecole IN (?)'
+        
       ];
 
       let completedQueries = 0;
@@ -1022,8 +1018,6 @@ const deleteEcolesAndRelatedData = (userId, callback) => {
 
 app.delete('/deleteusers/:id', (req, res) => {
   const userId = req.params.id;
-
-  // Trouver les détails de l'utilisateur
   const query = 'SELECT nature FROM login WHERE id = ?';
   db.query(query, [userId], (err, results) => {
     if (err) {
@@ -1067,6 +1061,7 @@ const deleteUser = (userId, res) => {
       console.error('Error deleting user:', err);
       return res.status(500).send('Internal Server Error');
     }
+    console.log('User and associated data deleted successfully'); // Log de succès
     res.status(200).send('User and associated data deleted');
   });
 };

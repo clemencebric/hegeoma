@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { get, remove } from '../fonctions/getpost'; // Assurez-vous que remove est importé depuis getpost
+import { get, remove } from '../fonctions/getpost';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Importez sweetalert2
+import Swal from 'sweetalert2';
 import "./pageadmin.css";
 
 const UserList = () => {
@@ -52,10 +52,9 @@ const UserList = () => {
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log(userId)
+                
                 remove(`deleteusers/${userId}`)
-                    .then(() => {
-                        // Supprimez l'utilisateur de la liste locale après la suppression réussie
+                    .then(() => {console.log("reussi");
                         setUsers(users.filter(user => user.id !== userId));
                         Swal.fire(
                             'Supprimé !',
@@ -64,6 +63,7 @@ const UserList = () => {
                         );
                     })
                     .catch(error => {
+                        console.log("echoue")
                         console.error('Error deleting user:', error);
                         Swal.fire(
                             'Erreur !',
