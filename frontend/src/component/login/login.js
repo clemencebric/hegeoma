@@ -47,7 +47,7 @@ function Login() {
 
   return (
     <div className="pageformulaire">
-      <div className="formulaire">
+      <div className="formulairelogin">
         <div className="titreform">Login</div>
         <form className="form" onSubmit={handleSubmit}>
           <div className="mb-4">

@@ -3,7 +3,7 @@ const db = require('./database.js');
 const db_school = require('./databaseecole.js');
 const db_org = require('./databaseorganisme.js');
 const jwt = require('jsonwebtoken');
-const secretKey = process.env.SECRET_KEY; // Assurez-vous d'utiliser une clé secrète personnalisée pour signer les tokens
+const secretKey = process.env.SECRET_KEY; // clé secrète personnalisée pour signer les tokens
 const bodyParser = require("body-parser");
 const express = require('express');
 const XLSX = require('xlsx'); //pour excel
@@ -12,7 +12,7 @@ const fs = require('fs');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+const nodemailer = require('nodemailer'); //pour mails
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -1097,8 +1097,8 @@ const deleteUser = (userId, res) => {
   });
 };
 /*page de contact créer un message*/
-app.post('/submit-message', (req, res) => {
-  const { userId, userEmail, message, nom} = req.body;
+app.post('/submit-message', async (req, res) => {
+  const { userId, userEmail, message, nom } = req.body;
 
   const date = new Date();
   const day = String(date.getDate()).padStart(2, '0');
@@ -1110,19 +1110,49 @@ app.post('/submit-message', (req, res) => {
 
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 
-
   const query = 'INSERT INTO messages (iduser, email, message, nom, date) VALUES (?, ?, ?, ?, ?)';
   db.query(query, [userId, userEmail, message, nom, formattedDate], (err, result) => {
     if (err) {
       console.error('Error inserting message:', err);
       res.status(500).json({ message: 'Error inserting message' });
     } else {
-      res.status(200).json({ message: 'Message submitted successfully' });
+      // Envoyer l'e-mail
+      sendEmail(userEmail, message, nom)
+        .then(() => {
+          res.status(200).json({ message: 'Message submitted successfully' });
+        })
+        .catch((error) => {
+          console.error('Error sending email:', error);
+          res.status(500).json({ message: 'Error sending email' });
+        });
     }
   });
 });
+async function sendEmail(userEmail, message, nom) {
+  console.log(userEmail)
+  // Créez un transporteur réutilisable en utilisant le transport SMTP par défaut
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER, // utiliser la variable d'environnement pour l'adresse e-mail
+      pass: process.env.EMAIL_PASS // utiliser la variable d'environnement pour le mot de passe d'application
+    }
+  });
 
-/*recuperer les messages pour l'admin*/
+  // Définissez les options de l'e-mail
+  let mailOptions = {
+    from: userEmail, // adresse de l'expéditeur
+    to: process.env.EMAIL_USER, // adresse du destinataire (votre adresse e-mail)
+    subject: `Message from ${nom}`, // sujet de l'e-mail
+    text: message , // contenu de l'e-mail en texte brut
+    html: `<b>${message}</b>` // contenu de l'e-mail en HTML
+  };
+
+  // Envoyez l'e-mail avec les options définies ci-dessus
+  return transporter.sendMail(mailOptions);
+}
+
+/*recuperer les messages pour l'admin*//*
 app.get('/messages', (req, res) => {
   const query = 'SELECT * FROM messages';
   db.query(query, (err, results) => {
@@ -1133,7 +1163,9 @@ app.get('/messages', (req, res) => {
       res.status(200).json(results);
     }
   });
-});
+});*/
+
+
 
 app.listen(8081, () => {
     console.log("Listening on port 8081");

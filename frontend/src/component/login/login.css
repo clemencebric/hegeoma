@@ -8,7 +8,7 @@
     align-items: center;
     background-color: rgb(61, 72, 79);
 } 
-.formulaire {
+.formulairelogin {
     background-color: white;
     border: solid 1px black;
     padding: 20px;
@@ -17,6 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .titreform {
     font-size: 35px;
