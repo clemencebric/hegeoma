@@ -1099,8 +1099,8 @@ const deleteUser = (userId, res) => {
 /*page de contact créer un message*/
 app.post('/submit-message', (req, res) => {
   const { userId, userEmail, message } = req.body;
-  console.log(req.body)
-  
+  console.log(req.body);
+
   const date = new Date();
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois sont indexés à partir de 0
@@ -1108,21 +1108,21 @@ app.post('/submit-message', (req, res) => {
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
   const seconds = String(date.getSeconds()).padStart(2, '0');
-  
+
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   console.log(formattedDate); // Exemple : "01/10/2023 14:30:45"
-  
-  
+
   const query = 'INSERT INTO messages (iduser, email, message, date) VALUES (?, ?, ?, ?)';
   db.query(query, [userId, userEmail, message, formattedDate], (err, result) => {
     if (err) {
       console.error('Error inserting message:', err);
-      res.status(500).send('Error inserting message');
+      res.status(500).json({ message: 'Error inserting message' });
     } else {
-      res.status(200).send('Message submitted successfully');
+      res.status(200).json({ message: 'Message submitted successfully' });
     }
   });
 });
+
 /*recuperer les messages pour l'admin*/
 app.get('/messages', (req, res) => {
   const query = 'SELECT * FROM messages';

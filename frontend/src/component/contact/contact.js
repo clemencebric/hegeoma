@@ -9,7 +9,7 @@ function Contact() {
   const userData = getUserEmailAndStatus();
   const userEmail = userData.email;
   const userId = userData.id;
-  console.log(userData.email);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -19,7 +19,7 @@ function Contact() {
       setMessage('');
     } catch (error) {
       console.error('Error submitting message:', error);
-      alert('Error submitting message');
+      alert('Error submitting messagee');
     }
   };
 
