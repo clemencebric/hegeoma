@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { get, post } from '../fonctions/getpost';
 import './ajoutquestionfaq.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 function AjoutFaq() {
   const [question, setQuestion] = useState('');
@@ -74,6 +76,11 @@ function AjoutFaq() {
           <div key={faq.id} className='faq-item'>
             <div className='faq-question' onClick={() => handleQuestionClick(index)}>
               {faq.question}
+              <FontAwesomeIcon 
+                icon={activeQuestion === index ? faChevronUp : faChevronDown} 
+                style={{ color: "#dddddd", marginLeft: "10px" }} 
+                size="1x" 
+              />
             </div>
             <div className={`faq-answer ${activeQuestion === index ? 'active' : ''}`}>
               {faq.reponse}
