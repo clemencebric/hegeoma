@@ -53,7 +53,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-right: 40px;
+    /*margin-right: 40px;*/
 }
 
 .header-nav ul {

@@ -1191,6 +1191,32 @@ app.get('/faq', (req, res) => {
     res.status(200).json(results);
   });
 });
+/*supprimer des faq*/
+app.post('/deletefaq', (req, res) => {
+  const { idfaq} = req.body;
+  const sql = 'DElETE FROM faq WHERE idfaq = ?';
+  db.query(sql, [idfaq], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error',  });
+    }
+  });
+});
+/*rechercher une faq */
+
+app.get('/searchfaq', (req, res) => {
+  const query = req.query.query;
+  const sql = 'SELECT * FROM faq WHERE question LIKE ? OR reponse LIKE ?';
+  db.query(sql, [`%${query}%`, `%${query}%`], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json(results);
+  });
+});
+
+
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });
