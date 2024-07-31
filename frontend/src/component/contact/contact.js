@@ -108,6 +108,7 @@ function Contact() {
                 required
               />
             </label>
+            <div>
             <label>
               Captcha: {captcha.num1} + {captcha.num2} = ?
               <input
@@ -118,6 +119,7 @@ function Contact() {
                 required
               />
             </label>
+            </div>
           </div>
           <div className="soumettre">
             <button type="submit">Soumettre</button>
