@@ -46,31 +46,34 @@ function AjoutFaq() {
   };
 
   return (
-    <div className='pagefaq'>
+    <div className='pagefaqadmin'>
       <div className='formfaqadmin'>
         <h1>Ajouter des questions à la FAQ</h1>
+        <hr/>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>Question:</label>
-            <input
-              type="text"
+          <div className='formfaq'>
+            <label>Question :</label>
+            <textarea
+              className="textareafaq"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required
-            />
+              ></textarea>
           </div>
-          <div>
-            <label>Réponse:</label>
+          <div className='formfaq'>
+            <label>Réponse :</label>
             <textarea
               className='textareafaq'
               value={reponse}
               onChange={(e) => setReponse(e.target.value)}
               required
             ></textarea>
-          </div>
+          </div><hr/>
           <button type="submit">Ajouter</button>
         </form>
+       
       </div>
+       
       <div className='faq-list'>
         {faqs.map((faq, index) => (
           <div key={faq.id} className='faq-item'>

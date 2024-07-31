@@ -1,8 +1,8 @@
 .textareafaq {
     resize: none;
 }
-.pagefaq {
-    height:  100vh;
+.pagefaqadmin{
+    min-height:  100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,6 +13,7 @@
   
 .faq-list {
     margin-top: 20px;
+    min-height: 60vh;
 }
   
 .faq-item {
@@ -25,6 +26,10 @@
     padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    height: 50px;
 }
   
 .faq-answer {
@@ -33,6 +38,7 @@
     border: 1px solid #ccc;
     margin-top: 5px;
     display: none;
+    width: 600px;
 }
   
 .faq-answer.active {
@@ -42,4 +48,11 @@
 .formfaqadmin {
     border: solid 1px black;
     padding: 30px;
+    margin-top: 100px;
+}
+.formfaq {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+   
 }
