@@ -43,6 +43,7 @@ import OrganismeDetails from './component/user/bdd/mesentreprises/infosupentrepr
 import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
 import OrgList from './component/tabdebordadmin/voirplusorganisme.js';
 import ListeEntreprises from './component/tabdebordadmin/entreprises.js';
+import AjoutFaq from './component/tabdebordadmin/ajoutquestionfaq.js';
 import './App.css';
 
 
@@ -72,6 +73,7 @@ const AuthenticatedReponseFormulaire  = withAuthentication(ReponseFormulaire );
 const AuthenticatedAdminPage = withAuthentication(AdminPage);
 const AuthenticatedSchoolList = withAuthentication(SchoolList);
 const AuthenticatedOrganismeDetailsAdmin = withAuthentication(OrganismeDetailsAdmin);
+const AuthenticatedSignup = withAuthentication(Signup);
 
 const AuthenticatedOrgForm = withAuthentication(OrgForm);
 const AuthenticatedEntreprises = withAuthentication(Entreprises);
@@ -79,6 +81,7 @@ const AuthenticatedOrganismeDetails = withAuthentication(OrganismeDetails);
 const AuthenticatedSchoolListt = withAuthentication(SchoolListt);
 const AuthenticatedOrgList = withAuthentication(OrgList);
 const AuthenticatedListeEntreprises = withAuthentication(ListeEntreprises);
+const AuthenticatedAjoutFaq = withAuthentication(AjoutFaq);
 
 
 function App() {
@@ -124,11 +127,12 @@ function App() {
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AuthenticatedAdminPage />} />
               <Route path="/school" element={<AuthenticatedSchoolList />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/signup" element={<AuthenticatedSignup />} />
               <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
               <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
               <Route path="/entreprises" element={<AuthenticatedListeEntreprises />} />
               <Route path="/orgdetailadmin" element={<AuthenticatedOrganismeDetailsAdmin/>} />
+              <Route path="/ajoutfaq" element={<AuthenticatedAjoutFaq/>} />
            </Route>
 
           <Route path="/mentionslegales" element={<Mentions />} />

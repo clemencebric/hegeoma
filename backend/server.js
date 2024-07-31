@@ -1167,6 +1167,30 @@ app.get('/messages', (req, res) => {
 });*/
 
 
+/*creer des questions pour la faq*/
+app.post('/createfaq', (req, res) => {
+  const { question, reponse } = req.body;
+  const sql = 'INSERT INTO faq (question, reponse) VALUES (?, ?)';
+  db.query(sql, [question, reponse], (err, result) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error',  });
+    }
+    const faq = { id: result.insertId,};
+    res.status(201).json(faq);
+  });
+});
+/*afficher les faq */
+app.get('/faq', (req, res) => {
+  const sql = 'SELECT * FROM faq';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ success: false, message: 'Server error' });
+    }
+    res.status(200).json(results);
+  });
+});
 app.listen(8081, () => {
     console.log("Listening on port 8081");
 });

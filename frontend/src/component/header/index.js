@@ -62,6 +62,9 @@ const Header = () => {
             <li><a href="/entreprises" onClick={toggleMenu}>Entreprises</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('admin') && (
+            <li><a href="/ajoutfaq" onClick={toggleMenu}>FAQ</a></li>
+          )}
+          {contextIsAuthenticated && isUserAuthorized('admin') && (
             <li><a href="/signup" onClick={toggleMenu}>Creer un compte</a></li>
           )}
           {contextIsAuthenticated && isUserAuthorized('hegeoma') && (
