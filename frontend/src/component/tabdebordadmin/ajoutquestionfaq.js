@@ -6,7 +6,7 @@ function AjoutFaq() {
   const [question, setQuestion] = useState('');
   const [reponse, setReponse] = useState('');
   const [faqs, setFaqs] = useState([]);
-  const [activeQuestions, setActiveQuestions] = useState([]); // Utiliser un tableau pour suivre les questions actives
+  const [activeQuestion, setActiveQuestion] = useState(null); // Utiliser un seul identifiant pour la question active
 
   useEffect(() => {
     fetchFaqs();
@@ -38,10 +38,8 @@ function AjoutFaq() {
   };
 
   const handleQuestionClick = (id) => {
-    setActiveQuestions((prevActiveQuestions) =>
-      prevActiveQuestions.includes(id)
-        ? prevActiveQuestions.filter((questionId) => questionId !== id)
-        : [...prevActiveQuestions, id]
+    setActiveQuestion(prevActiveQuestion =>
+      prevActiveQuestion === id ? null : id
     );
   };
 
@@ -77,7 +75,7 @@ function AjoutFaq() {
             <div className='faq-question' onClick={() => handleQuestionClick(index)}>
               {faq.question}
             </div>
-            <div className={`faq-answer ${activeQuestions.includes(index) ? 'active' : ''}`}>
+            <div className={`faq-answer ${activeQuestion === index ? 'active' : ''}`}>
               {faq.reponse}
             </div>
           </div>
