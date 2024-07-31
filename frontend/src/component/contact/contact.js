@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import "./contact.css";
 import { post } from '../fonctions/getpost';
@@ -7,12 +7,34 @@ import { getUserEmailAndStatus } from '../fonctions/jwtDecode';
 function Contact() {
   const [message, setMessage] = useState('');
   const [nom, setNom] = useState('');
+  const [captcha, setCaptcha] = useState({ num1: 0, num2: 0, answer: 0 });
+  const [userAnswer, setUserAnswer] = useState('');
   const userData = getUserEmailAndStatus();
   const userEmail = userData.email;
   const userId = userData.id;
 
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
+
+  const generateCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 10);
+    const num2 = Math.floor(Math.random() * 10);
+    const answer = num1 + num2;
+    setCaptcha({ num1, num2, answer });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (parseInt(userAnswer) !== captcha.answer) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Captcha incorrect',
+        text: 'Veuillez réessayer.',
+      });
+      return;
+    }
 
     // Afficher la boîte de dialogue de confirmation
     const result = await Swal.fire({
@@ -38,6 +60,9 @@ function Contact() {
             timer: 1500
           });
           setMessage('');
+          setNom('');
+          setUserAnswer('');
+          generateCaptcha();
         } else {
           Swal.fire({
             icon: 'error',
@@ -80,6 +105,16 @@ function Contact() {
                 className='textareacontact'
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Captcha: {captcha.num1} + {captcha.num2} = ?
+              <input
+                className='textareacontact'
+                type="number"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
                 required
               />
             </label>

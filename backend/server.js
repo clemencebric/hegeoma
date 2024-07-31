@@ -1214,7 +1214,7 @@ app.get('/searchfaq', (req, res) => {
     }
     res.status(200).json(results);
   });
-});
+}); 
 
 
 app.listen(8081, () => {
