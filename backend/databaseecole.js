@@ -7,7 +7,7 @@ const db_school = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_SCHOOL_NAME
 });
-
+  
 db_school.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err.stack);

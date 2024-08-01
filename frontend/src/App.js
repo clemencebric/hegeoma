@@ -123,11 +123,13 @@ function App() {
           <Route element={<HegeomaRoute />}>
               <Route path="/reponse-formulaire" element={<AuthenticatedReponseFormulaire />} />
            </Route>
-
+           <Route element={<ClientnoncoRoute /> }>
+           <Route path="/signup" element={<Signup />} />
+           </Route>
           <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AuthenticatedAdminPage />} />
               <Route path="/school" element={<AuthenticatedSchoolList />} />
-              <Route path="/signup" element={<AuthenticatedSignup />} />
+             
               <Route path="/infoschool" element={<AuthenticatedSchoolListt />} />
               <Route path="/infousersorg" element={<AuthenticatedOrgList />} />
               <Route path="/entreprises" element={<AuthenticatedListeEntreprises />} />
