@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { get, post } from '../fonctions/getpost';
 import "./login.css";
 import Validation from './signupValidation';
 
@@ -21,9 +21,9 @@ function Signup() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            axios.post('http://913sq8.myd.infomaniak.com:8081/signup', values)
+            post('signup', values)
                 .then(response => {
-                    console.log('Signup successful:', response.data);
+                    console.log('Signup successful:', response);
                     // Rediriger l'utilisateur ou afficher un message de succès
                 })
                 .catch(error => {
@@ -36,7 +36,7 @@ function Signup() {
     return (
         <div className='formulaiire'>
             <div className='formulaire'>
-                <h2>Sign-In</h2>
+                <h2>Sign-Up</h2>
                 <form action='' onSubmit={handleSubmit}>
                     <div className='informations'>
                         <div className='mb-3'>
