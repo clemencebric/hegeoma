@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { get, post } from '../fonctions/getpost';
+import { post } from '../fonctions/getpost';
 import "./login.css";
 import Validation from './signupValidation';
 
@@ -62,3 +62,4 @@ function Signup() {
 }
 
 export default Signup;
+
