@@ -135,6 +135,7 @@ const Home = () => {
                     <Blog posts={blogPosts} />
                 </div>
             </div>
+            
             <div className='containerminiarticle'>
                 <div className='miniarticles'>
                     {blogMiniPosts.map((post, index) => (

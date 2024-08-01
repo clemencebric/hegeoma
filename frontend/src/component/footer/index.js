@@ -7,7 +7,6 @@ import './footer.css';
 const Footer = () => {
     return (
         <footer className="footer">
-            
             <div className='informations'>
             <p className="footer-text">
                 <a className='lien' href="/contact">Contactez-nous par message<br/></a>  <a className="lien" href="tel:0683630429">ou au : 06 83 63 04 29</a>
