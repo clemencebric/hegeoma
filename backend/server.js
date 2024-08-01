@@ -18,7 +18,8 @@ app.use(express.json());
 app.use(cors({
     origin: process.env.FRONTEND, // application frontend
     methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
-    allowedHeaders: 'Content-Type,Authorization'
+    allowedHeaders: 'Content-Type,Authorization',
+    credentials: true
 }));
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];

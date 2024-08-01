@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const db_school = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
+    port: process.env.DB_PORT,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_SCHOOL_NAME
 });
