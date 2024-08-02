@@ -28,6 +28,7 @@ function Signup() {
             post('signup', values)
                 .then(res => {
                     navigate('/login');
+                    console.log("bonjour")
                 })
                 .catch(err => console.log(err));
         }

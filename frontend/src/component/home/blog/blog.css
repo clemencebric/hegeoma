@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: white;
     /*border-radius: 50% 20% / 10% 40%;*/
 }
 
@@ -104,24 +105,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 80vh;
     width: 100%;
     font-size: 30px;
     color: black;
     background-color: white;
     background-size: cover;
 }
-
+/*
 @media (max-width: 600px) or (max-height: 700px){
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
-    }
+    /*}
 }
 @media (min-width: 600px) and (max-width: 740px){
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
-    }
-}
+    /*}
+}*/
 
 /*--------contenu mini article--------------*/
 .containerminiarticle{

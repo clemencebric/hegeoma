@@ -1,4 +1,4 @@
-const BASE_URL = 'http://913sq8.myd.infomaniak.com:8081';
+const BASE_URL = 'http://913sq8.myd.infomaniak.com:8082';
 
 /* Méthode POST */
 const post = async (endpoint, data) => {

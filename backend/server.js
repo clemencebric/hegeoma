@@ -14,12 +14,19 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const nodemailer = require('nodemailer'); //pour mails
 const app = express();
+
 app.use(express.json());
 app.use(cors({
     origin: process.env.FRONTEND, // application frontend
     methods: 'GET,POST,PUT,DELETE,INSERT,SELECT', // méthodes SQL autorisées depuis le front
     allowedHeaders: 'Content-Type,Authorization'
 }));
+
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/frontend/index.html'));
+  });
+  
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];
   
@@ -1217,6 +1224,6 @@ app.get('/searchfaq', (req, res) => {
 }); 
 
 
-app.listen(8081, () => {
-    console.log("Listening on port 8081");
+app.listen(8082, () => {
+    console.log("Listening on port 8082");
 });
