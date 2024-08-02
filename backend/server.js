@@ -22,10 +22,12 @@ app.use(cors({
     allowedHeaders: 'Content-Type,Authorization'
 }));
 
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '..')));
+
+// Rediriger toutes les autres requêtes vers index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/frontend/index.html'));
-  });
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
   
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];

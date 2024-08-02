@@ -1,4 +1,4 @@
-const BASE_URL = 'http://913sq8.myd.infomaniak.com:8082';
+const BASE_URL = 'https://hegeoma.org:443';
 
 /* Méthode POST */
 const post = async (endpoint, data) => {
@@ -10,12 +10,13 @@ const post = async (endpoint, data) => {
     body: JSON.stringify(data)
   });
 
-  const json = await response.json();
-
   if (!response.ok) {
-    throw new Error(json.message);
+    // Essayez de lire le corps de la réponse pour obtenir plus de détails sur l'erreur
+    const errorText = await response.text();
+    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
   }
 
+  const json = await response.json();
   return json;
 };
 
