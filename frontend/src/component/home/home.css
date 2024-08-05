@@ -3,15 +3,12 @@ body, html {
     width: 100%;
     margin: 0;
     padding: 0;
-    /*font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;*/
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
-/* ----page1-----*/
 
+/* ----page1-----*/
 .page1 {
     display: flex;
     justify-content: space-around;
@@ -20,41 +17,39 @@ body, html {
     width: 100%;
     font-size: 30px;
     color: black;
-    background-image: url("../../images/pexels-jean-daniel-4006182.jpg");
+    background-image: url("../../images/pexels-jean-daniel-hegeoma.png");
     background-size: cover;
-}
-
-.partie1 .partie2 {
-    align-items: center;
+    position: center;
 }
 
 .partie1 {
+    display: none;
     font-size: 60px;
     padding: 20px;
     margin-bottom: 100px;
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.367);
     border-radius: 20px;
+    align-items: center;
 }
 
-@media (min-width: 430px) and (max-width: 810px)  {
+@media (min-width: 430px) and (max-width: 810px) {
     .partie1 {
         font-size: 80px;
-    }
-}
-@media (min-width: 810px) and (max-width: 1200px)  {
-    .partie1 {
-        font-size: 100px;
-    }
-}
-@media (min-width: 1200px)  {
-    .partie1 {
-        font-size: 130px;
     }
 }
 
 .surtitre {
     font-size: 35px;
+}
+
+@media (min-aspect-ratio: 0/1) and (max-aspect-ratio: 1/1) {
+    .partie1 {
+        display: block;
+    }
+    .page1 {
+        background-image: url("../../images/pexels-jean-daniel-4006182.jpg");
+    }
 }
 
 /*partie 3*/
@@ -115,23 +110,14 @@ body, html {
     to { opacity: 1; }
 }
 
-@media (max-width: 1370px) {
-    .page1 {
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-}
-
 /* --------page2-----------*/
 .page2 {
-    /*background-color: rgb(244, 244, 244);*/
     background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766.jpg");
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-size: cover;
-    
 }
 
 .page2tel {
@@ -199,10 +185,11 @@ body, html {
     background-color: #425cdd;
     color: white;
 }
+
 /*---------page 3----------*/
 .page3 {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -210,42 +197,41 @@ body, html {
     width: 100%;
     font-size: 30px;
     color: black;
-    /*background-image: url("../../images/fondcanvabasdeux.png");*/
     background-color: white;
     background-size: cover;
 }
+
 @media (max-width: 600px) {
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
     }
-    
 }
+
 @media (min-width: 600px) and (max-width: 740px){
     .page3{
         height: 150vh; /*taille de la page, donc 2 articles à 60 vh*/
     }
-    
 }
-/* ------- page mini article ----------- */
 
+/* ------- page mini article ----------- */
 .containerminiarticle{
-    /*background-color: rgb(255, 255, 255);*/
     background-image: url("../../images/fond-abstrait-bleu-elegant-espace-texte_1017-46766\ copie.jpg");
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover; 
+    background-size: cover;
 }
+
 .miniarticles {
     width: 80%;
     height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
+
 .articlem {
     border: solid 1px rgb(170, 170, 170);
     padding: 10px;
@@ -254,8 +240,8 @@ body, html {
     justify-content: space-around;
     height: 100px;
     background-color: rgb(255, 255, 255);
-    
 }
+
 .contenuminiarticle {
     width: 500px;
     text-align: center;
@@ -277,24 +263,26 @@ body, html {
 .cachee {
     height: 100%;
     width: 100%;
-
 }
-
 
 .buttonarticle {
     background-color: rgb(255, 255, 255);
 }
+
 .partiegauche{
     width: 500px;
 }
+
 .divcachee {
     height: 100px;
 }
+
 @media (max-width: 1500px) {
     .partiegauche{
         width: 200px;
     }
 }
+
 @media (max-width: 1200px) {
     .partiegauche{
         width: 200px;
@@ -303,11 +291,13 @@ body, html {
         width: 400px;
     }
 }
+
 @media (max-width: 900px) {
     .contenuminiarticle{
         width: 250px;
     }
 }
+
 @media (max-width: 700px) {
     .contenuminiarticle{
         display: none;

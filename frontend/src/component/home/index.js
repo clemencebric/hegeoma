@@ -103,8 +103,8 @@ const Home = () => {
     },
     {
         image: image3,
-        alt: 'Slide 3',
-        caption: 'Intégration',
+        alt: 'Securité',
+        caption: 'Sécurité',
         paragraphs: [
           'Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Android dans votre infrastructure actuelle ou à venir.',
           'Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget.'
@@ -113,7 +113,7 @@ const Home = () => {
       {
         image: image4,
         alt: 'Slide 4',
-        caption: 'Intégration',
+        caption: 'Maintenance',
         paragraphs: [
           'Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Android dans votre infrastructure actuelle ou à venir.',
           'Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget.'
@@ -122,7 +122,7 @@ const Home = () => {
       {
         image: image5,
         alt: 'Slide 5',
-        caption: 'Intégration',
+        caption: 'Transfert de compétences',
         paragraphs: [
           'Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Android dans votre infrastructure actuelle ou à venir.',
           'Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget.'
@@ -131,7 +131,7 @@ const Home = () => {
       {
         image: image6,
         alt: 'Slide 6',
-        caption: 'Intégration',
+        caption: 'Support',
         paragraphs: [
           'Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Android dans votre infrastructure actuelle ou à venir.',
           'Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget.'
@@ -148,30 +148,6 @@ const Home = () => {
             <Typewriter text="HEGEOMA" />
           </div>
         </div>
-        <DivAnimee>
-          <div className='partie3'>
-            <div className='elt'>
-              <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
-              <div className='eltdescription'>Déploiement</div>
-            </div>
-            <div className='elt'>
-              <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
-              <div className='eltdescription'>Sécurisation</div>
-            </div>
-            <div className='elt'>
-              <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
-              <div className='eltdescription'>Sauvegarde</div>
-            </div>
-            <div className='elt'>
-              <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
-              <div className='eltdescription'>Intégration</div>
-            </div>
-            <div className='elt'>
-              <div className='eltlogo'><FontAwesomeIcon icon={faCheck} style={{ color: "#36f529" }} size="2x" /></div>
-              <div className='eltdescription'>Support</div>
-            </div>
-          </div>
-        </DivAnimee>
       </div>
       <Carousel items={carouselItems} />
 
