@@ -35,6 +35,11 @@
     background: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .left-arrow,

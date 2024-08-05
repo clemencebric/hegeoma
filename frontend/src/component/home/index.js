@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
 import './home.css';
 import Typewriter from './Typewriter.js';
-import CardSlider from './slider/slider.js';
-import Card from './slider/card.js';
-import ServiceList from './tableau/tableau.js';
-import Blog from './blog/blog.js';
-import BackToTop from './Backtotop/index.js';
 import DivAnimee from './divAnimee/divAnimee.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from '../home/caroussel/carousel.js';
-import { faChevronDown, faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
+import ServiceList from './tableau/tableau.js';
+import Blog from './blog/blog.js';
+import BackToTop from './Backtotop/index.js';
+import { faChevronDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
-  const cards = [
-    <Card logo={faGear} title="Integration" content="Hegeoma prépare, installe et déploie vos Mac, iPhone ou iPad, Chromebook, PC, NAS Synology ou tablettes Android dans votre infrastructure actuelle ou à venir. Nous intégrons également en environnement hétérogène. Hegeoma peut travailler au forfait et sait s’adapter à votre budget." />,
-    <Card logo={faPhone} title="Support" content="Hegeoma peut prendre en charge le support de tout ou partie de votre parc informatique, y compris vos iPhone, iPad ou Mac, Chromebook ou tablettes Android en situation de mobilité." />,
-    <Card logo={faGraduationCap} title="Formation" content="Vous cherchez une formation sur mesure, matérielle (Mac, iPhone, iPad) ou logicielle (OS X, iOS, intégration dans un environnement Windows sous Active Directory) ? Une formation pour un logiciel donné ? Une formation certifiante ? Hegeoma vous propose ses services en inter ou intra entreprise." />,
-    <Card logo={faShip} title="Mobilité et gestion de flotte (MDM)" content="Vous désirez gérer et déployer plus facilement votre flotte d’appareils avec un MDM ? Pour Mac, iPhone, iPad, PC, tablettes Android ou Chromebook ? Hegeoma vous accompagne." />,
-    <Card logo={faRecycle} title="Maintenance" content="Vous souhaitez que quelqu’un vous conseille, assure la bonne évolution matérielle et logicielle de votre parc informatique ? Vous souhaitez faire évoluer certains Mac, iPhone, iPad, Chromebook ou PC ? Hegeoma vous propose ses services." />,
-    <Card logo={faPen} title="Audit et conseil" content="Vous désirez un conseil indépendant ? Un audit indépendant effectué par un professionnel certifié Apple ? Vous souhaitez un audit de sécurité pour vos solutions Apple ? Hegeoma vous propose ses services." />,
-  ];
-
-  // Importer les images
   const image1 = require('../../images/pexels-gabriel-freytez-110599-341523.jpg');
   const image2 = require('../../images/pexels-pixabay-4158.jpg');
   const image3 = require('../../images/pexels-jeshoots-218863.jpg');
@@ -84,19 +72,16 @@ const Home = () => {
     },
   ];
 
-  // State to keep track of which article is open
   const [openArticleIndex, setOpenArticleIndex] = useState(null);
 
-  // Function to toggle the visibility of the hidden div
   const toggleArticle = (index) => {
     if (openArticleIndex === index) {
-      setOpenArticleIndex(null); // Close the currently open article
+      setOpenArticleIndex(null);
     } else {
-      setOpenArticleIndex(index); // Open the clicked article
+      setOpenArticleIndex(index);
     }
   };
 
-  // Items for the carousel
   const carouselItems = [
     {
       image: image1,
@@ -189,9 +174,7 @@ const Home = () => {
         </DivAnimee>
       </div>
       <Carousel items={carouselItems} />
-      <div className='page2' id="services">
-        <CardSlider cards={cards} />
-      </div>
+
       <div className='page2tel' id="servicestel">
         <div className='titreservices'>NOS SERVICES : </div>
         <div><ServiceList services={services} /></div>

@@ -20,7 +20,7 @@ body, html {
     width: 100%;
     font-size: 30px;
     color: black;
-    background-image: url("../../images/pexels-fauxels-3184451.jpg");
+    background-image: url("../../images/pexels-jean-daniel-4006182.jpg");
     background-size: cover;
 }
 
@@ -210,8 +210,8 @@ body, html {
     width: 100%;
     font-size: 30px;
     color: black;
-    background-image: url("../../images/fondcanvabasdeux.png");
-    /*background-color: white;*/
+    /*background-image: url("../../images/fondcanvabasdeux.png");*/
+    background-color: white;
     background-size: cover;
 }
 @media (max-width: 600px) {
