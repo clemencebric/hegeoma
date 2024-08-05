@@ -2,21 +2,39 @@
     position: relative;
     width: 100%;
     overflow: hidden;
+    height: 100vh; /* Assurez-vous que le carrousel couvre toute la hauteur de l'écran */
   }
   
   .carousel-inner {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    height: 100vh; /* Assurez-vous que le conteneur interne couvre toute la hauteur de l'écran */
   }
   
   .carousel-item {
-    min-width: 100%;
+    width: 100%;
+    height: 100vh; /* Assurez-vous que chaque élément du carrousel couvre toute la hauteur de l'écran */
     box-sizing: border-box;
+    position: relative;
   }
   
   .carousel-item img {
-    width: 100%;
-    height: auto;
+    width: 100vw;
+    height: 100vh; /* Assurez-vous que l'image couvre toute la hauteur de l'écran */
+    object-fit: cover; /* Assurez-vous que l'image ne soit pas déformée */
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
   }
   
   .left-arrow,

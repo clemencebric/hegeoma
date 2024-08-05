@@ -22,7 +22,12 @@ const Carousel = ({ items }) => {
         {items.map((item, index) => (
           <div className="carousel-item" key={index}>
             <img src={item.image} alt={item.alt} />
-            <p>{item.caption}</p>
+            <div className="carousel-caption">
+              <h2>{item.caption}</h2>
+              {item.paragraphs && item.paragraphs.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         ))}
       </div>
