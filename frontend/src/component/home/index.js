@@ -8,6 +8,7 @@ import Blog from './blog/blog.js';
 import BackToTop from './Backtotop/index.js';
 import DivAnimee from './divAnimee/divAnimee.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Carousel from '../home/caroussel/carousel.js';
 import { faChevronDown, faGear, faPhone, faGraduationCap, faShip, faRecycle, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
@@ -121,7 +122,7 @@ const Home = () => {
                     </div>
                 </DivAnimee>
             </div>
-
+            <Carousel/>
             <div className='page2' id="services">
                 <CardSlider cards={cards} />
             </div>

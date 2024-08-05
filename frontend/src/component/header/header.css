@@ -22,21 +22,29 @@
 .numdecontact{
     display: none;
 }
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #ffffffec;
+    background-color: transparent;
     padding: 20px 20px;
-    color: #000000;
-    position: -webkit-sticky;
+    color: white;
     position: fixed;
-    /*position: relative; /*   position: fixed;*/
     top: 0;
     width: 100%;
     z-index: 1;
+    transition: background-color 0.3s ease;
 
 }
+
+.header.scrolled {
+    background-color: #ffffff4d;
+    color: #000000;
+    backdrop-filter: blur(10px); /* Ajoutez l'effet de flou */
+}
+
+/* ... (le reste de votre CSS) */
 
 .header-logo img {
     height: 50px;
@@ -65,14 +73,17 @@
 }
 
 .header-nav a {
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
     font-size: 25px;
     border-radius: 4px;
     padding: 2px 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+/*changer la couleur de l'écriture au defilement*/
+.header-nav a.scrolled {
+    color: #000000;
+}
 .header-nav a:hover {
     /*background-color: #c2c7caa1;*/
     color: rgb(179, 179, 179);

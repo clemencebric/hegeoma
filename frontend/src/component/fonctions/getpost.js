@@ -1,7 +1,8 @@
-const BASE_URL = 'https://hegeoma.org:443';
+const BASE_URL = 'http://913sq8.myd.infomaniak.com:8082';
 
 /* Méthode POST */
 const post = async (endpoint, data) => {
+  console.log("ligne5");
   const response = await fetch(`${BASE_URL}/${endpoint}`, {
     method: 'POST',
     headers: {

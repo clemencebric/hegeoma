@@ -33,7 +33,7 @@
 .nosservicesheader {
     font-size: 50px;
     height: 12vh;
-    background-color: rgb(61, 72, 79);
+    background-color: rgb(0, 76, 124);
     color: white;
     display: flex;
     align-items: center;
@@ -111,7 +111,8 @@
 }
 
 .ligneunserviceun, .lignedeuxservicedeux, .lignetroisserviceun {
-    background-color: rgb(61, 72, 79);
+    /*background-color: rgb(61, 72, 79);*/
+    background-color: rgb(0, 76, 124);
     height: 95%;
     width: 49.3%;
     color: #F5F5F7;
