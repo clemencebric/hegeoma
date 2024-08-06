@@ -60,7 +60,7 @@ function Services() {
             rows.push(
                 <div className="ligne" key={i}>
                     <div className="service" style={{ backgroundImage: `url(${serviceDetails[i].backgroundImage})` }}>
-                        <div className='grostitre' style={{ color: serviceDetails[i].color, backgroundColor: serviceDetails[i].backgroundcolor }}>{serviceDetails[i].title}</div>
+                        <div className='grostitre' style={{ color: serviceDetails[i].color }}>{serviceDetails[i].title}</div>
                         <div className='fondtexte'>
                             <div className='titreligne'>{serviceDetails[i].title}</div>
                             <div className='descriptionligne'>{serviceDetails[i].description}</div>
@@ -68,7 +68,7 @@ function Services() {
                     </div>
                     {serviceDetails[i + 1] && (
                         <div className="service" style={{ backgroundImage: `url(${serviceDetails[i + 1].backgroundImage})` }}>
-                            <div className='grostitre' style={{ color: serviceDetails[i + 1].color, backgroundColor: serviceDetails[i + 1].backgroundcolor }}>{serviceDetails[i + 1].title}</div>
+                            <div className='grostitre' style={{ color: serviceDetails[i + 1].color }}>{serviceDetails[i + 1].title}</div>
                             <div className='fondtexte'>
                                 <div className='titreligne'>{serviceDetails[i + 1].title}</div>
                                 <div className='descriptionligne'>{serviceDetails[i + 1].description}</div>
@@ -93,16 +93,15 @@ function Services() {
                                 <div className='titresecurite titreligne'>Securite</div>
                                 <div className='descritionsecurite'>
                                     <div className='descriptionligne'>
-                                        <ul>
-                                            <li>Vous souhaitez un Audit de l’installation de votre MDM ?</li>
-                                            <li>Vous souhaitez sécuriser vos appareils mobiles ou fixes ?</li>
-                                            <li>Vous souhaitez faire auditer votre Console Google ?</li>
-                                            <li>Vous recherchez un antivirus avec console centrale et outils de remédiation ?</li>
-                                            <li>Vous souhaitez mettre en place une solution de sauvegarde ?</li>
-                                            <li>Vous souhaitez contrôler l’accès aux contenus déplacés en environnement Pro ou Education ?</li>
-                                            <li>Vous souhaitez installer un ou plusieurs firewall(s) ?</li>
-                                            <li>Hegeoma peut vous accompagner sur ces sujets.</li>
-                                        </ul>
+                                            Vous souhaitez un Audit de l’installation de votre MDM ?<br/>
+                                            Vous souhaitez sécuriser vos appareils mobiles ou fixes ?<br/>
+                                            Vous souhaitez faire auditer votre Console Google ?<br/>
+                                            Vous recherchez un antivirus avec console centrale et outils de remédiation ?<br/>
+                                            Vous souhaitez mettre en place une solution de sauvegarde ?<br/>
+                                           Vous souhaitez contrôler l’accès aux contenus déplacés en environnement Pro ou Education ?<br/>
+                                            Vous souhaitez installer un ou plusieurs firewall(s) ?<br/>
+                                            Hegeoma peut vous accompagner sur ces sujets.
+                                       
                                     </div>
                                 </div>
                             </div>

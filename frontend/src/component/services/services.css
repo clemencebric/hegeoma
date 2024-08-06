@@ -32,6 +32,7 @@
     background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ajout de cette ligne pour éviter le débordement */
 }
 
 .divsecu {
@@ -52,7 +53,7 @@
 }
 
 .titresecurite {
-    height: 10vh;
+    height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -194,6 +195,12 @@
     font-size: 22px;
     width: 30vw;
     text-align: justify;
+}
+.descritionsecurite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
 }
 
 @media (max-width: 1000px) {
