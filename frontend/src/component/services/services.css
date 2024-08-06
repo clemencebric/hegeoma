@@ -99,9 +99,7 @@
 
 /* Gérer le titre */
 .grostitre {
-    position: absolute;
-    top: 10px; /* Ajustez selon vos besoins */
-    left: 10px; /* Ajustez selon vos besoins */
+
     color: white; /* Ajustez selon vos besoins */
     font-size: 24px; /* Ajustez selon vos besoins */
     z-index: 2; /* Assurez-vous que le titre est au-dessus des autres éléments */
@@ -136,8 +134,7 @@
     background-color: rgba(255, 255, 255, 0.862);
     padding: 10px;
     border-radius: 10px;
-    position: absolute;
-    bottom: 20px;
+
     z-index: 2; /* Assurer que le texte est au-dessus de la superposition */
     opacity: 0; /* Texte caché par défaut */
     transition: opacity 0.3s ease-in-out;
