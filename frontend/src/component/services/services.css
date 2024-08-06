@@ -1,31 +1,9 @@
-/*.arc-background {
-    position: relative;
+.arc-background {
     background-color: white;
-    height: 100vh; 
-    z-index: -7;
-
+    min-height: 256vh;
+    padding-bottom: 2vh; /* Add some padding to the bottom */
 }
 
-.arc-background::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 0;
-    width: 100%;
-    height: 150%;
-    background-color: #1787b0; 
-    border-radius: 0% 0% 100% 100%;
-    transform: scaleY(0.4);
-    z-index: 1;
-}
-
-.content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
-*/
-/*--------page securite---------*/
 .espaceheader {
     height: 18vh;
 }
@@ -43,19 +21,25 @@
 
 .pagesecurite {
     height: 61vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 3vh; /* Add margin to the bottom */
 }
+
 .divsecu {
-    background-color: #F5F5F7;
+    background-image: url('../../images/pexels-pixabay-269323.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the content vertically */
 }
+
 .pagesecuriteinterieur {
     height: 95%;
     width: 99.2%;
-
 }
 
 .titresecurite {
@@ -73,14 +57,6 @@
     align-items: center;
 }
 
-/*------page service plus moderne à la place du slider ------*/
-.descritionsecurite {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
-
 .secu {
     width: 20%;
     height: 5vh;
@@ -93,58 +69,85 @@
 }
 
 .pagenouveauxservices {
-    height: 90vh;
+    height: auto; /* Change height to auto to fit content */
 }
 
 .ligne {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 33.33%;
-}
-
-.service {
+    height: 70vh;
+    margin-bottom: 3vh; /* Add margin to the bottom */
+}.service {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 49%;
+    border-radius: 10px;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    background-image: inherit; /* Utiliser l'image de fond définie dans le style */
+    transition: background-color 0.3s ease-in-out; /* Transitions pour les changements de couleur de fond */
 }
 
-.ligneunserviceun, .lignedeuxservicedeux, .lignetroisserviceun {
-    /*background-color: rgb(61, 72, 79);*/
-    background-color: rgb(17, 112, 159);
-    height: 95%;
-    width: 49.3%;
-    color: #F5F5F7;
+.service::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); /* Superposition blanche semi-transparente */
+    opacity: 0; /* Opacité normale par défaut */
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1; /* Assurer que c'est au-dessus de l'image mais en dessous du texte */
 }
 
-.ligneunservicedeux, .lignetroisservicedeux, .lignedeuxserviceun {
-    background-color: #F5F5F7;
-    height: 95%;
-    width: 49.3%;
+.service:hover::after {
+    opacity: 1; /* Augmenter l'opacité au survol */
 }
 
-.titreligne {
+.service .fondtexte {
+    background-color: rgba(255, 255, 255, 0.862);
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 20px;
+    z-index: 2; /* Assurer que le texte est au-dessus de la superposition */
+    opacity: 0; /* Texte caché par défaut */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.service:hover .fondtexte {
+    opacity: 1; /* Montrer le texte au survol */
+}
+
+.service .titreligne {
     font-size: 30px;
 }
 
-.descriptionligne {
+.service .descriptionligne {
     font-size: 22px;
     width: 30vw;
     text-align: justify;
 }
 
 @media (max-width: 1000px) {
-    .titreligne {
+    .service .titreligne {
         font-size: 15px;
     }
-    .descriptionligne, .descritionsecurite {
+    .service .descriptionligne, .descritionsecurite {
         font-size: 10px;
     }
 }
 
 @media (max-height: 400px) {
-    .descriptionligne, .descritionsecurite {
+    .service .descriptionligne, .descritionsecurite {
         display: none;
     }
 }
