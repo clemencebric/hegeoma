@@ -78,7 +78,9 @@
     align-items: center;
     height: 70vh;
     margin-bottom: 3vh; /* Add margin to the bottom */
-}.service {
+}
+
+.service {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,6 +97,18 @@
     transition: background-color 0.3s ease-in-out; /* Transitions pour les changements de couleur de fond */
 }
 
+/* Gérer le titre */
+.grostitre {
+    position: absolute;
+    top: 10px; /* Ajustez selon vos besoins */
+    left: 10px; /* Ajustez selon vos besoins */
+    color: white; /* Ajustez selon vos besoins */
+    font-size: 24px; /* Ajustez selon vos besoins */
+    z-index: 2; /* Assurez-vous que le titre est au-dessus des autres éléments */
+    transition: opacity 0.3s ease-in-out; /* Transition pour le changement de visibilité */
+}
+
+/* Gestion de la superposition pour l'effet d'opacité */
 .service::after {
     content: "";
     position: absolute;
@@ -108,8 +122,14 @@
     z-index: 1; /* Assurer que c'est au-dessus de l'image mais en dessous du texte */
 }
 
+/* Augmenter l'opacité de la superposition au survol */
 .service:hover::after {
-    opacity: 1; /* Augmenter l'opacité au survol */
+    opacity: 1;
+}
+
+/* Masquer le titre et afficher le texte de description au survol */
+.service:hover .grostitre {
+    opacity: 0; /* Masquer le titre lors du survol */
 }
 
 .service .fondtexte {
@@ -123,8 +143,9 @@
     transition: opacity 0.3s ease-in-out;
 }
 
+/* Montrer la description au survol */
 .service:hover .fondtexte {
-    opacity: 1; /* Montrer le texte au survol */
+    opacity: 1;
 }
 
 .service .titreligne {
