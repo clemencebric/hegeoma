@@ -99,11 +99,14 @@
 
 /* Gérer le titre */
 .grostitre {
-
     color: white; /* Ajustez selon vos besoins */
     font-size: 40px; /* Ajustez selon vos besoins */
     z-index: 2; /* Assurez-vous que le titre est au-dessus des autres éléments */
     transition: opacity 0.3s ease-in-out; /* Transition pour le changement de visibilité */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Gestion de la superposition pour l'effet d'opacité */
@@ -131,13 +134,21 @@
 }
 
 .service .fondtexte {
-    background-color: rgba(255, 255, 255, 0.862);
+    /*background-color: rgba(255, 255, 255, 0.862);*/
     padding: 10px;
     border-radius: 10px;
     height: 80%;
     z-index: 2; /* Assurer que le texte est au-dessus de la superposition */
     opacity: 0; /* Texte caché par défaut */
     transition: opacity 0.3s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Montrer la description au survol */
