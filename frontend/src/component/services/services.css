@@ -187,3 +187,17 @@
         flex-wrap: wrap;
     }
 }
+/*
+
+.black-text .grostitre,
+.black-text .titreligne,
+.black-text .descriptionligne {
+    color: black;
+}
+
+.white-text .grostitre,
+.white-text .titreligne,
+.white-text .descriptionligne {
+    color: white;
+}
+*/
