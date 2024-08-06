@@ -17,6 +17,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 1vh;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .pagesecurite {
@@ -26,6 +29,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 3vh; /* Add margin to the bottom */
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .divsecu {
@@ -35,6 +41,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center the content vertically */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pagesecuriteinterieur {
@@ -47,6 +56,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
 }
 
 .descritionsecurite {
@@ -55,6 +69,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.descritionsecurite ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.descritionsecurite ul li {
+    margin-bottom: 10px;
 }
 
 .secu {
@@ -107,6 +133,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Gestion de la superposition pour l'effet d'opacité */
@@ -187,17 +216,3 @@
         flex-wrap: wrap;
     }
 }
-/*
-
-.black-text .grostitre,
-.black-text .titreligne,
-.black-text .descriptionligne {
-    color: black;
-}
-
-.white-text .grostitre,
-.white-text .titreligne,
-.white-text .descriptionligne {
-    color: white;
-}
-*/
