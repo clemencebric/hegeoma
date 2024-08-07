@@ -1,6 +1,6 @@
 .arc-background {
     background-color: white;
-    min-height: 256vh;
+    /*min-height: 256vh;*/
     padding-bottom: 2vh; /* Add some padding to the bottom */
 }
 
@@ -23,7 +23,7 @@
 }
 
 .pagesecurite {
-    height: 61vh;
+    /*height: 61vh;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,8 +36,9 @@
 }
 
 .divsecu {
-    background-image: url('../../images/pexels-pixabay-269323.jpg');
+    background-image: url('../../images/pexels-cottonbro-4065876.jpg');
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -45,6 +46,9 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    height: 60vh;
 }
 
 .pagesecuriteinterieur {
@@ -57,30 +61,38 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #333;
+    font-size: 40px;
+    color: #000000;
+    transition: opacity 0.3s ease-in-out;
 }
 
-.descritionsecurite {
-    height: 18vh;
-    width: 99.2%;
+.descriptionsecurite {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    
     color: #555;
     line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.717);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    flex-direction: column;
 }
 
-.descritionsecurite ul {
+.descriptionsecurite ul {
     list-style-type: none;
     padding: 0;
 }
 
-.descritionsecurite ul li {
+.descriptionsecurite ul li {
     margin-bottom: 10px;
 }
 
@@ -196,24 +208,76 @@
     width: 30vw;
     text-align: justify;
 }
-.descritionsecurite {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.717);
-} 
+.titrelignesec {
+    font-size: 25px;
+}
+/* Effet de survol pour la div sécurité */
+.divsecu:hover .titresecurite {
+    opacity: 0;
+}
 
-@media (max-width: 1000px) {
-    .service .titreligne {
+.divsecu:hover .descriptionsecurite {
+    opacity: 1;
+}
+
+@media (max-width: 300px) {
+    .service .titreligne, .titrelignesec {
+        font-size: 7px;
+    }
+    .service .descriptionligne, .descriptionsecurite {
+        font-size: 3px;
+    }
+}
+
+@media (max-width: 500px) {
+    .service .titreligne, .titrelignesec {
+        font-size: 10px;
+    }
+    .service .descriptionligne, .descriptionsecurite {
+        font-size: 5px;
+    }
+}
+
+@media (max-width: 800px) {
+    .service .titreligne, .titrelignesec {
         font-size: 15px;
     }
-    .service .descriptionligne, .descritionsecurite {
+    .service .descriptionligne, .descriptionsecurite {
         font-size: 10px;
     }
 }
 
+@media (max-width: 1000px) {
+    .service .titreligne, .titrelignesec {
+        font-size: 20px;
+    }
+    .service .descriptionligne, .descriptionsecurite {
+        font-size: 15px;
+    }
+}
+@media (min-width:1800 ){
+    .service .titreligne, .titrelignesec {
+        font-size: 220px;
+    }
+    .service .descriptionligne, .descriptionsecurite {
+        font-size: 180px;
+    }
+}
+
+
+
+
+@media (min-width: 1800px) {
+    .service .titreligne, .titrelignesec {
+        font-size: 25px;
+    }
+    .service .descriptionligne, .descriptionsecurite {
+        font-size: 20px;
+    }
+}
+
 @media (max-height: 400px) {
-    .service .descriptionligne, .descritionsecurite {
+    .service .descriptionligne, .descriptionsecurite {
         display: none;
     }
 }
@@ -223,13 +287,18 @@
         flex-wrap: wrap;
     }
 }
+
 @media (min-aspect-ratio: 0/1) and (max-aspect-ratio: 1/1) {
     .service {
         width: 98%;
         margin: 1vh;
     }
+    .service .descriptionligne {
+        width: 60vw;
+    }
     .ligne {
         flex-direction: column;
         margin-bottom: 0vh;
+        height: 120vh;
     }
 }

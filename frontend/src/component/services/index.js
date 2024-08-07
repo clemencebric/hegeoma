@@ -90,18 +90,18 @@ function Services() {
                             <div className='espaceheader'></div>
                             <div className='nosservicesheader'>NOS SERVICES</div>
                             <div className='divsecu'>
-                                <div className='titresecurite titreligne'>Securite</div>
-                                <div className='descritionsecurite'>
+                                <div className='titresecurite titreligne'>Sécurité</div>
+                                <div className='descriptionsecurite'>
+                                    <div className='titrelignesec'>Sécurité</div>
                                     <div className='descriptionligne'>
-                                            Vous souhaitez un Audit de l’installation de votre MDM ?<br/>
-                                            Vous souhaitez sécuriser vos appareils mobiles ou fixes ?<br/>
-                                            Vous souhaitez faire auditer votre Console Google ?<br/>
-                                            Vous recherchez un antivirus avec console centrale et outils de remédiation ?<br/>
-                                            Vous souhaitez mettre en place une solution de sauvegarde ?<br/>
-                                           Vous souhaitez contrôler l’accès aux contenus déplacés en environnement Pro ou Education ?<br/>
-                                            Vous souhaitez installer un ou plusieurs firewall(s) ?<br/>
-                                            Hegeoma peut vous accompagner sur ces sujets.
-                                       
+                                        Vous souhaitez un Audit de l’installation de votre MDM ?<br/>
+                                        Vous souhaitez sécuriser vos appareils mobiles ou fixes ?<br/>
+                                        Vous souhaitez faire auditer votre Console Google ?<br/>
+                                        Vous recherchez un antivirus avec console centrale et outils de remédiation ?<br/>
+                                        Vous souhaitez mettre en place une solution de sauvegarde ?<br/>
+                                        Vous souhaitez contrôler l’accès aux contenus déplacés en environnement Pro ou Education ?<br/>
+                                        Vous souhaitez installer un ou plusieurs firewall(s) ?<br/>
+                                        Hegeoma peut vous accompagner sur ces sujets.
                                     </div>
                                 </div>
                             </div>
