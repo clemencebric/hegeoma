@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import "./services.css";
 
 import integrationImage from "../../images/pexels-morningtrain-18105.jpg";
@@ -9,6 +9,33 @@ import maintenanceImage from "../../images/pexels-jeshoots-218863.jpg";
 import auditImage from "../..//images/pexels-pixabay-531844.jpg";
 
 function Services() {
+    const serviceRefs = useRef([]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            },
+            { threshold: 0.1 } // Ajustez le seuil selon vos besoins
+        );
+
+        serviceRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        return () => {
+            serviceRefs.current.forEach((ref) => {
+                if (ref) observer.unobserve(ref);
+            });
+        };
+    }, []);
+
     const serviceDetails = [
         {
             title: "Integration",
@@ -59,7 +86,11 @@ function Services() {
         for (let i = 0; i < serviceDetails.length; i += 2) {
             rows.push(
                 <div className="ligne" key={i}>
-                    <div className="service" style={{ backgroundImage: `url(${serviceDetails[i].backgroundImage})` }}>
+                    <div 
+                        className="service" 
+                        style={{ backgroundImage: `url(${serviceDetails[i].backgroundImage})` }} 
+                        ref={el => serviceRefs.current[i] = el}
+                    >
                         <div className='grostitre' style={{ color: serviceDetails[i].color }}>{serviceDetails[i].title}</div>
                         <div className='fondtexte'>
                             <div className='titreligne'>{serviceDetails[i].title}</div>
@@ -67,7 +98,11 @@ function Services() {
                         </div>
                     </div>
                     {serviceDetails[i + 1] && (
-                        <div className="service" style={{ backgroundImage: `url(${serviceDetails[i + 1].backgroundImage})` }}>
+                        <div 
+                            className="service" 
+                            style={{ backgroundImage: `url(${serviceDetails[i + 1].backgroundImage})` }} 
+                            ref={el => serviceRefs.current[i + 1] = el}
+                        >
                             <div className='grostitre' style={{ color: serviceDetails[i + 1].color }}>{serviceDetails[i + 1].title}</div>
                             <div className='fondtexte'>
                                 <div className='titreligne'>{serviceDetails[i + 1].title}</div>

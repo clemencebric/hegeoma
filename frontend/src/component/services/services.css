@@ -302,3 +302,14 @@
         height: 120vh;
     }
 }
+
+/* Initialement, les images sont transparentes */
+.service img {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Transition de 0.5s pour un effet de fondu */
+}
+
+/* Classe pour les images visibles */
+.service.visible img {
+    opacity: 1;
+}

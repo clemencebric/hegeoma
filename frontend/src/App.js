@@ -44,6 +44,8 @@ import SchoolListt from './component/tabdebordadmin/voirplusecole.js';
 import OrgList from './component/tabdebordadmin/voirplusorganisme.js';
 import ListeEntreprises from './component/tabdebordadmin/entreprises.js';
 import AjoutFaq from './component/tabdebordadmin/ajoutquestionfaq.js';
+import Blogg from './component/blog/blog.js';
+
 import './App.css';
 
 
@@ -95,7 +97,7 @@ function App() {
           <Route element={<ClientnoncoRoute /> }>
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog" element={<Blogg />} />
                 <Route path="/contact" element={<Contact />} />
           </Route>
 

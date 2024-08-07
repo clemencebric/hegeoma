@@ -161,36 +161,7 @@ const Home = () => {
           <Blog posts={blogPosts} />
         </div>
       </div>
-      <div className='containerminiarticle'>
-        <div className='miniarticles'>
-          {blogMiniPosts.map((post, index) => (
-            <div key={index}>
-              <div className='articlem'>
-                <div className='partiegauche'>
-                  <div className='titrearticlem'>{post.title}</div>
-                  <div className='descriptionminiarticle'>01/12/2024</div>
-                </div>
-                <div className='contenuminiarticle'>{post.content}</div>
-                <div
-                  className='buttonarticle'
-                  onClick={() => toggleArticle(index)}
-                >
-                  <FontAwesomeIcon icon={faChevronDown} style={{ color: "#dddddd" }} size="2x" />
-                </div>
-              </div>
-              {openArticleIndex === index && (
-                <div className='divcachee'>
-                  <div className='cachée'>
-                    {post.texteCache}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-
-        </div>
-        <BackToTop />
-      </div>
+   <BackToTop />
     </div>
   );
 };
