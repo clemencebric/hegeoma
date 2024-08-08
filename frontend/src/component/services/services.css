@@ -148,7 +148,7 @@
     transform: translate(-50%, -50%);
     padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /*-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
 }
 
 /* Gestion de la superposition pour l'effet d'opacité */

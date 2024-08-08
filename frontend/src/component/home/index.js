@@ -156,11 +156,7 @@ const Home = () => {
         <div><ServiceList services={services} /></div>
       </div>
 
-      <div className='page3' id="blog">
-        <div className='blog'>
-          <Blog posts={blogPosts} />
-        </div>
-      </div>
+
    <BackToTop />
     </div>
   );
