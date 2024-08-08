@@ -1,101 +1,58 @@
-import React from 'react';
-import { useForm, ValidationError } from '@formspree/react';
-import './contact.css';
+import React, { useState } from 'react';
 
-function ContactForm() {
-  const [state, handleSubmit] = useForm("xdknzarw");
+const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
 
-  if (state.succeeded) {
-    return <p>Thanks for joining!</p>;
-  }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
-  return (
-    <div className='pagecontact'>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">
-          First Name
-        </label>
-        <input
-          id="firstName"
-          type="text"
-          name="firstName"
-        />
-        <ValidationError
-          prefix="First Name"
-          field="firstName"
-          errors={state.errors}
-        />
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-        <label htmlFor="lastName">
-          Last Name
-        </label>
-        <input
-          id="lastName"
-          type="text"
-          name="lastName"
-        />
-        <ValidationError
-          prefix="Last Name"
-          field="lastName"
-          errors={state.errors}
-        />
+        fetch('/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Email envoyé avec succès!');
+            } else {
+                alert('Erreur lors de l\'envoi de l\'email.');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de l\'envoi de l\'email.');
+        });
+    };
 
-        <label htmlFor="email">
-          Email Address
-        </label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-        />
-        <ValidationError
-          prefix="Email"
-          field="email"
-          errors={state.errors}
-        />
+    return (
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Nom:</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required /><br /><br />
 
-        <label htmlFor="phone">
-          Phone Number
-        </label>
-        <input
-          id="phone"
-          type="tel"
-          name="phone"
-        />
-        <ValidationError
-          prefix="Phone"
-          field="phone"
-          errors={state.errors}
-        />
+            <label htmlFor="email">Email:</label>
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required /><br /><br />
 
-        <label htmlFor="message">
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-        />
-        <ValidationError
-          prefix="Message"
-          field="message"
-          errors={state.errors}
-        />
+            <label htmlFor="message">Message:</label>
+            <textarea id="message" name="message" value={formData.message} onChange={handleChange} required /><br /><br />
 
-        <button type="submit" disabled={state.submitting}>
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-}
+            <button type="submit">Envoyer</button>
+        </form>
+    );
+};
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Contact Form</h1>
-      <ContactForm />
-    </div>
-  );
-}
-
-export default App;
+export default Contact;

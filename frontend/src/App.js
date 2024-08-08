@@ -45,7 +45,7 @@ import OrgList from './component/tabdebordadmin/voirplusorganisme.js';
 import ListeEntreprises from './component/tabdebordadmin/entreprises.js';
 import AjoutFaq from './component/tabdebordadmin/ajoutquestionfaq.js';
 import Blogg from './component/blog/blog.js';
-
+import ArticleDetail from './component/blog/articledetail.js';
 import './App.css';
 
 
@@ -98,6 +98,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/blog" element={<Blogg />} />
+                <Route path="/article/:id" component={ArticleDetail} />
                 <Route path="/contact" element={<Contact />} />
           </Route>
 
