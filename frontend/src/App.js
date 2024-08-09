@@ -46,6 +46,8 @@ import ListeEntreprises from './component/tabdebordadmin/entreprises.js';
 import AjoutFaq from './component/tabdebordadmin/ajoutquestionfaq.js';
 import Blogg from './component/blog/blog.js';
 import ArticleDetail from './component/blog/articledetail.js';
+import Article1 from './component/blog/blogs/article1.js';
+import Article2 from './component/blog/blogs/article2.js';
 import './App.css';
 
 
@@ -100,6 +102,8 @@ function App() {
                 <Route path="/blog" element={<Blogg />} />
                 <Route path="/article/:id" component={ArticleDetail} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/article/1" element={<Article1 />} />
+                <Route path="/article/2" element={<Article2 />} />
           </Route>
 
           <Route element={<ClientRoute />}>
