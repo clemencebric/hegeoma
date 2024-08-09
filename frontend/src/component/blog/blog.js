@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './blog.css';
 
 import articleImage1 from '../../images/pexels-annpoan-5797939.jpg'; // Ajoutez les images ici
@@ -52,8 +53,10 @@ function Blogg() {
             <ul className='article-list'>
                 {filteredArticles.map(article => (
                     <li key={article.id} className='articleunite'>
-                        <img src={article.image} alt={article.title} className='article-image' />
-                        <h2>{article.title}</h2>
+                        <Link to={`/article/${article.id}`}>
+                            <img src={article.image} alt={article.title} className='article-image' />
+                            <h2>{article.title}</h2>
+                        </Link>
                         <p className='article-content'>{article.content}</p>
                         <div className='article-meta'>
                             <span>Date: {article.date}</span>
