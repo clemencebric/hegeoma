@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import "./contact.css"
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -40,6 +40,7 @@ const Contact = () => {
     };
 
     return (
+      <div className='pagecontact'>
         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Nom:</label>
             <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required /><br /><br />
@@ -51,7 +52,7 @@ const Contact = () => {
             <textarea id="message" name="message" value={formData.message} onChange={handleChange} required /><br /><br />
 
             <button type="submit">Envoyer</button>
-        </form>
+        </form></div>
     );
 };
 

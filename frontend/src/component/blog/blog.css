@@ -74,3 +74,6 @@ h1 {
     display: block;
     margin-bottom: 20px; /* Ajustez selon vos besoins */
 }
+.titrearticles {
+    text-decoration: none;
+}

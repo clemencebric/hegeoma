@@ -13,7 +13,7 @@ function ArticleDetail() {
     return (
         <div className='article-detail'>
             <img src={article.image} alt={article.title} className='article-image' />
-            <h2>{article.title}</h2>
+            <h2 className='titrearticles'>{article.title}</h2>
             <p className='article-content'>{article.content}</p>
             <div className='article-meta'>
                 <span>Date: {article.date}</span>

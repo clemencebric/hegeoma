@@ -1,7 +1,7 @@
 /* contact.css */
 .pagecontact {
     background-color: #f4f4f4;
-    height: 100vh;
+    min-height: 100vh;
     font-size: 30px;
     display: flex;
     justify-content: center;
@@ -73,7 +73,7 @@ h1 {
     border-radius: 0px;
     box-shadow: none;
     margin-left: 30px;
-    align-items: left;
+    
 }
 .partiedroite textarea {
     width: 100%;

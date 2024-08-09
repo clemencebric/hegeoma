@@ -46,7 +46,7 @@ function Blogg() {
             <ul className='article-list'>
                 {filteredArticles.map(article => (
                     <li key={article.id} className='articleunite'>
-                        <Link to={`/article/${article.id}`}>
+                        <Link to={`/article/${article.id}`} className='titrearticles'>
                             <img src={article.image} alt={article.title} className='article-image' />
                             <h2>{article.title}</h2>
                         </Link>
